@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Digest — 2026-03-30</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    :root {
+      --bg:         #0d1117;
+      --surface:    #161b22;
+      --border:     #30363d;
+      --text:       #e6edf3;
+      --muted:      #8b949e;
+      --accent:     #58a6ff;
+      --accent-dim: #1c2a3a;
+      --radius:     8px;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--text);
+      background: var(--bg);
+      margin: 0;
+    }
+    .header-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13, 17, 23, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 0.85rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .header-inner h1 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin: 0;
+      white-space: nowrap;
+    }
+    .header-inner time {
+      color: var(--muted);
+      font-size: 0.8rem;
+      white-space: nowrap;
+    }
+    .section-nav { display: none; }
+    @media (min-width: 640px) {
+      .section-nav {
+        display: flex;
+        gap: 0.35rem;
+        flex-wrap: wrap;
+        width: 100%;
+        padding-bottom: 0.6rem;
+      }
+      .section-nav a {
+        font-size: 0.7rem;
+        font-weight: 500;
+        color: var(--muted);
+        text-decoration: none;
+        padding: 0.2rem 0.65rem;
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        transition: color 0.15s, border-color 0.15s;
+      }
+      .section-nav a:hover {
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+    }
+    .container {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 5rem;
+    }
+    @media (max-width: 480px) {
+      .container { padding: 1.25rem 1rem 3rem; }
+    }
+    @media (min-width: 1100px) {
+      .header-inner { max-width: 1000px; }
+      .container { max-width: 1000px; }
+    }
+    .tldr {
+      background: var(--accent-dim);
+      border: 1px solid rgba(88, 166, 255, 0.35);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.25rem;
+      margin-bottom: 2.25rem;
+    }
+    .tldr-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .tldr p { margin: 0; line-height: 1.65; }
+    h2 {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin: 2.5rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      scroll-margin-top: 72px;
+    }
+    ul { padding: 0; margin: 0 0 0.5rem; list-style: none; }
+    li {
+      position: relative;
+      padding: 0.65rem 0 0.65rem 1.25rem;
+      border-bottom: 1px solid rgba(48, 54, 61, 0.6);
+      line-height: 1.6;
+    }
+    li:last-child { border-bottom: none; }
+    li::before { content: "–"; position: absolute; left: 0; top: 0.65rem; color: var(--muted); }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; text-underline-offset: 3px; }
+    .try-this {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.25rem;
+      margin-top: 0.75rem;
+    }
+    .try-this p { margin: 0; line-height: 1.7; }
+    p { margin: 0.4rem 0; }
+    code { font-family: ui-monospace, monospace; font-size: 0.875em; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 0.15em 0.4em; }
+    .footer {
+      margin-top: 3rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .footer a { color: var(--muted); }
+    .footer a:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="header-wrap">
+    <div class="header-inner">
+      <h1>AI Digest</h1>
+      <time datetime="2026-03-30">Monday, 30 March 2026</time>
+      <nav class="section-nav"><a href="#general-ai-developments">General AI Developments</a><a href="#engineering-ai-workflows">Engineering & AI Workflows</a><a href="#tool-updates">Tool Updates</a><a href="#github-trending">GitHub Trending</a><a href="#try-this">Try This</a></nav>
+    </div>
+  </div>
+  <div class="container">
+    <div class="tldr">
+      <div class="tldr-label">TL;DR</div>
+      <p>Claude Code v2.1.86 dropped a massive fix list including cache hit rate improvements for Bedrock/Vertex users and critical bug fixes for <code>--resume</code> and file access. Separately, two cache bugs in Claude Code are silently inflating API costs by 10–20x for some users — one has a workaround available now. Anthropic is reportedly preparing a new tier called "Capybara" above Opus, described as larger and more capable.</p>
+
+<p>---</p>
+    </div>
+    <h2 id="general-ai-developments">General AI Developments</h2>
+
+<ul>
+  <li><strong>[[AINews] H100 prices are melting *UP*](https://www.latent.space/p/ainews-h100-prices-are-melting-up)</strong> — H100 rental prices have risen sharply since December 2025, now worth more than at launch, driven by reasoning model demand and better inference software. Fortune also corroborates a leaked "Claude Mythos" post pointing to an Anthropic tier called Capybara — reportedly scoring higher on coding, academic reasoning, and cybersecurity than Opus 4.6, with rollout constrained by cost and safety concerns.</li>
+</ul>
+
+<ul>
+  <li><strong>[[AINews] Everything is CLI](https://www.latent.space/p/ainews-everything-is-cli)</strong> — A wave of major services (Stripe, Ramp, Google Workspace, ElevenLabs, Visa) are launching CLIs explicitly designed for agent consumption, signalling a shift in how agentic workflows will integrate with external services — more relevant to AI-assisted dev pipelines than MCP for many use cases.</li>
+</ul>
+
+<p>---</p>
+
+<h2 id="engineering-ai-workflows">Engineering & AI Workflows</h2>
+
+<ul>
+  <li><strong><a href="https://www.reddit.com/r/ClaudeAI/comments/1s7mkn3/psa_claude_code_has_two_cache_bugs_that_can/" target="_blank" rel="noopener">PSA: Claude Code has two cache bugs that can silently 10-20x your API costs — here's the root cause and workarounds</a></strong> — Two independent bugs: (1) the standalone binary's sentinel replacement can corrupt cache when conversation history mentions billing internals — workaround is running via <code>npx @anthropic-ai/claude-code</code> instead; (2) <code>--resume</code> has caused a full cache miss on every conversation since v2.1.69, costing ~$0.04–0.15 extra per resume on large contexts. No external fix for the second one yet; v2.1.86 changelog suggests cache hit rate improvements may address some of this.</li>
+</ul>
+
+<ul>
+  <li><strong><a href="https://www.reddit.com/r/ClaudeAI/comments/1s7j9f2/15_new_claude_code_hidden_features_from_boris/" target="_blank" rel="noopener">15 New Claude Code Hidden Features from Boris Cherny (creator of CC) on 30 Mar 2026</a></strong> — Boris Cherny (Claude Code's creator) published 15 new tips, continuing a series of periodic practical guidance drops. The compiled repo at the linked GitHub is the fastest way to close gaps between how you're using Claude Code and how it's designed to be used.</li>
+</ul>
+
+<ul>
+  <li><strong><a href="https://simonwillison.net/2026/Mar/28/matt-webb/#atom-everything" target="_blank" rel="noopener">Quoting Matt Webb</a></strong> — Sharp observation worth internalising: agentic coding shifts the engineer's role toward architecture, not implementation. Agents will grind any problem to dust eventually, but *good* architecture determines whether the output is maintainable and composable. If you're spending more time reading code than designing systems, that's the wrong ratio now.</li>
+</ul>
+
+<ul>
+  <li><strong><a href="https://www.reddit.com/r/LocalLLaMA/comments/1s7p0u9/running_qwen3527b_locally_as_the_primary_model_in/" target="_blank" rel="noopener">Running Qwen3.5-27B locally as the primary model in OpenCode</a></strong> — Practical walkthrough of running a local LLM as the backbone of an agentic coding assistant (RTX 4090, ~40 tok/s). Key finding: local models work well for structured, context-rich tasks but trail closed models significantly on vague "vibe coding" prompts. Adding Context7 as an MCP server for live docs improved results noticeably.</li>
+</ul>
+
+<ul>
+  <li><strong><a href="https://www.reddit.com/r/LocalLLaMA/comments/1s7g8ov/autoresearch_on_qwen35397b_36_experiments_to/" target="_blank" rel="noopener">Autoresearch on Qwen3.5-397B, 36 experiments to reach 20.34 tok/s on M5 Max, honest results</a></strong> — Demonstrates the "autoresearch loop" pattern: human sets direction and scientific criteria, Claude Code implements and benchmarks, automatic quality gating via perplexity threshold catches regressions. Covered 36 experiments in days instead of weeks. A replicable template for any performance optimisation work.</li>
+</ul>
+
+<p>---</p>
+
+<h2 id="tool-updates">Tool Updates</h2>
+
+<ul>
+  <li><strong><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.87" target="_blank" rel="noopener">v2.1.87</a></strong> — Fixed messages in Cowork Dispatch not getting delivered.</li>
+</ul>
+
+<ul>
+  <li><strong><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.86" target="_blank" rel="noopener">v2.1.86</a></strong> — Large release: adds <code>X-Claude-Code-Session-Id</code> header for proxy aggregation; fixes <code>--resume</code> failing with tool_use ID errors (from v2.1.85 sessions); fixes Write/Edit/Read failing on files outside project root; fixes config corruption on Windows; improved prompt cache hit rate for Bedrock, Vertex, and Foundry users; Read tool now uses compact line-number format to reduce token usage; VSCode extension no longer defaults Max plan users to Sonnet after OAuth token refresh.</li>
+</ul>
+
+<ul>
+  <li><strong><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.85" target="_blank" rel="noopener">v2.1.85</a></strong> — Adds conditional <code>if</code> field for hooks (reduces process spawning overhead); timestamp markers in scheduled task transcripts; PreToolUse hooks can now satisfy <code>AskUserQuestion</code> for headless integrations; fixes <code>/compact</code> failing when conversation exceeds context; improved <code>@</code>-mention file autocomplete on large repos; improved scroll performance on large transcripts via TypeScript yoga-layout replacement.</li>
+</ul>
+
+<ul>
+  <li><strong><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.84" target="_blank" rel="noopener">v2.1.84</a></strong> — PowerShell tool for Windows (opt-in preview); <code>CLAUDE_STREAM_IDLE_TIMEOUT_MS</code> env var for streaming watchdog; <code>TaskCreated</code> hook; MCP tool descriptions capped at 2KB to prevent context bloat from OpenAPI-generated servers; global system-prompt caching now works when ToolSearch is enabled; idle-return prompt after 75+ minutes nudges <code>/clear</code> to reduce stale token re-caching.</li>
+</ul>
+
+<ul>
+  <li><strong><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.83" target="_blank" rel="noopener">v2.1.83</a></strong> — <code>CLAUDE_CODE_SUBPROCESS_ENV_SCRUB=1</code> strips Anthropic/cloud credentials from subprocess environments (Bash tool, hooks, MCP stdio servers) — security-relevant for anyone running Claude Code in shared or CI environments; transcript search added (<code>/</code> in transcript mode); <code>managed-settings.d/</code> drop-in directory for team policy fragments.</li>
+</ul>
+
+<ul>
+  <li><strong><a href="https://github.com/openai/codex/releases/tag/rust-v0.117.0" target="_blank" rel="noopener">Codex 0.117.0</a></strong> — Plugins are now first-class; sub-agents use readable path-based addresses (<code>/root/agent_a</code>) with structured inter-agent messaging; app-server TUI now enabled by default; legacy <code>artifact</code> tool and old <code>read_file</code>/<code>grep_files</code> handlers removed.</li>
+</ul>
+
+<ul>
+  <li><strong><a href="https://www.reddit.com/r/ClaudeAI/comments/1s4idaq/update_on_session_limits/" target="_blank" rel="noopener">Update on Session Limits</a></strong> — Anthropic confirmed that during peak hours (weekdays 5am–11am PT), 5-hour session limits drain faster than before. ~7% of users will hit limits they wouldn't have previously. Weekly totals unchanged. Shift token-heavy background jobs to off-peak if you're hitting caps.</li>
+</ul>
+
+<p>---</p>
+
+<h2 id="github-trending">GitHub Trending</h2>
+
+<ul>
+  <li>[AI] <strong><a href="https://github.com/shanraisshan/claude-code-best-practice" target="_blank" rel="noopener">shanraisshan/claude-code-best-practice</a></strong> — Curated collection of Claude Code tips from Boris Cherny and others; most recent batch is 15 tips from March 30, 2026.</li>
+  <li>[AI] <strong><a href="https://github.com/apollosenvy/kernel-anvil" target="_blank" rel="noopener">apollosenvy/kernel-anvil</a></strong> — Auto-tunes llama.cpp MMVQ kernel configs per GGUF model shape on AMD GPUs, achieving up to 2.25x decode speedup with no recompilation.</li>
+  <li>[AI] <strong><a href="https://github.com/danveloper/flash-moe" target="_blank" rel="noopener">danveloper/flash-moe</a></strong> — Pure C/Metal inference engine for running large MoE models via SSD streaming on Apple Silicon; basis for the Qwen3.5-397B autoresearch work.</li>
+  <li>[AI] <strong><a href="https://github.com/Speakn0w/RealChart2Code" target="_blank" rel="noopener">Speakn0w/RealChart2Code</a></strong> — New benchmark (2,800+ instances) for evaluating VLMs on chart-to-code generation from real-world data; current models degrade significantly vs. simpler benchmarks.</li>
+  <li>[Other] <strong><a href="https://github.com/cheng-lou/pretext" target="_blank" rel="noopener">cheng-lou/pretext</a></strong> *(referenced via Simon Willison)* — Browser library for calculating wrapped text height without DOM access, built with Claude Code and Codex iterating against browser ground truth across multiple languages and scripts.</li>
+</ul>
+
+<p>---</p>
+
+<h2 id="try-this">Try This</h2>
+<p><div class="try-this"></p>
+<p>Switch from the Claude Code standalone binary to the npm package to avoid the cache sentinel bug: run <code>npm install -g @anthropic-ai/claude-code</code> (or use <code>npx @anthropic-ai/claude-code</code> per-session) instead of whatever the standalone installer gave you. Then set the environment variable <code>CLAUDE_CODE_SUBPROCESS_ENV_SCRUB=1</code> in your shell profile — added in v2.1.83, this strips your Anthropic API keys and cloud credentials from any subprocess Claude Code spawns (Bash tool, hooks, MCP servers), which is an easy security win that costs nothing. Both changes take under two minutes and address real, documented issues.</p>
+<p></div></p>
+
+    <div class="footer">
+      <a href="archive.html">View archive →</a>
+    </div>
+  </div>
+</body>
+</html>

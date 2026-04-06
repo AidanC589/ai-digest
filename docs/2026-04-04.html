@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Digest — 2026-04-04</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0f0e0d;
+      --paper: #f5f1eb;
+      --warm-mid: #e8e0d4;
+      --rule: #c8bfb0;
+      --accent: #c0392b;
+      --accent-dim: #e8d5d3;
+      --muted: #7a7268;
+      --tag-bg: #0f0e0d;
+      --tag-fg: #f5f1eb;
+      --link: #1a4a6b;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.65;
+      font-size: 15px;
+      min-height: 100vh;
+    }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      border-bottom: 3px solid var(--ink);
+      padding: 2rem 0 1rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .masthead::before {
+      content: '';
+      display: block;
+      height: 4px;
+      background: repeating-linear-gradient(90deg, var(--ink) 0, var(--ink) 8px, transparent 8px, transparent 16px);
+      margin-bottom: 1.5rem;
+    }
+
+    .masthead-kicker {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .masthead-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.8rem, 8vw, 5rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .masthead-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* ── NAV BAR ── */
+    .nav-bar {
+      border-bottom: 1px solid var(--rule);
+      padding: 0.6rem 0;
+      overflow-x: auto;
+      white-space: nowrap;
+      text-align: center;
+      background: var(--warm-mid);
+    }
+
+    .nav-bar a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0 1rem;
+      border-right: 1px solid var(--rule);
+      transition: color 0.15s;
+    }
+    .nav-bar a:last-child { border-right: none; }
+    .nav-bar a:hover { color: var(--ink); }
+
+    /* ── LAYOUT ── */
+    .wrapper {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ── TL;DR ── */
+    .tldr-block {
+      margin: 2.5rem 0;
+      border: 1px solid var(--ink);
+      position: relative;
+    }
+
+    .tldr-label {
+      position: absolute;
+      top: -0.75rem;
+      left: 1.2rem;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.6rem;
+    }
+
+    .tldr-block p {
+      padding: 1.5rem 1.4rem 1.3rem;
+      font-size: 0.93rem;
+      font-style: italic;
+      color: var(--ink);
+      font-family: 'DM Serif Display', serif;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    .tldr-block p strong {
+      font-style: normal;
+      font-weight: 400;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    /* ── SECTION ── */
+    .section {
+      margin-bottom: 2.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .section-number {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    /* ── ENTRY ── */
+    .entry {
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+    }
+
+    .entry:last-child { border-bottom: none; }
+
+    .entry-source {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    .entry-source a {
+      color: var(--link);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .entry-source a:hover { border-color: var(--link); }
+
+    .entry-body {
+      font-size: 0.9rem;
+      line-height: 1.68;
+      color: #1e1c1a;
+    }
+
+    .entry-body strong {
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    /* ── TOOL UPDATE ENTRIES ── */
+    .tool-entry {
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .tool-entry:last-child { border-bottom: none; }
+
+    .tool-name {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+
+    .tool-name a {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .tool-name a:hover { border-color: var(--ink); }
+
+    .tool-tag {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--tag-bg);
+      color: var(--tag-fg);
+      padding: 0.1rem 0.4rem;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+      position: relative;
+      top: -1px;
+    }
+
+    .tool-tag.alpha { background: #6b4f1a; }
+    .tool-tag.minor { background: #2a5a3a; }
+
+    .tool-desc {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: #1e1c1a;
+    }
+
+    /* ── TRY THIS ── */
+    .try-block {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 1.8rem 1.6rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .try-block::before {
+      content: '→ TRY THIS';
+      display: block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+
+    .try-block p {
+      font-size: 0.9rem;
+      line-height: 1.72;
+      color: #e8e4de;
+    }
+
+    .try-block code {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      background: rgba(255,255,255,0.08);
+      padding: 0.1rem 0.35rem;
+      color: #f0c07a;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 3px solid var(--ink);
+      padding: 1.2rem 0;
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .footer-left {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .footer-right {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--muted);
+    }
+
+    .footer-archive {
+      color: var(--link);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .footer-archive:hover { border-color: var(--link); }
+
+    .cost-pill {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      background: var(--warm-mid);
+      border: 1px solid var(--rule);
+      padding: 0.1rem 0.5rem;
+      color: var(--muted);
+      margin-left: 0.5rem;
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      padding: 1rem 0;
+      font-style: italic;
+    }
+
+    .section + .section { border-top: none; }
+
+    @media (max-width: 480px) {
+      .masthead-title { font-size: 2.4rem; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="masthead">
+    <p class="masthead-kicker">Daily AI Intelligence</p>
+    <h1 class="masthead-title">AI Digest</h1>
+    <p class="masthead-date">Saturday, 04 April 2026</p>
+  </div>
+  <nav class="nav-bar"><a href="#general-ai-developments">General AI Developments</a><a href="#engineering-ai-workflows">Engineering & AI Workflows</a><a href="#tool-updates">Tool Updates</a><a href="#github-trending">GitHub Trending</a><a href="#try-this">Try This</a></nav>
+  <div class="wrapper">
+    <div class="tldr-block">
+      <span class="tldr-label">TL;DR</span>
+      <p>Claude Code v2.1.92 dropped with significant fixes and a Bedrock setup wizard. Anthropic is cutting off third-party Claude harnesses (like OpenClaw) from subscriptions starting today — API key or usage bundles only going forward. AI vulnerability research is now so capable it's overwhelming open source maintainers with high-quality, duplicate bug reports daily.</p>
+    </div>
+    <section class="section" id="general-ai-developments">
+  <div class="section-header">
+    <span class="section-number">01</span>
+    <h2 class="section-title">General AI Developments</h2>
+  </div>
+  <div class="entry"><div class="entry-source"><a href="https://www.latent.space/p/ainews-gemma-4-the-best-small-multimodal" target="_blank" rel="noopener">Gemma 4: The best small Multimodal Open Models, dramatically better than Gemma 3 in every way</a></div><div class="entry-body">Google's Gemma 4 launches Apache 2.0 with a 31B dense model tying world-class open models at a fraction of the parameters, day-0 support across llama.cpp, Ollama, and vLLM, and concrete local benchmarks: 162 tok/s on RTX 4090 at 19.5 GB VRAM, 34 tok/s on M4 Mac mini.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://simonwillison.net/2026/Apr/3/vulnerability-research-is-cooked/#atom-everything" target="_blank" rel="noopener">Vulnerability Research Is Cooked</a></div><div class="entry-body">Thomas Ptacek argues frontier models are already transforming exploit development into a point-an-agent-at-a-source-tree problem, with Linux kernel and cURL maintainers now receiving 5–10 high-quality, often duplicate AI-generated security reports *per day* — up from 2–3 per week two years ago.</div></div>
+</section>
+<section class="section" id="engineering-ai-workflows">
+  <div class="section-header">
+    <span class="section-number">02</span>
+    <h2 class="section-title">Engineering & AI Workflows</h2>
+  </div>
+  <div class="entry"><div class="entry-source"><a href="https://simonwillison.net/2026/Apr/4/kyle-daigle/#atom-everything" target="_blank" rel="noopener">Quoting Kyle Daigle</a></div><div class="entry-body">GitHub commit volume is on pace for 14 billion this year (up from 1 billion total in 2025) and Actions minutes hit 2.1 billion this week alone, the clearest public signal yet of how much AI-assisted development has accelerated output volume.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://www.reddit.com/r/ClaudeAI/comments/1sbtmru/using_thirdparty_harnesses_with_your_claude/" target="_blank" rel="noopener">Using third-party harnesses with your Claude subscriptions</a></div><div class="entry-body">Anthropic is ending subscription coverage for third-party harnesses like OpenClaw effective today; affected users get a one-time credit equal to their monthly plan cost, and must switch to API keys or discounted usage bundles — worth auditing any workflow that pipes Claude through non-Anthropic tooling.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://www.latent.space/p/ainews-good-friday" target="_blank" rel="noopener">Good Friday</a></div><div class="entry-body">Hermes Agent is emerging as a competing open-source harness to OpenClaw, with developers citing its pluggable memory architecture (Honcho, mem0, RetainDB, and others) and better reliability on long agentic tasks as the differentiator — the lesson being that harness design now matters as much as model choice.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://simonwillison.net/2026/Apr/3/willy-tarreau/#atom-everything" target="_blank" rel="noopener">Quoting Willy Tarreau</a></div><div class="entry-body">The HAProxy lead reports AI-generated security reports have gone from noise to signal: most are now correct and duplicate-free enough that they've had to recruit additional maintainers — a direct implication for teams using AI agents in their own security review pipelines.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://www.reddit.com/r/ClaudeAI/comments/1sble09/taught_claude_to_talk_like_a_caveman_to_use_75/" target="_blank" rel="noopener">Taught Claude to talk like a caveman to use 75% less tokens</a></div><div class="entry-body">A system prompt forcing minimal, telegraphic output cuts token usage by ~75%; especially relevant now that subscription harness access is ending and API costs become more visible.</div></div>
+</section>
+<section class="section" id="tool-updates">
+  <div class="section-header">
+    <span class="section-number">03</span>
+    <h2 class="section-title">Tool Updates</h2>
+  </div>
+  <div class="tool-entry"><div class="tool-name"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.92" target="_blank" rel="noopener">Claude Code v2.1.92</a><span class="tool-tag">v2.1.92</span></div><div class="tool-desc">Major release: adds a Bedrock setup wizard for AWS auth/region/model config, per-model and cache-hit cost breakdowns in <code>/cost</code>, interactive <code>/release-notes</code> version picker, and 60% faster Write tool diff on large files. Fixes include subagent spawning failures after tmux window kills, Stop hook semantics, a 400 error from whitespace-only extended thinking blocks, and prompt cache expiry warnings now showing correct token counts rather than cumulative session totals.</div></div>
+<div class="tool-entry"><div class="tool-name"><a href="https://github.com/openai/codex/releases/tag/rust-v0.119.0-alpha.10" target="_blank" rel="noopener">Codex 0.119.0-alpha.8/9/10</a></div><div class="tool-desc">Three rapid alpha releases of the Rust-based Codex CLI with no detailed changelogs; pace of iteration suggests active development but nothing user-facing to act on yet.</div></div>
+</section>
+<section class="section" id="github-trending">
+  <div class="section-header">
+    <span class="section-number">04</span>
+    <h2 class="section-title">GitHub Trending</h2>
+  </div>
+  <div class="entry"><div class="entry-source"><a href="https://github.com/google-deepmind/gemma" target="_blank" rel="noopener">AI] [google-deepmind/gemma</a></div><div class="entry-body">Official Gemma 4 model repo; Apache 2.0 multimodal open weights trending heavily on release day.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://github.com/Netflix/void-model" target="_blank" rel="noopener">AI] [Netflix/void-model</a></div><div class="entry-body">Netflix's first public model release: video object and interaction deletion for post-production workflows.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://github.com/unslothai/unsloth" target="_blank" rel="noopener">AI] [unslothai/unsloth</a></div><div class="entry-body">Fine-tuning toolkit with day-0 Gemma 4 support, trending alongside the model launch.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noopener">AI] [NousResearch/hermes-agent</a></div><div class="entry-body">Open-source agentic harness with pluggable memory backends gaining traction as an OpenClaw alternative.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://github.com/ggerganov/llama.cpp" target="_blank" rel="noopener">AI] [ggerganov/llama.cpp</a></div><div class="entry-body">Trending again with Gemma 4 KV cache fix landing, restoring usable VRAM consumption for local inference.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://github.com/vllm-project/vllm" target="_blank" rel="noopener">AI] [vllm-project/vllm</a></div><div class="entry-body">Production serving framework with Gemma 4 day-0 GPU/TPU/XPU support.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://github.com/anthropics/claude-code" target="_blank" rel="noopener">AI] [anthropics/claude-code</a></div><div class="entry-body">Claude Code CLI; trending following the v2.1.92 release with Bedrock wizard and cost breakdown improvements.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://github.com/nicbarker/clay" target="_blank" rel="noopener">Other] [nicbarker/clay</a></div><div class="entry-body">High-performance UI layout library in C, consistently trending for its zero-dependency approach.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://github.com/drawdb-io/drawdb" target="_blank" rel="noopener">Other] [drawdb-io/drawdb</a></div><div class="entry-body">Browser-based database schema designer; popular for its simplicity and no-login-required workflow.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://github.com/openai/codex" target="_blank" rel="noopener">AI] [openai/codex</a></div><div class="entry-body">OpenAI's Rust-based Codex CLI in active alpha development, three releases this week.</div></div>
+</section>
+<div class="try-block" id="try-this">
+<p>In Claude Code, run <code>/cost</code> after your next non-trivial session — the new v2.1.92 update now breaks down costs per model and shows cache-hit rates separately. Use this to identify which parts of your workflow are cache-missing (burning uncached tokens) and restructure your system prompt or conversation flow to keep stable context at the top where it will be cached on subsequent turns. If you're seeing high uncached token counts on returning sessions, the new footer warning will now tell you exactly how many tokens will go uncached on your next turn, giving you a concrete signal to <code>/clear</code> and restart rather than continuing an expensive stale session.</p>
+</div>
+    <footer>
+      <div class="footer-left">AI Digest &middot; Daily Briefing</div>
+      <div class="footer-right">
+        <a class="footer-archive" href="archive.html">Archive</a><span class="cost-pill">$0.0545</span>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

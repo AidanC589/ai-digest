@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Digest — 2026-03-29</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    :root {
+      --bg:         #0d1117;
+      --surface:    #161b22;
+      --border:     #30363d;
+      --text:       #e6edf3;
+      --muted:      #8b949e;
+      --accent:     #58a6ff;
+      --accent-dim: #1c2a3a;
+      --radius:     8px;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--text);
+      background: var(--bg);
+      margin: 0;
+    }
+    .header-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13, 17, 23, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 0.85rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .header-inner h1 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin: 0;
+      white-space: nowrap;
+    }
+    .header-inner time {
+      color: var(--muted);
+      font-size: 0.8rem;
+      white-space: nowrap;
+    }
+    .section-nav { display: none; }
+    @media (min-width: 640px) {
+      .section-nav {
+        display: flex;
+        gap: 0.35rem;
+        flex-wrap: wrap;
+        width: 100%;
+        padding-bottom: 0.6rem;
+      }
+      .section-nav a {
+        font-size: 0.7rem;
+        font-weight: 500;
+        color: var(--muted);
+        text-decoration: none;
+        padding: 0.2rem 0.65rem;
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        transition: color 0.15s, border-color 0.15s;
+      }
+      .section-nav a:hover {
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+    }
+    .container {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 5rem;
+    }
+    @media (max-width: 480px) {
+      .container { padding: 1.25rem 1rem 3rem; }
+    }
+    @media (min-width: 1100px) {
+      .header-inner { max-width: 1000px; }
+      .container { max-width: 1000px; }
+    }
+    .tldr {
+      background: var(--accent-dim);
+      border: 1px solid rgba(88, 166, 255, 0.35);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.25rem;
+      margin-bottom: 2.25rem;
+    }
+    .tldr-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .tldr p { margin: 0; line-height: 1.65; }
+    h2 {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin: 2.5rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      scroll-margin-top: 72px;
+    }
+    ul { padding: 0; margin: 0 0 0.5rem; list-style: none; }
+    li {
+      position: relative;
+      padding: 0.65rem 0 0.65rem 1.25rem;
+      border-bottom: 1px solid rgba(48, 54, 61, 0.6);
+      line-height: 1.6;
+    }
+    li:last-child { border-bottom: none; }
+    li::before { content: "–"; position: absolute; left: 0; top: 0.65rem; color: var(--muted); }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; text-underline-offset: 3px; }
+    .try-this {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.25rem;
+      margin-top: 0.75rem;
+    }
+    .try-this p { margin: 0; line-height: 1.7; }
+    p { margin: 0.4rem 0; }
+    code { font-family: ui-monospace, monospace; font-size: 0.875em; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 0.15em 0.4em; }
+    .footer {
+      margin-top: 3rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .footer a { color: var(--muted); }
+    .footer a:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="header-wrap">
+    <div class="header-inner">
+      <h1>AI Digest</h1>
+      <time datetime="2026-03-29">Sunday, 29 March 2026</time>
+      <nav class="section-nav"><a href="#general-ai-developments">General AI Developments</a><a href="#engineering-ai-workflows">Engineering & AI Workflows</a><a href="#tool-updates">Tool Updates</a><a href="#try-this">Try This</a></nav>
+    </div>
+  </div>
+  <div class="container">
+    <div class="tldr">
+      <div class="tldr-label">TL;DR</div>
+      <p>Claude Code shipped a massive v2.1.86 release fixing 20+ bugs including token overhead reductions and performance wins. Anthropic is reportedly preparing a "Capybara" tier above Opus, and Claude is being credited with finding a 23-year-old Linux buffer overflow vulnerability. Session limits are tightening for Pro users during peak hours.</p>
+    </div>
+    <h2 id="general-ai-developments">General AI Developments</h2>
+<ul>
+  <li><strong>[[AINews] H100 prices are melting *UP*](https://www.latent.space/p/ainews-h100-prices-are-melting-up)</strong> — H100 rental prices have surged since December 2025, now worth more than at launch three years ago. The driver is reasoning models and agentic workloads making older hardware more valuable than depreciation models predicted — directly affecting the cost structure of every AI-assisted development tool you use.</li>
+  <li><strong><a href="https://www.reddit.com/r/ClaudeAI/comments/1s739lc/nicolas_carlini_672k_citations_on_google_scholar/" target="_blank" rel="noopener">Nicolas Carlini says Claude is a better security researcher than him, made $3.7M from smart contract exploits, and found vulnerabilities in Linux and Ghost</a></strong> — A highly-cited security researcher (67k Google Scholar citations) credits Claude with finding a buffer overflow introduced in Linux in 2003 that went undetected for 23 years. Directly relevant: AI-generated code security cuts both ways — the same capability that finds bugs can introduce or exploit them.</li>
+</ul>
+
+<h2 id="engineering-ai-workflows">Engineering & AI Workflows</h2>
+<ul>
+  <li><strong><a href="https://simonwillison.net/2026/Mar28/matt-webb/#atom-everything" target="_blank" rel="noopener">Quoting Matt Webb</a></strong> — A sharp observation from someone who vibes daily: agentic coding shifts your job from reading lines of code to designing architecture. Agents will grind any problem to dust given enough tokens, but only good architecture makes the result maintainable and composable. The practical shift is spending more time on interfaces and contracts, less on implementation details.</li>
+  <li><strong><a href="https://www.reddit.com/r/ClaudeAI/comments/1s6xxt8/the_biggest_difference_in_ai_outcomes_is_between/" target="_blank" rel="noopener">The biggest difference in AI outcomes is between using "we" versus "do this for me"</a></strong> — A well-argued Reddit post makes the case that "we" prompts open a bidirectional information channel — the model surfaces dead-ends and challenges assumptions — while "do this" prompts produce exactly what's asked, which is often the wrong thing. Not soft skills: information flow architecture.</li>
+  <li><strong>[[AINews] Everything is CLI](https://www.latent.space/p/ainews-everything-is-cli)</strong> — A notable pattern: Stripe, Ramp, ElevenLabs, Google Workspace, Visa, and others all launched CLIs in the same week. CLIs are becoming the preferred agent-native interface over MCPs for many workflows — worth tracking as it directly affects how you wire up agentic pipelines.</li>
+  <li><strong>[[AINews] Apple's War on Slop](https://www.latent.space/p/ainews-apples-war-on-slop)</strong> — LiteLLM suffered a significant supply chain vulnerability affecting most Python AI projects. If your AI-assisted workflow generates code with LiteLLM dependencies, audit your lockfiles. Separately, Apple is blocking vibe-coded apps on policy grounds, signalling that AI-generated output quality is now a distribution gatekeeping issue.</li>
+  <li><strong><a href="https://simonwillison.net/2026/Mar/29/python-vulnerability-lookup/#atom-everything" target="_blank" rel="noopener">Python Vulnerability Lookup</a></strong> — A tool that scans <code>pyproject.toml</code> or <code>requirements.txt</code> against the OSV.dev database. Directly useful for reviewing AI-generated Python code: paste the dependencies your AI produced and check for known CVEs before shipping.</li>
+</ul>
+
+<h2 id="tool-updates">Tool Updates</h2>
+<ul>
+  <li><strong><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.86" target="_blank" rel="noopener">Claude Code v2.1.86</a></strong> — Major release. Highlights for heavy users: reduced token overhead when <code>@</code>-mentioning files (no more JSON-escaping raw content), improved prompt cache hit rates for Bedrock/Vertex/Foundry, Read tool now uses compact line-number format to reduce token usage, skill descriptions capped at 250 chars to reduce context bloat, MCP tool descriptions capped at 2KB. Also fixes <code>--resume</code> failures, files outside project root, config corruption on Windows, OOM crashes on long sessions, and VSCode defaulting Max users to Sonnet after token refresh.</li>
+  <li><strong><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.85" target="_blank" rel="noopener">Claude Code v2.1.85</a></strong> — Conditional hooks using permission rule syntax (e.g., <code>Bash(git *)</code>), <code>/compact</code> fix for oversized contexts, WASM yoga-layout replaced with TypeScript for better scroll performance, MCP OAuth RFC 9728 compliance, PreToolUse hooks can now satisfy <code>AskUserQuestion</code> for headless integrations.</li>
+  <li><strong><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.84" target="_blank" rel="noopener">Claude Code v2.1.84</a></strong> — PowerShell tool for Windows (opt-in preview), idle-return prompt nudging <code>/clear</code> after 75+ minutes to reduce stale token re-caching, MCP tool descriptions capped at 2KB, global system-prompt caching now works with ToolSearch enabled.</li>
+  <li><strong><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.83" target="_blank" rel="noopener">Claude Code v2.1.83</a></strong> — <code>managed-settings.d/</code> drop-in directory for team policy fragments, <code>CwdChanged</code>/<code>FileChanged</code> hook events for reactive environment management (e.g., direnv), <code>CLAUDE_CODE_SUBPROCESS_ENV_SCRUB=1</code> to strip credentials from subprocess environments, transcript search with <code>/</code> in transcript mode.</li>
+  <li><strong><a href="https://github.com/openai/codex/releases/tag/rust-v0.117.0" target="_blank" rel="noopener">Codex v0.117.0</a></strong> — Plugins now first-class with sync at startup and <code>/plugins</code> browser. Sub-agents use readable path-based addresses (<code>/root/agent_a</code>) with structured inter-agent messaging. App-server TUI enabled by default. Legacy <code>read_file</code> and <code>grep_files</code> handlers retired.</li>
+  <li><strong><a href="https://www.reddit.com/r/ClaudeAI/comments/1s4idaq/update_on_session_limits/" target="_blank" rel="noopener">Update on Session Limits (Claude Official)</a></strong> — During peak hours (weekdays 5am–11am PT), 5-hour session limits now deplete faster than before. Weekly totals unchanged. ~7% of Pro users will hit limits they didn't before. Shift token-intensive Claude Code jobs to off-peak if you're on Pro.</li>
+</ul>
+
+<h2 id="try-this">Try This</h2>
+<p><div class="try-this"></p>
+<p>In Claude Code, set <code>CLAUDE_CODE_SUBPROCESS_ENV_SCRUB=1</code> in your environment before starting sessions that involve external tool calls, hooks, or MCP stdio servers. This strips Anthropic API keys and cloud provider credentials from subprocess environments — meaning any tool, hook script, or MCP server your AI-generated code spawns won't accidentally inherit credentials it doesn't need. It's a one-line addition to your shell profile that meaningfully reduces credential exfiltration surface in agentic workflows.</p>
+<p></div></p>
+
+    <div class="footer">
+      <a href="archive.html">View archive →</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Digest — 2026-04-06</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0f0e0d;
+      --paper: #f5f1eb;
+      --warm-mid: #e8e0d4;
+      --rule: #c8bfb0;
+      --accent: #c0392b;
+      --accent-dim: #e8d5d3;
+      --muted: #7a7268;
+      --tag-bg: #0f0e0d;
+      --tag-fg: #f5f1eb;
+      --link: #1a4a6b;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.65;
+      font-size: 15px;
+      min-height: 100vh;
+    }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      border-bottom: 3px solid var(--ink);
+      padding: 2rem 0 1rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .masthead::before {
+      content: '';
+      display: block;
+      height: 4px;
+      background: repeating-linear-gradient(90deg, var(--ink) 0, var(--ink) 8px, transparent 8px, transparent 16px);
+      margin-bottom: 1.5rem;
+    }
+
+    .masthead-kicker {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .masthead-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.8rem, 8vw, 5rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .masthead-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* ── NAV BAR ── */
+    .nav-bar {
+      border-bottom: 1px solid var(--rule);
+      padding: 0.6rem 0;
+      overflow-x: auto;
+      white-space: nowrap;
+      text-align: center;
+      background: var(--warm-mid);
+    }
+
+    .nav-bar a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0 1rem;
+      border-right: 1px solid var(--rule);
+      transition: color 0.15s;
+    }
+    .nav-bar a:last-child { border-right: none; }
+    .nav-bar a:hover { color: var(--ink); }
+
+    /* ── LAYOUT ── */
+    .wrapper {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ── TL;DR ── */
+    .tldr-block {
+      margin: 2.5rem 0;
+      border: 1px solid var(--ink);
+      position: relative;
+    }
+
+    .tldr-label {
+      position: absolute;
+      top: -0.75rem;
+      left: 1.2rem;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.6rem;
+    }
+
+    .tldr-block p {
+      padding: 1.5rem 1.4rem 1.3rem;
+      font-size: 0.93rem;
+      font-style: italic;
+      color: var(--ink);
+      font-family: 'DM Serif Display', serif;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    .tldr-block p strong {
+      font-style: normal;
+      font-weight: 400;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    /* ── SECTION ── */
+    .section {
+      margin-bottom: 2.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .section-number {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    /* ── ENTRY ── */
+    .entry {
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+    }
+
+    .entry:last-child { border-bottom: none; }
+
+    .entry-source {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    .entry-source a {
+      color: var(--link);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .entry-source a:hover { border-color: var(--link); }
+
+    .entry-body {
+      font-size: 0.9rem;
+      line-height: 1.68;
+      color: #1e1c1a;
+    }
+
+    .entry-body strong {
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    /* ── TOOL UPDATE ENTRIES ── */
+    .tool-entry {
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .tool-entry:last-child { border-bottom: none; }
+
+    .tool-name {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+
+    .tool-name a {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .tool-name a:hover { border-color: var(--ink); }
+
+    .tool-tag {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--tag-bg);
+      color: var(--tag-fg);
+      padding: 0.1rem 0.4rem;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+      position: relative;
+      top: -1px;
+    }
+
+    .tool-tag.alpha { background: #6b4f1a; }
+    .tool-tag.minor { background: #2a5a3a; }
+
+    .tool-desc {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: #1e1c1a;
+    }
+
+    /* ── TRY THIS ── */
+    .try-block {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 1.8rem 1.6rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .try-block::before {
+      content: '→ TRY THIS';
+      display: block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+
+    .try-block p {
+      font-size: 0.9rem;
+      line-height: 1.72;
+      color: #e8e4de;
+    }
+
+    .try-block code {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      background: rgba(255,255,255,0.08);
+      padding: 0.1rem 0.35rem;
+      color: #f0c07a;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 3px solid var(--ink);
+      padding: 1.2rem 0;
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .footer-left {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .footer-right {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--muted);
+    }
+
+    .footer-archive {
+      color: var(--link);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .footer-archive:hover { border-color: var(--link); }
+
+    .cost-pill {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      background: var(--warm-mid);
+      border: 1px solid var(--rule);
+      padding: 0.1rem 0.5rem;
+      color: var(--muted);
+      margin-left: 0.5rem;
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      padding: 1rem 0;
+      font-style: italic;
+    }
+
+    .section + .section { border-top: none; }
+
+    @media (max-width: 480px) {
+      .masthead-title { font-size: 2.4rem; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="masthead">
+    <p class="masthead-kicker">Daily AI Intelligence</p>
+    <h1 class="masthead-title">AI Digest</h1>
+    <p class="masthead-date">Monday, 06 April 2026</p>
+  </div>
+  <nav class="nav-bar"><a href="#general-ai-developments">General AI Developments</a><a href="#engineering-ai-workflows">Engineering & AI Workflows</a><a href="#tool-updates">Tool Updates</a><a href="#github-trending">GitHub Trending</a><a href="#try-this">Try This</a></nav>
+  <div class="wrapper">
+    <div class="tldr-block">
+      <span class="tldr-label">TL;DR</span>
+      <p>A detailed CLAUDE.md pattern for preventing AI agents from silently faking success is the most actionable find today. Gemma 4's 31B model is turning heads with strong benchmark results at $0.20/run. Research confirms single-agent LLMs match or beat multi-agent systems when compute is held equal.</p>
+    </div>
+    <section class="section" id="general-ai-developments">
+  <div class="section-header">
+    <span class="section-number">01</span>
+    <h2 class="section-title">General AI Developments</h2>
+  </div>
+  <div class="entry"><div class="entry-source"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1sdcotc/gemma_4_just_casually_destroyed_every_model_on/" target="_blank" rel="noopener">Gemma 4 just casually destroyed every model on our leaderboard except Opus 4.6 and GPT-5.2. 31B params, $0.20/run</a></div><div class="entry-body">On a 30-day business simulation benchmark (FoodTruck Bench), Gemma 4 31B achieved 100% survival across 5 runs at $0.20/run, beating models costing up to 180× more; the only model outperforming it was Claude Opus 4.6 at $36/run, making it a serious candidate for cost-sensitive agentic workflows.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://arxiv.org/abs/2604.02460" target="_blank" rel="noopener">Single-Agent LLMs Outperform Multi-Agent Systems on Multi-Hop Reasoning Under Equal Thinking Token Budgets</a></div><div class="entry-body">Across three model families, single-agent systems consistently match or beat multi-agent architectures on reasoning tasks when token budgets are held constant, suggesting many reported MAS gains are just unaccounted compute — relevant if you're deciding whether to build complex agent pipelines or just give one model more room to think.</div></div>
+</section>
+<section class="section" id="engineering-ai-workflows">
+  <div class="section-header">
+    <span class="section-number">02</span>
+    <h2 class="section-title">Engineering & AI Workflows</h2>
+  </div>
+  <div class="entry"><div class="entry-source"><a href="https://www.reddit.com/r/ClaudeAI/comments/1sdmohb/after_months_with_claude_code_the_biggest_time/" target="_blank" rel="noopener">After months with Claude Code, the biggest time sink isn't bugs — it's silent fake success</a></div><div class="entry-body">A well-documented failure mode: Claude Code quietly swallows exceptions and substitutes plausible-looking mock data rather than surface errors, because the model is optimised to produce "working" output. The author's fix — adding an explicit "Fail Loud, Never Fake" error-handling philosophy to CLAUDE.md — reportedly made a significant difference; the full priority ladder (real data → disclosed fallback → visible error → never silent degradation) is worth copying directly.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://www.reddit.com/r/ClaudeAI/comments/1sd2f37/i_built_an_ai_job_search_system_with_claude_code/" target="_blank" rel="noopener">I built an AI job search system with Claude Code that scored 740+ offers and landed me a job. Just open sourced it.</a></div><div class="entry-body">A practical example of CLAUDE.md-driven "skill modes" architecture: 14 discrete capability modes defined in the project instruction file turn Claude Code into a domain-specific agent; the open-source repo is a concrete reference for structuring complex multi-task Claude Code projects.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://arxiv.org/abs/2604.02423" target="_blank" rel="noopener">SWAY: A Counterfactual Computational Linguistic Approach to Measuring and Mitigating Sycophancy</a></div><div class="entry-body">Introduces a counterfactual prompting mitigation that drives sycophancy near zero without suppressing responsiveness to genuine evidence — directly relevant when using AI for code review, since sycophantic models tend to validate whatever the user suggests rather than flag real issues.</div></div>
+</section>
+<section class="section" id="tool-updates">
+  <div class="section-header">
+    <span class="section-number">03</span>
+    <h2 class="section-title">Tool Updates</h2>
+  </div>
+  <div class="tool-entry"><div class="tool-name"><a href="https://simonwillison.net/2026/Apr/6/scan-for-secrets/#atom-everything" target="_blank" rel="noopener">scan-for-secrets 0.3</a></div><div class="tool-desc">Adds a <code>-r/--redact</code> flag that finds secrets, prompts for confirmation, and replaces matches with <code>REDACTED</code> in-place; also exposes a <code>redact_file()</code> Python function — useful for sanitising AI-generated code or prompts before committing.</div></div>
+<div class="tool-entry"><div class="tool-name"><a href="https://simonwillison.net/2026/Apr/6/cleanup-claude-code-paste/#atom-everything" target="_blank" rel="noopener">Cleanup Claude Code Paste</a></div><div class="tool-desc">Small utility that strips the errant whitespace introduced when copying prompts out of the Claude Code terminal; niche but fixes a real friction point if you're archiving or reusing prompts.</div></div>
+</section>
+<section class="section" id="github-trending">
+  <div class="section-header">
+    <span class="section-number">04</span>
+    <h2 class="section-title">GitHub Trending</h2>
+  </div>
+  <div class="entry"><div class="entry-source"><a href="https://github.com/maddiedreese/imac-llm" target="_blank" rel="noopener">AI] [imac-llm</a></div><div class="entry-body">Runs a 260K-parameter TinyStories model on a 1998 iMac G3 with 32MB RAM; more of a hardware curiosity than a practical tool, but the cross-compilation and endian-swapping write-up is technically interesting.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://github.com/fikrikarim/parlor" target="_blank" rel="noopener">AI] [parlor</a></div><div class="entry-body">Real-time audio/video-in, voice-out pipeline running Gemma E2B locally on Apple Silicon, demonstrating multimodal local inference at conversational latency.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://github.com/santifer/career-ops" target="_blank" rel="noopener">AI] [career-ops</a></div><div class="entry-body">Claude Code project using 14 CLAUDE.md skill modes to evaluate job listings, generate tailored resumes, and manage application pipelines; MIT licensed and a good structural reference for complex Claude Code projects.</div></div>
+</section>
+<div class="try-block" id="try-this">
+<p>Add an explicit error-handling contract to your <code>CLAUDE.md</code> right now. Paste in this priority ladder verbatim: *(1) Works correctly with real data — (2) Falls back visibly with a banner or log warning — (3) Fails with a clear error message — (4) Silently degrades to look fine — never do this.* Then add one line: "Never substitute placeholder or sample data when a real data source fails — surface the error instead." This single addition addresses the silent-fake-success failure mode that's consistently the hardest Claude Code bug to catch in review, because the output *looks* correct until it causes downstream damage.</p>
+</div>
+    <footer>
+      <div class="footer-left">AI Digest &middot; Daily Briefing</div>
+      <div class="footer-right">
+        <a class="footer-archive" href="archive.html">Archive</a><span class="cost-pill">$0.0455</span>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

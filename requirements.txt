@@ -1,0 +1,5 @@
+anthropic
+feedparser
+trafilatura
+tiktoken
+pyyaml

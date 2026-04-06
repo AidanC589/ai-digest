@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Digest — 2026-04-05</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0f0e0d;
+      --paper: #f5f1eb;
+      --warm-mid: #e8e0d4;
+      --rule: #c8bfb0;
+      --accent: #c0392b;
+      --accent-dim: #e8d5d3;
+      --muted: #7a7268;
+      --tag-bg: #0f0e0d;
+      --tag-fg: #f5f1eb;
+      --link: #1a4a6b;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.65;
+      font-size: 15px;
+      min-height: 100vh;
+    }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      border-bottom: 3px solid var(--ink);
+      padding: 2rem 0 1rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .masthead::before {
+      content: '';
+      display: block;
+      height: 4px;
+      background: repeating-linear-gradient(90deg, var(--ink) 0, var(--ink) 8px, transparent 8px, transparent 16px);
+      margin-bottom: 1.5rem;
+    }
+
+    .masthead-kicker {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .masthead-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.8rem, 8vw, 5rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .masthead-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* ── NAV BAR ── */
+    .nav-bar {
+      border-bottom: 1px solid var(--rule);
+      padding: 0.6rem 0;
+      overflow-x: auto;
+      white-space: nowrap;
+      text-align: center;
+      background: var(--warm-mid);
+    }
+
+    .nav-bar a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0 1rem;
+      border-right: 1px solid var(--rule);
+      transition: color 0.15s;
+    }
+    .nav-bar a:last-child { border-right: none; }
+    .nav-bar a:hover { color: var(--ink); }
+
+    /* ── LAYOUT ── */
+    .wrapper {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ── TL;DR ── */
+    .tldr-block {
+      margin: 2.5rem 0;
+      border: 1px solid var(--ink);
+      position: relative;
+    }
+
+    .tldr-label {
+      position: absolute;
+      top: -0.75rem;
+      left: 1.2rem;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.6rem;
+    }
+
+    .tldr-block p {
+      padding: 1.5rem 1.4rem 1.3rem;
+      font-size: 0.93rem;
+      font-style: italic;
+      color: var(--ink);
+      font-family: 'DM Serif Display', serif;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    .tldr-block p strong {
+      font-style: normal;
+      font-weight: 400;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    /* ── SECTION ── */
+    .section {
+      margin-bottom: 2.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .section-number {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    /* ── ENTRY ── */
+    .entry {
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+    }
+
+    .entry:last-child { border-bottom: none; }
+
+    .entry-source {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    .entry-source a {
+      color: var(--link);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .entry-source a:hover { border-color: var(--link); }
+
+    .entry-body {
+      font-size: 0.9rem;
+      line-height: 1.68;
+      color: #1e1c1a;
+    }
+
+    .entry-body strong {
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    /* ── TOOL UPDATE ENTRIES ── */
+    .tool-entry {
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .tool-entry:last-child { border-bottom: none; }
+
+    .tool-name {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+
+    .tool-name a {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .tool-name a:hover { border-color: var(--ink); }
+
+    .tool-tag {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--tag-bg);
+      color: var(--tag-fg);
+      padding: 0.1rem 0.4rem;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+      position: relative;
+      top: -1px;
+    }
+
+    .tool-tag.alpha { background: #6b4f1a; }
+    .tool-tag.minor { background: #2a5a3a; }
+
+    .tool-desc {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: #1e1c1a;
+    }
+
+    /* ── TRY THIS ── */
+    .try-block {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 1.8rem 1.6rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .try-block::before {
+      content: '→ TRY THIS';
+      display: block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+
+    .try-block p {
+      font-size: 0.9rem;
+      line-height: 1.72;
+      color: #e8e4de;
+    }
+
+    .try-block code {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      background: rgba(255,255,255,0.08);
+      padding: 0.1rem 0.35rem;
+      color: #f0c07a;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 3px solid var(--ink);
+      padding: 1.2rem 0;
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .footer-left {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .footer-right {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--muted);
+    }
+
+    .footer-archive {
+      color: var(--link);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .footer-archive:hover { border-color: var(--link); }
+
+    .cost-pill {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      background: var(--warm-mid);
+      border: 1px solid var(--rule);
+      padding: 0.1rem 0.5rem;
+      color: var(--muted);
+      margin-left: 0.5rem;
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      padding: 1rem 0;
+      font-style: italic;
+    }
+
+    .section + .section { border-top: none; }
+
+    @media (max-width: 480px) {
+      .masthead-title { font-size: 2.4rem; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="masthead">
+    <p class="masthead-kicker">Daily AI Intelligence</p>
+    <h1 class="masthead-title">AI Digest</h1>
+    <p class="masthead-date">Sunday, 05 April 2026</p>
+  </div>
+  <nav class="nav-bar"><a href="#general-ai-developments">General AI Developments</a><a href="#engineering-ai-workflows">Engineering & AI Workflows</a><a href="#tool-updates">Tool Updates</a><a href="#github-trending">GitHub Trending</a><a href="#try-this">Try This</a></nav>
+  <div class="wrapper">
+    <div class="tldr-block">
+      <span class="tldr-label">TL;DR</span>
+      <p>Gemma 4's 26B MoE model is punching well above its weight, beating Claude Sonnet variants on at least one long-horizon benchmark. Simon Willison shipped a practical secret-scanning tool built entirely via Claude Code using README-driven development. Claude Max subscribers are reporting heavy throttling that may be obscuring actual "thinking" time.</p>
+    </div>
+    <section class="section" id="general-ai-developments">
+  <div class="section-header">
+    <span class="section-number">01</span>
+    <h2 class="section-title">General AI Developments</h2>
+  </div>
+  <div class="entry"><div class="entry-source"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1sci5h6/gemma_4_31b_beats_several_frontier_models_on_the/" target="_blank" rel="noopener">Gemma 4 31B beats several frontier models on the FoodTruck Bench</a></div><div class="entry-body">Google's 26B MoE model takes 3rd place on this long-horizon agentic benchmark, outperforming Qwen 3.5 397B and all Claude Sonnets; notably credited to better multi-step planning consistency across a sustained run</div></div>
+<div class="entry"><div class="entry-source"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1scovb5/one_year_ago_deepseek_r1_was_25_times_bigger_than/" target="_blank" rel="noopener">One year ago DeepSeek R1 was 25 times bigger than Gemma 4</a></div><div class="entry-body">DeepSeek R1 launched at 671B parameters; Gemma 4 MoE achieves comparable results at 26B, a signal of how fast efficient local models are catching frontier capability</div></div>
+</section>
+<section class="section" id="engineering-ai-workflows">
+  <div class="section-header">
+    <span class="section-number">02</span>
+    <h2 class="section-title">Engineering & AI Workflows</h2>
+  </div>
+  <div class="entry"><div class="entry-source"><a href="https://simonwillison.net/2026/Apr/5/scan-for-secrets-3/#atom-everything" target="_blank" rel="noopener">scan-for-secrets 0.1</a></div><div class="entry-body">Willison built a CLI tool that scans directories for secrets (including JSON/backslash-encoded variants) before publishing Claude Code session transcripts; the tool itself was built via README-driven development: write the spec, hand it to Claude Code, use red/green TDD — a replicable pattern for AI-assisted tool creation with clear acceptance criteria</div></div>
+<div class="entry"><div class="entry-source"><a href="https://simonwillison.net/2026/Apr/5/research-llm-apis/#atom-everything" target="_blank" rel="noopener">research-llm-apis 2026-04-04</a></div><div class="entry-body">Willison used Claude Code to read through the Python SDKs for Anthropic, OpenAI, Gemini, and Mistral simultaneously, then generate raw <code>curl</code> commands covering streaming/non-streaming across vendors — a useful pattern for API exploration and abstraction layer design without manual documentation trawling</div></div>
+<div class="entry"><div class="entry-source"><a href="https://www.reddit.com/r/ClaudeAI/comments/1scppfb/i_have_started_treating_claude_like_a_creative/" target="_blank" rel="noopener">I have started treating claude like a creative director instead of an assistant and the quality of my work jumped overnight</a></div><div class="entry-body">Shifting from "produce output" prompts to Socratic interrogation prompts ("what emotion should this evoke, and what's the visual language of that emotion?") generated more useful responses; the same pattern applies to code design — asking Claude to question your architectural intent before generating can surface better solutions than jumping straight to implementation</div></div>
+<div class="entry"><div class="entry-source"><a href="https://www.reddit.com/r/ClaudeAI/comments/1scqyh8/today_i_got_to_experience_opus_46_in_a_blazing/" target="_blank" rel="noopener">Today, I got to experience Opus 4.6 in a blazing fast speed without being queued or rate limited for like 25 minutes.</a></div><div class="entry-body">A Max 5x subscriber discovered that apparent "thinking" time on paid tiers is largely queue wait, not compute; tasks completing in 2–3 minutes instead of 30–60 minutes when throttling was absent suggests agentic workflows are heavily impacted by invisible rate limits — worth factoring into session planning and timeout settings</div></div>
+</section>
+<section class="section" id="tool-updates">
+  <div class="section-header">
+    <span class="section-number">03</span>
+    <h2 class="section-title">Tool Updates</h2>
+  </div>
+  <div class="tool-entry"><div class="tool-name"><a href="https://simonwillison.net/2026/Apr/5/scan-for-secrets/#atom-everything" target="_blank" rel="noopener">scan-for-secrets 0.2</a></div><div class="tool-desc">Streams results as found (better for large log directories), supports multiple <code>-d</code> directory flags, adds per-file scanning via <code>-f</code>, exposes new Python API functions (<code>scan_directory_iter()</code>, <code>scan_file()</code>, <code>scan_file_iter()</code>), and adds <code>-v</code> verbose mode; directly useful for pre-publish secret checks on Claude Code transcripts</div></div>
+<div class="tool-entry"><div class="tool-name"><a href="https://github.com/openai/codex/releases/tag/rust-v0.119.0-alpha.11" target="_blank" rel="noopener">OpenAI Codex 0.119.0-alpha.11</a></div><div class="tool-desc">New alpha release of the Rust-based Codex CLI; no detailed changelog in release notes</div></div>
+</section>
+<section class="section" id="github-trending">
+  <div class="section-header">
+    <span class="section-number">04</span>
+    <h2 class="section-title">GitHub Trending</h2>
+  </div>
+  <p class="empty">No GitHub Trending data was provided in today's sources.</p>
+</section>
+<div class="try-block" id="try-this">
+<p>Use README-driven development as your Claude Code prompt strategy: before starting any new tool or feature, write a complete README describing inputs, outputs, options, and behaviour — including edge cases — then open Claude Code and say: "Read this README and build the tool it describes using TDD: write failing tests first, then implement until they pass." This forces you to do the hard design thinking upfront, gives Claude a precise specification to work from rather than an ambiguous instruction, and produces tests alongside the code. Willison's <code>scan-for-secrets</code> is a working example of this producing a publishable, versioned tool in a single session.</p>
+</div>
+    <footer>
+      <div class="footer-left">AI Digest &middot; Daily Briefing</div>
+      <div class="footer-right">
+        <a class="footer-archive" href="archive.html">Archive</a><span class="cost-pill">$0.0341</span>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Digest — 2026-03-31</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    :root {
+      --bg:         #0d1117;
+      --surface:    #161b22;
+      --border:     #30363d;
+      --text:       #e6edf3;
+      --muted:      #8b949e;
+      --accent:     #58a6ff;
+      --accent-dim: #1c2a3a;
+      --radius:     8px;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--text);
+      background: var(--bg);
+      margin: 0;
+    }
+    .header-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13, 17, 23, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 0.85rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .header-inner h1 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin: 0;
+      white-space: nowrap;
+    }
+    .header-inner time {
+      color: var(--muted);
+      font-size: 0.8rem;
+      white-space: nowrap;
+    }
+    .section-nav { display: none; }
+    @media (min-width: 640px) {
+      .section-nav {
+        display: flex;
+        gap: 0.35rem;
+        flex-wrap: wrap;
+        width: 100%;
+        padding-bottom: 0.6rem;
+      }
+      .section-nav a {
+        font-size: 0.7rem;
+        font-weight: 500;
+        color: var(--muted);
+        text-decoration: none;
+        padding: 0.2rem 0.65rem;
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        transition: color 0.15s, border-color 0.15s;
+      }
+      .section-nav a:hover {
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+    }
+    .container {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 5rem;
+    }
+    @media (max-width: 480px) {
+      .container { padding: 1.25rem 1rem 3rem; }
+    }
+    @media (min-width: 1100px) {
+      .header-inner { max-width: 1000px; }
+      .container { max-width: 1000px; }
+    }
+    .tldr {
+      background: var(--accent-dim);
+      border: 1px solid rgba(88, 166, 255, 0.35);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.25rem;
+      margin-bottom: 2.25rem;
+    }
+    .tldr-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .tldr p { margin: 0; line-height: 1.65; }
+    h2 {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin: 2.5rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      scroll-margin-top: 72px;
+    }
+    ul { padding: 0; margin: 0 0 0.5rem; list-style: none; }
+    li {
+      position: relative;
+      padding: 0.65rem 0 0.65rem 1.25rem;
+      border-bottom: 1px solid rgba(48, 54, 61, 0.6);
+      line-height: 1.6;
+    }
+    li:last-child { border-bottom: none; }
+    li::before { content: "–"; position: absolute; left: 0; top: 0.65rem; color: var(--muted); }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; text-underline-offset: 3px; }
+    .try-this {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.25rem;
+      margin-top: 0.75rem;
+    }
+    .try-this p { margin: 0; line-height: 1.7; }
+    p { margin: 0.4rem 0; }
+    code { font-family: ui-monospace, monospace; font-size: 0.875em; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 0.15em 0.4em; }
+    .footer {
+      margin-top: 3rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .footer a { color: var(--muted); }
+    .footer a:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="header-wrap">
+    <div class="header-inner">
+      <h1>AI Digest</h1>
+      <time datetime="2026-03-31">Tuesday, 31 March 2026</time>
+      <nav class="section-nav"><a href="#general-ai-developments">General AI Developments</a><a href="#engineering-ai-workflows">Engineering & AI Workflows</a><a href="#tool-updates">Tool Updates</a><a href="#github-trending">GitHub Trending</a><a href="#try-this">Try This</a></nav>
+    </div>
+  </div>
+  <div class="container">
+    <div class="tldr">
+      <div class="tldr-label">TL;DR</div>
+      <p>Claude Code v2.1.88 dropped with a massive bug-fix release — including critical fixes for prompt cache misses, StructuredOutput failures, and a PermissionDenied hook. Separately, computer use is now live in Claude Code for Mac (research preview), letting the agent click through UIs and verify what it built.</p>
+    </div>
+    <h2 id="general-ai-developments">General AI Developments</h2>
+
+<ul>
+  <li><a href="https://simonwillison.net/2026/Mar/30/georgi-gerganov/#atom-everything" target="_blank" rel="noopener">Quoting Georgi Gerganov</a> — The llama.cpp creator explains why local models feel broken even when they're not: the entire chain from chat template to inference harness is fragile and developed by different parties, meaning what you observe is "with very high probability still broken in some subtle way." Directly relevant if you're evaluating local models for coding agents.</li>
+</ul>
+
+<ul>
+  <li><a href="https://www.reddit.com/r/LocalLLaMA/comments/1s7zy3u/qwen_36_spotted/" target="_blank" rel="noopener">Qwen 3.6 spotted!</a> — Qwen3.6 has appeared on OpenRouter as a preview; no benchmarks yet but worth watching given Qwen's strong recent coding track record.</li>
+</ul>
+
+<h2 id="engineering-ai-workflows">Engineering & AI Workflows</h2>
+
+<ul>
+  <li>[[AINews] The Last 4 Jobs in Tech](https://www.latent.space/p/ainews-the-last-4-jobs-in-tech) — Dense roundup with practical signal: Theo reports Opus scores ~20% higher in Cursor than in Claude Code, suggesting harness quality — not model capability — is now the dominant variable in coding agent performance. Cross-agent composition is also maturing: OpenAI shipped a Codex plugin for Claude Code enabling adversarial review flows using a ChatGPT subscription.</li>
+</ul>
+
+<ul>
+  <li><a href="https://www.reddit.com/r/ClaudeAI/comments/1s7wkky/computer_use_is_now_in_claude_code/" target="_blank" rel="noopener">Computer use is now in Claude Code.</a> — Claude Code can now open apps, click through UIs, and test what it built — closing the loop on code → run → inspect → fix → re-test. Research preview, Pro/Max on macOS, enabled via <code>/mcp</code>. This is the missing piece for reliable GUI app iteration without manual verification.</li>
+</ul>
+
+<ul>
+  <li><a href="https://www.reddit.com/r/ClaudeAI/comments/1s84l18/i_gave_claude_its_own_computer_and_let_it_run_247/" target="_blank" rel="noopener">I gave Claude its own computer and let it run 24/7. Here's what it built.</a> — A real-world persistent agent case study: Phantom wraps the Agent SDK with vector memory and a self-evolution engine. The cross-model validation trick is worth noting — using Sonnet to judge Opus's proposed self-edits prevented config drift that occurred when Opus evaluated its own work.</li>
+</ul>
+
+<ul>
+  <li><a href="https://simonwillison.net/2026/Mar/30/mr-chatterbox/#atom-everything" target="_blank" rel="noopener">Mr. Chatterbox is a (weak) Victorian-era ethically trained model you can run on your own computer</a> — Less about the model, more about the workflow: Simon Willison used Claude Code to build a full LLM plugin from scratch (cloning a repo, adapting weights, reading plugin docs, writing tests) with minimal manual intervention. A clean example of Claude Code as a capable solo engineering teammate for greenfield tooling work.</li>
+</ul>
+
+<ul>
+  <li><a href="https://www.reddit.com/r/ClaudeAI/comments/1s7zgj0/investigating_usage_limits_hitting_faster_than/" target="_blank" rel="noopener">Investigating usage limits hitting faster than expected</a> — Anthropic confirmed Claude Code users were burning through usage limits far faster than expected and flagged it as top-priority. If your sessions have been cutting out early, this is why — worth monitoring for a fix.</li>
+</ul>
+
+<h2 id="tool-updates">Tool Updates</h2>
+
+<ul>
+  <li><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.88" target="_blank" rel="noopener">v2.1.88 — Claude Code</a> — Major release. Critical fixes include: prompt cache misses in long sessions (caused by tool schema bytes changing mid-session), a StructuredOutput schema cache bug causing ~50% failure rate in multi-schema workflows, nested CLAUDE.md files being re-injected dozens of times, and a memory leak from large JSON inputs. New additions: <code>PermissionDenied</code> hook with retry support, named subagents in <code>@</code> mention typeahead, <code>CLAUDE_CODE_NO_FLICKER=1</code> for flicker-free rendering, and <code>/env</code> now applies to PowerShell. Also fixes thinking summaries generating by default (now opt-in via <code>showThinkingSummaries: true</code>).</li>
+</ul>
+
+<h2 id="github-trending">GitHub Trending</h2>
+
+<ul>
+  <li>[AI] <a href="https://github.com/ggml-org/llama.cpp" target="_blank" rel="noopener">ggml-org/llama.cpp</a> — Hit 100k GitHub stars; the foundational local LLM inference engine that underpins most self-hosted model tooling.</li>
+  <li>[AI] <a href="https://github.com/ghostwright/phantom" target="_blank" rel="noopener">ghostwright/phantom</a> — Persistent Claude agent with vector memory, self-evolution engine, and cross-model validation; built entirely with Claude Code, 770 tests, Apache 2.0.</li>
+</ul>
+
+<p>*(Trending data limited to what appeared in today's articles — full GitHub trending list was not available in today's sources.)*</p>
+
+<h2 id="try-this">Try This</h2>
+<p><div class="try-this"></p>
+<p>When building or reviewing AI-generated code that involves multiple tool schemas in a single session, explicitly test your workflow against Claude Code v2.1.88's StructuredOutput fix: before updating, ~50% of multi-schema workflows were silently failing due to a schema cache bug. After updating, run a session that invokes at least two different structured output schemas back-to-back and verify both return correct results — this is the kind of silent failure that produces subtly wrong AI-generated code with no obvious error signal.</p>
+<p></div></p>
+
+    <div class="footer">
+      <a href="archive.html">View archive →</a><span style="float:right">Cost: $0.0498</span>
+    </div>
+  </div>
+</body>
+</html>
