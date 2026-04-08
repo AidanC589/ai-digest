@@ -16,4 +16,4 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
         run: |
           npm install -g wrangler
-          wrangler pages deploy docs/ --project-name ai-digest --branch master --commit-dirty=true
+          wrangler pages deploy docs/ --project-name ai-digest --branch main --commit-dirty=true
