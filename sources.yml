@@ -1,14 +1,12 @@
 feeds:
   - name: Hacker News AI
-    url: https://hnrss.org/newest?q=AI+LLM&points=50
+    url: https://hnrss.org/newest?q=AI&points=50
+  - name: Hacker News LLM
+    url: https://hnrss.org/newest?q=LLM&points=10
   - name: Simon Willison
     url: https://simonwillison.net/atom/everything/
-  - name: The Rundown AI
-    url: https://www.therundown.ai/rss
   - name: Swyx
     url: https://www.swyx.io/rss.xml
-  - name: Anthropic Blog
-    url: https://www.anthropic.com/rss.xml
   - name: Reddit LocalLLaMA
     url: https://www.reddit.com/r/LocalLLaMA/.rss
   - name: Reddit ClaudeAI

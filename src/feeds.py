@@ -1,7 +1,9 @@
 """RSS feed fetching and article text extraction."""
 
 import re
+import base64
 import logging
+import os
 from datetime import datetime, timezone, timedelta
 from urllib.parse import urlparse
 
@@ -18,6 +20,17 @@ log = logging.getLogger(__name__)
 logging.getLogger("trafilatura").setLevel(logging.CRITICAL)
 
 SKIP_FULL_FETCH_DOMAINS = {"reddit.com", "www.reddit.com", "github.com", "arxiv.org"}
+REDDIT_DOMAINS = {"reddit.com", "www.reddit.com"}
+
+
+def _reddit_auth_header():
+    """Return Authorization header for Reddit basic auth, or None if creds not set."""
+    user = os.environ.get("REDDIT_USERNAME")
+    pwd  = os.environ.get("REDDIT_PASSWORD")
+    if user and pwd:
+        token = base64.b64encode(f"{user}:{pwd}".encode()).decode()
+        return {"Authorization": f"Basic {token}"}
+    return {}
 
 
 def load_sources():
@@ -56,11 +69,12 @@ def fetch_feed(feed_cfg):
     item_cap = 5 if is_changelog else MAX_FEED_ITEMS
 
     log.info(f"Fetching feed: {name}{' [changelog]' if is_changelog else ''}")
+    feed_domain = urlparse(url).netloc
+    headers = {"User-Agent": "Mozilla/5.0 (compatible; ai-digest/1.0)"}
+    if feed_domain in REDDIT_DOMAINS:
+        headers.update(_reddit_auth_header())
     try:
-        parsed = feedparser.parse(
-            url,
-            request_headers={"User-Agent": "Mozilla/5.0 (compatible; ai-digest/1.0)"},
-        )
+        parsed = feedparser.parse(url, request_headers=headers)
         if parsed.bozo and not parsed.entries:
             log.warning(f"Feed parse error for {name}: {parsed.bozo_exception}")
             return []
