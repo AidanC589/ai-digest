@@ -7,10 +7,14 @@ def slugify(text):
     return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
 
 
+def _escape_html(text):
+    return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
 def inline(text):
     """Apply inline markdown: bold, code, links."""
     text = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", text)
-    text = re.sub(r"`([^`]+)`", r"<code>\1</code>", text)
+    text = re.sub(r"`([^`]+)`", lambda m: f"<code>{_escape_html(m.group(1))}</code>", text)
     text = re.sub(
         r"\[([^\]]+)\]\(([^)]+)\)",
         r'<a href="\2" target="_blank" rel="noopener">\1</a>',
