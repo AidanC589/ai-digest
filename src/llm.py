@@ -29,13 +29,15 @@ def build_user_message(articles, word_cap=None):
     cap = word_cap or MAX_WORDS_PER_ARTICLE
     lines = ["<articles>"]
     for i, a in enumerate(articles, 1):
-        text = a["text"] if a.get("type") == "changelog" else truncate_to_words(a["text"], cap)
+        atype = a.get("type")
+        # changelog and trending entries are short/structured — don't truncate
+        text = a["text"] if atype in ("changelog", "trending") else truncate_to_words(a["text"], cap)
         lines.append(f'  <article index="{i}">')
         lines.append(f"    <title>{a['title']}</title>")
         lines.append(f"    <source>{a['source']}</source>")
         lines.append(f"    <url>{a['url']}</url>")
-        if a.get("type") == "changelog":
-            lines.append("    <type>changelog</type>")
+        if atype in ("changelog", "trending"):
+            lines.append(f"    <type>{atype}</type>")
         lines.append(f"    <content>{text}</content>")
         lines.append("  </article>")
     lines.append("</articles>")
@@ -68,7 +70,7 @@ def trim_to_budget(articles):
     trimmed = list(articles)
     while trimmed and tokens > TOKEN_BUDGET:
         for i in range(len(trimmed) - 1, -1, -1):
-            if trimmed[i].get("type") != "changelog":
+            if trimmed[i].get("type") not in ("changelog", "trending"):
                 trimmed.pop(i)
                 break
         else:

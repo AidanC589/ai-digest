@@ -7,6 +7,7 @@ import logging
 
 from src.config import SEEN_URLS_RETENTION_DAYS
 from src.feeds import load_sources, fetch_feed
+from src.trending import fetch_github_trending
 from src.llm import call_anthropic
 from src.render import render_html
 from src.output import (
@@ -48,6 +49,9 @@ def main():
         log.error("All articles already seen — nothing new to summarise")
         sys.exit(1)
 
+    # Append trending repos after dedup — same repo can trend on multiple days
+    all_articles.extend(fetch_github_trending())
+
     log.info(f"Total articles collected: {len(all_articles)}")
 
     # Summarise
@@ -64,7 +68,7 @@ def main():
     send_email(today_str, render_html(digest_md, today_str, cost=run_cost))
 
     # Persist seen URLs
-    save_seen_urls(seen_urls, [a["url"] for a in all_articles])
+    save_seen_urls(seen_urls, [a["url"] for a in all_articles if a.get("type") != "trending"])
     log.info(f"Saved {len(all_articles)} URLs to seen list")
 
     log.info("Done.")

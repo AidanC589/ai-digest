@@ -23,7 +23,5 @@ feeds:
   - name: Codex Releases
     url: https://github.com/openai/codex/releases.atom
     type: changelog
-  - name: GitHub Trending
-    url: https://rsshub.app/github/trending/daily
   - name: arXiv cs.CL
     url: https://rss.arxiv.org/rss/cs.CL
