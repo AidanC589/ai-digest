@@ -1,16 +1,4 @@
 {
-  "https://lcamtuf.substack.com/p/the-100000-whys-of-ai": "2026-06-21",
-  "https://martinfowler.com/articles/reliable-llm-bayer.html": "2026-06-21",
-  "https://vinibrasil.com/when-i-reject-ai-code-even-if-it-works/": "2026-06-21",
-  "https://blog.cloudflare.com/temporary-accounts/": "2026-06-21",
-  "https://www.reddit.com/r/LocalLLaMA/comments/1ubbj6n/what_happens_when_they_stop_subsidizing_llm/": "2026-06-21",
-  "https://www.reddit.com/r/LocalLLaMA/comments/1ub2kmt/deep_neural_network_that_can_turn_any_image_into/": "2026-06-21",
-  "https://www.reddit.com/r/LocalLLaMA/comments/1uaxktf/zai_as_the_number_2_gives_praise_to_the_number_1/": "2026-06-21",
-  "https://www.reddit.com/r/LocalLLaMA/comments/1ub693e/six_months_ago_i_turned_down_8165_for_an_rtx_6000/": "2026-06-21",
-  "https://www.latent.space/p/ainews-not-much-happened-today-e7b": "2026-06-21",
-  "https://github.com/anthropics/claude-code/releases/tag/v2.1.185": "2026-06-21",
-  "https://github.com/openai/codex/releases/tag/rust-v0.142.0-alpha.9": "2026-06-21",
-  "https://github.com/openai/codex/releases/tag/rust-v0.142.0-alpha.8": "2026-06-21",
   "https://apertvs.ai/": "2026-06-22",
   "https://www.satisfice.com/blog/archives/488148": "2026-06-22",
   "https://www.teachmecoolstuff.com/viewarticle/fine-tuning-a-local-llm-to-categorize-questions": "2026-06-22",
@@ -275,5 +263,15 @@
   "https://www.reddit.com/r/LocalLLaMA/comments/1un5hyi/googletabfm100/": "2026-07-05",
   "https://www.reddit.com/r/LocalLLaMA/comments/1unpelb/getting_close_to_100k_context_on_32gb_vram_with/": "2026-07-05",
   "https://www.reddit.com/r/LocalLLaMA/comments/1unobl4/using_applications_to_make_a_smaller_model_more/": "2026-07-05",
-  "https://github.com/openai/codex/releases/tag/rust-v0.143.0-alpha.36": "2026-07-05"
+  "https://github.com/openai/codex/releases/tag/rust-v0.143.0-alpha.36": "2026-07-05",
+  "https://www.readtheline.ca/p/al-vigier-canadas-ai-strategy-shouldnt": "2026-07-06",
+  "https://intextbooks.science.uu.nl/workshop2026/files/itb26_s1s2.pdf": "2026-07-06",
+  "https://arxiv.org/abs/2602.09239": "2026-07-06",
+  "https://techcrunch.com/2026/07/02/mark-zuckerberg-tells-staff-that-ai-agents-havent-progressed-as-quickly-as-hed-hoped/": "2026-07-06",
+  "https://simonwillison.net/2026/Jul/6/sqlite-utils/#atom-everything": "2026-07-06",
+  "https://www.reddit.com/r/LocalLLaMA/comments/1uoalfq/best_local_vlms_july_2026/": "2026-07-06",
+  "https://www.reddit.com/r/LocalLLaMA/comments/1uoij3s/if_trends_hold_mythosclass_capability_may_be/": "2026-07-06",
+  "https://www.reddit.com/r/LocalLLaMA/comments/1uoozt4/new_open_model_from_tencent_hy_hy3_295b_total_21b/": "2026-07-06",
+  "https://www.reddit.com/r/LocalLLaMA/comments/1uom9zb/as_promised_here_is_the_github_link_for_my_100/": "2026-07-06",
+  "https://www.reddit.com/r/LocalLLaMA/comments/1uopgf5/if_trends_hold_skhynix_capability_may_be_building/": "2026-07-06"
 }
