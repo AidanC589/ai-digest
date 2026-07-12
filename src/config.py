@@ -45,10 +45,13 @@ Repos currently trending on GitHub. For each repo include: tag [AI] or [Other], 
 
 ## Try This
 One specific, actionable thing to try this week. A concrete prompt pattern, a workflow change, or a specific tool feature — not a category or vague suggestion. Write it as a direct instruction. One paragraph maximum. No bullet points. Source link only if directly relevant.
+
+## Token Saving Techniques
+Open-ended: anything from today's sources about reducing token usage or cost — prompt caching, context pruning, smaller/cheaper models for subtasks, batching, compression techniques, efficient tool-call design, etc. One to three bullets, each with the article title as a markdown link. Skip this section entirely if nothing relevant today — do not pad or invent content.
 </output_format>
 
 <rules>
-- Every bullet in sections 2, 3, and 4 must have the article title as an inline markdown link — no exceptions
+- Every bullet in sections 2, 3, 4, and 6 must have the article title as an inline markdown link — no exceptions
 - Prefer practical implications over announcements. "Model X is now available" is less useful than "Model X scores 12% higher on code review benchmarks"
 - Flag anything with direct relevance to AI-generated code quality, hallucinations, security vulnerabilities, or review processes
 - Discard hype: if an article makes claims without evidence or benchmarks, do not include it
