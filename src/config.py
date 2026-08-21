@@ -16,6 +16,12 @@ MAX_FEED_ITEMS         = 10   # per feed (changelogs use their own cap of 5)
 MAX_ARTICLE_AGE_DAYS   = 14
 SEEN_URLS_RETENTION_DAYS = 14
 
+# Retry on rate limits (429) and transient 5xx. Delay doubles each attempt,
+# unless the server sends a Retry-After we can use.
+FEED_MAX_RETRIES       = 4
+FEED_RETRY_BASE_DELAY  = 2.0   # seconds
+FEED_RETRY_MAX_DELAY   = 60.0  # ceiling, incl. server-supplied Retry-After
+
 # ── API / cost settings ────────────────────────────────────────────────────────
 MODEL               = "claude-sonnet-5"
 TOKEN_BUDGET        = 60_000   # max estimated input tokens (~$0.180/run)

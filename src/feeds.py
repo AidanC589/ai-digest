@@ -4,6 +4,7 @@ import re
 import base64
 import logging
 import os
+import time
 from datetime import datetime, timezone, timedelta
 from urllib.parse import urlparse
 
@@ -14,6 +15,7 @@ import trafilatura
 from src.config import (
     SOURCES_FILE, MAX_FEED_ITEMS, MAX_WORDS_PER_ARTICLE,
     MIN_SUMMARY_WORDS, MAX_ARTICLE_AGE_DAYS,
+    FEED_MAX_RETRIES, FEED_RETRY_BASE_DELAY, FEED_RETRY_MAX_DELAY,
 )
 
 log = logging.getLogger(__name__)
@@ -21,6 +23,7 @@ logging.getLogger("trafilatura").setLevel(logging.CRITICAL)
 
 SKIP_FULL_FETCH_DOMAINS = {"reddit.com", "www.reddit.com", "github.com", "arxiv.org"}
 REDDIT_DOMAINS = {"reddit.com", "www.reddit.com"}
+RETRYABLE_STATUSES = {429, 500, 502, 503, 504}
 
 
 def _reddit_auth_header():
@@ -31,6 +34,54 @@ def _reddit_auth_header():
         token = base64.b64encode(f"{user}:{pwd}".encode()).decode()
         return {"Authorization": f"Basic {token}"}
     return {}
+
+
+def _retry_after(parsed):
+    """Seconds from a Retry-After header, if the server sent one we can use."""
+    raw = getattr(parsed, "headers", {}).get("retry-after")
+    if not raw:
+        return None
+    try:
+        return min(max(float(raw), 0.0), FEED_RETRY_MAX_DELAY)
+    except ValueError:
+        return None  # HTTP-date form — fall back to our own backoff
+
+
+def _parse_feed_with_retry(url, headers, name):
+    """feedparser.parse with exponential backoff on rate limits and transient 5xx.
+
+    feedparser reports HTTP errors via .status instead of raising, so retryable
+    responses are detected by status code rather than by exception.
+    """
+    delay = FEED_RETRY_BASE_DELAY
+    last_exc = None
+
+    for attempt in range(1, FEED_MAX_RETRIES + 1):
+        parsed = None
+        try:
+            parsed = feedparser.parse(url, request_headers=headers)
+        except Exception as e:
+            last_exc = e
+
+        if parsed is not None:
+            status = getattr(parsed, "status", None)
+            # Content is content — a 429 that still carried entries is a success.
+            if status not in RETRYABLE_STATUSES or parsed.entries:
+                return parsed
+            delay = _retry_after(parsed) or delay
+
+        if attempt == FEED_MAX_RETRIES:
+            break
+
+        reason = last_exc if parsed is None else f"HTTP {getattr(parsed, 'status', None)}"
+        log.warning(f"  {name}: {reason} — retrying in {delay:.0f}s [{attempt}/{FEED_MAX_RETRIES}]")
+        time.sleep(delay)
+        delay = min(delay * 2, FEED_RETRY_MAX_DELAY)
+
+    if parsed is None:
+        raise last_exc
+    log.warning(f"  {name}: gave up after {FEED_MAX_RETRIES} attempts (HTTP {getattr(parsed, 'status', None)})")
+    return parsed
 
 
 def load_sources():
@@ -74,7 +125,7 @@ def fetch_feed(feed_cfg):
     if feed_domain in REDDIT_DOMAINS:
         headers.update(_reddit_auth_header())
     try:
-        parsed = feedparser.parse(url, request_headers=headers)
+        parsed = _parse_feed_with_retry(url, headers, name)
         if parsed.bozo and not parsed.entries:
             log.warning(f"Feed parse error for {name}: {parsed.bozo_exception}")
             return []
