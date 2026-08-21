@@ -17,6 +17,9 @@ python digest.py
 # Render a local preview without calling Claude (opens docs/index.html)
 python preview.py
 
+# Same, but render the email template instead of the web page
+python preview.py --email
+
 # Install Python dependencies
 pip install -r requirements.txt
 
@@ -24,7 +27,7 @@ pip install -r requirements.txt
 npm install
 ```
 
-There are no automated tests. Use `python preview.py` to verify HTML rendering changes without an API call.
+There are no automated tests. Use `python preview.py` (add `--email` for the email template) to verify HTML rendering changes without an API call.
 
 ## Architecture
 
@@ -36,7 +39,9 @@ Data flows through four stages:
 
 3. **Summarize** (`src/llm.py`) — Build an XML message from all articles, estimate tokens with tiktoken against a 35,000-token budget (trim if over), then make a single Claude API call. The system prompt in `src/config.py` specifies five required sections and editorial rules.
 
-4. **Publish** (`src/output.py`, `src/render.py`) — Validate links (HEAD requests), write Markdown to `digests/YYYY-MM-DD.md`, render to `docs/index.html`, update `docs/archive.html`, send email if `GMAIL_APP_PASSWORD` is set.
+4. **Publish** (`src/output.py`, `src/render.py`, `src/email_render.py`) — Validate links (HEAD requests), write Markdown to `digests/YYYY-MM-DD.md`, render to `docs/index.html`, update `docs/archive.html`, send email if `GMAIL_APP_PASSWORD` is set.
+
+The web page (`src/render.py` + `src/styles.py`) and the email (`src/email_render.py`) are separate templates. Mail clients strip CSS custom properties, `<style>` blocks, flex/grid, and external font links, so the email is a table layout with inline styles only. Markdown parsing is shared via `src/md.py` — keep it there rather than duplicating it.
 
 **Key design constraint:** Everything goes to Claude in a single API call — no streaming, no chunking — to preserve coherence and leverage prompt caching.
 

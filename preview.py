@@ -6,7 +6,8 @@ Uses today's digest from digests/ if it exists, otherwise renders sample content
 Does NOT call the Anthropic API, write to docs/, or send email.
 
 Usage:
-    python preview.py
+    python preview.py            # web template (docs/index.html)
+    python preview.py --email    # email template
     # then open the printed file:// URL in your browser
 """
 
@@ -17,6 +18,7 @@ from datetime import date
 from pathlib import Path
 
 from src.render import render_html
+from src.email_render import render_email
 from src.config import DIGESTS_DIR
 
 SAMPLE_DIGEST = """\
@@ -42,6 +44,7 @@ When reviewing AI-generated code, add a second prompt pass specifically focused 
 
 
 def main():
+    as_email = "--email" in sys.argv
     today_str = date.today().isoformat()
 
     # Use today's real digest if available, otherwise use sample
@@ -55,7 +58,12 @@ def main():
         md_content = SAMPLE_DIGEST.strip()
         print("No digest found for today — using sample content")
 
-    html = render_html(md_content, today_str)
+    if as_email:
+        html = render_email(md_content, today_str)
+        print("Rendering: email template")
+    else:
+        html = render_html(md_content, today_str)
+        print("Rendering: web template")
 
     # Write to a temp file — never touches docs/ or any tracked file
     with tempfile.NamedTemporaryFile(

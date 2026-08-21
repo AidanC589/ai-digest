@@ -9,7 +9,7 @@ from src.config import SEEN_URLS_RETENTION_DAYS
 from src.feeds import load_sources, fetch_feed
 from src.trending import fetch_github_trending
 from src.llm import call_anthropic
-from src.render import render_html
+from src.email_render import render_email
 from src.output import (
     write_markdown, write_html, send_email,
     check_links, load_seen_urls, save_seen_urls,
@@ -65,7 +65,7 @@ def main():
     # Publish
     write_markdown(today_str, digest_md)
     write_html(today_str, digest_md, cost=run_cost)
-    send_email(today_str, render_html(digest_md, today_str, cost=run_cost))
+    send_email(today_str, render_email(digest_md, today_str), digest_md)
 
     # Persist seen URLs
     save_seen_urls(seen_urls, [a["url"] for a in all_articles if a.get("type") != "trending"])

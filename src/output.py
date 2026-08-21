@@ -41,7 +41,7 @@ def write_html(today_str, md_content, cost=None):
 
 # ── Email delivery ─────────────────────────────────────────────────────────────
 
-def send_email(today_str, html_content):
+def send_email(today_str, html_content, text_content=None):
     """Send the digest via Gmail SMTP. Requires GMAIL_USER and GMAIL_APP_PASSWORD env vars."""
     gmail_user   = os.environ.get("GMAIL_USER")
     app_password = os.environ.get("GMAIL_APP_PASSWORD")
@@ -53,6 +53,9 @@ def send_email(today_str, html_content):
     msg["Subject"] = f"AI Digest — {today_str}"
     msg["From"]    = gmail_user
     msg["To"]      = gmail_user
+    # Least-preferred part first: clients pick the last one they can render.
+    if text_content:
+        msg.attach(MIMEText(text_content, "plain"))
     msg.attach(MIMEText(html_content, "html"))
 
     try:
