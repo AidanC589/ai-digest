@@ -1,0 +1,36 @@
+# Dependabot version updates. Complements the pins in requirements.txt and
+# package-lock.json: a new major arrives as a reviewable PR instead of
+# silently entering the 03:00 UTC run.
+#
+# Note: this file controls *version* updates only. Security updates are a
+# separate repo setting (Settings > Code security > Dependabot security
+# updates) and fire on advisories regardless of the schedule below.
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 3
+    groups:
+      python-deps:
+        patterns: ["*"]
+
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 3
+    groups:
+      npm-deps:
+        patterns: ["*"]
+
+  # Keeps the SHA pins in digest.yml current — without this they stay frozen
+  # forever, which trades one stale-dependency problem for another.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    groups:
+      actions:
+        patterns: ["*"]
