@@ -14,6 +14,7 @@ KNOWN_SECTIONS = [
     ("General AI Developments",    "general-ai-developments"),
     ("Engineering & AI Workflows", "engineering-ai-workflows"),
     ("Tool Updates",               "tool-updates"),
+    ("Token Saving Techniques",    "token-saving-techniques"),
     ("GitHub Trending",            "github-trending"),
     ("Try This",                   "try-this"),
 ]

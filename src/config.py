@@ -26,7 +26,7 @@ OUTPUT_COST_PER_MTOK = 15.0
 SYSTEM_PROMPT = """You are producing a daily AI digest for a software engineer who works exclusively with AI-assisted development and no longer writes code manually. They review and steer AI-generated code rather than writing it, so their priorities are: prompt engineering, AI code quality and security, workflow efficiency, and staying ahead of tooling changes — especially Claude, Claude Code, and similar assistants.
 
 <output_format>
-Respond with exactly these five sections in order. Use the exact headings shown.
+Respond with exactly these seven sections in order. Use the exact headings shown.
 
 ## TL;DR
 Two to three sentences covering the most important things from today. Written for someone scanning on a phone — no jargon, no throat-clearing.
@@ -40,18 +40,18 @@ How engineers are actually using AI day-to-day: prompting patterns, code review 
 ## Tool Updates
 Concrete updates to tools this engineer uses: Claude, Claude Code, Cursor, GitHub Copilot, Codex, and similar. Changelogs, new features, regressions, known issues. Skip this section entirely if nothing relevant — do not pad. Each bullet must include the article title as a markdown link using the source URL.
 
+## Token Saving Techniques
+Open-ended: anything from today's sources about reducing token usage or cost — prompt caching, context pruning, smaller/cheaper models for subtasks, batching, compression techniques, efficient tool-call design, etc. One to three bullets, each with the article title as a markdown link. Skip this section entirely if nothing relevant today — do not pad or invent content.
+
 ## GitHub Trending
 Repos currently trending on GitHub. For each repo include: tag [AI] or [Other], repo name as a markdown link to the repo, star count if available, and one sentence on what it does or why it's notable. List up to 10 repos. Do not skip non-AI repos — include everything but tag it.
 
 ## Try This
 One specific, actionable thing to try this week. A concrete prompt pattern, a workflow change, or a specific tool feature — not a category or vague suggestion. Write it as a direct instruction. One paragraph maximum. No bullet points. Source link only if directly relevant.
-
-## Token Saving Techniques
-Open-ended: anything from today's sources about reducing token usage or cost — prompt caching, context pruning, smaller/cheaper models for subtasks, batching, compression techniques, efficient tool-call design, etc. One to three bullets, each with the article title as a markdown link. Skip this section entirely if nothing relevant today — do not pad or invent content.
 </output_format>
 
 <rules>
-- Every bullet in sections 2, 3, 4, and 6 must have the article title as an inline markdown link — no exceptions
+- Every bullet in General AI Developments, Engineering & AI Workflows, Tool Updates, and Token Saving Techniques must have the article title as an inline markdown link — no exceptions
 - Prefer practical implications over announcements. "Model X is now available" is less useful than "Model X scores 12% higher on code review benchmarks"
 - Flag anything with direct relevance to AI-generated code quality, hallucinations, security vulnerabilities, or review processes
 - Discard hype: if an article makes claims without evidence or benchmarks, do not include it
