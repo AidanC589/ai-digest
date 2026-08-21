@@ -58,8 +58,8 @@ Configured in `sources.yml`:
 - **General AI Developments** — models, research, industry news
 - **Engineering & AI Workflows** — how teams are using AI day-to-day
 - **Tool Updates** — Claude, Claude Code, Cursor, Copilot, etc.
+- **Token Saving Techniques** — anything on cutting token usage or cost
 - **GitHub Trending** — trending repos tagged [AI] or [Other]
-- **Try This** — one concrete thing to experiment with this week
 
 ## Manual run
 

@@ -5,7 +5,7 @@ import logging
 from datetime import datetime
 
 from src.config import DOCS_DIR
-from src.md import inline, slugify, parse_sections, extract_tldr, render_section_body, render_try_block
+from src.md import inline, slugify, parse_sections, extract_tldr, render_section_body, _escape_html
 from src.styles import DIGEST_CSS, ARCHIVE_CSS, GOOGLE_FONTS
 
 log = logging.getLogger(__name__)
@@ -16,7 +16,6 @@ KNOWN_SECTIONS = [
     ("Tool Updates",               "tool-updates"),
     ("Token Saving Techniques",    "token-saving-techniques"),
     ("GitHub Trending",            "github-trending"),
-    ("Try This",                   "try-this"),
 ]
 
 # Keep old name available for any external callers.
@@ -42,21 +41,18 @@ def render_html(md_content, today_str, cost=None):
     parts = []
     section_num = 0
     for title, body in sections:
-        if "Try This" in title:
-            parts.append(render_try_block(body))
-        else:
-            section_num += 1
-            slug = slugify(title)
-            content = render_section_body(title, body)
-            parts.append(
-                f'<section class="section" id="{slug}">\n'
-                f'  <div class="section-header">\n'
-                f'    <span class="section-number">{section_num:02d}</span>\n'
-                f'    <h2 class="section-title">{title}</h2>\n'
-                f'  </div>\n'
-                f'  {content}\n'
-                f'</section>'
-            )
+        section_num += 1
+        slug = slugify(title)
+        content = render_section_body(title, body)
+        parts.append(
+            f'<section class="section" id="{slug}">\n'
+            f'  <div class="section-header">\n'
+            f'    <span class="section-number">{section_num:02d}</span>\n'
+            f'    <h2 class="section-title">{_escape_html(title)}</h2>\n'
+            f'  </div>\n'
+            f'  {content}\n'
+            f'</section>'
+        )
 
     sections_html = "\n".join(parts)
     formatted_date = datetime.strptime(today_str, "%Y-%m-%d").strftime("%A, %d %B %Y")

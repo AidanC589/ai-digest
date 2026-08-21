@@ -9,7 +9,7 @@ fragment builders are email-specific.
 import re
 from datetime import datetime
 
-from src.md import inline, parse_sections, extract_tldr
+from src.md import inline, parse_sections, extract_tldr, safe_url, _escape_html
 
 SITE_URL = "https://ai-digest-elw.pages.dev"
 
@@ -92,8 +92,8 @@ def _section_body(title, body_text):
                 if ver_m:
                     tag_html = f'<span style="{_TAG}margin-left:8px;">{ver_m.group(1)}</span>'
             anchor = (
-                f'<a href="{url}" target="_blank" rel="noopener" '
-                f'style="color:{LINK};text-decoration:underline;">{link_text}</a>'
+                f'<a href="{safe_url(url)}" target="_blank" rel="noopener" '
+                f'style="color:{LINK};text-decoration:underline;">{_escape_html(link_text)}</a>'
             )
             entries.append(_entry_html(anchor + tag_html, _inline(desc)))
         else:
@@ -128,28 +128,10 @@ def _section(number, title, body_text):
         f'<tr>'
         f'<td width="34" valign="top" style="font-family:{SANS};font-size:11px;'
         f'letter-spacing:0.1em;color:{MUTED};padding:0 0 10px;">{number:02d}</td>'
-        f'<td style="font-family:{SERIF};font-size:21px;color:{INK};padding:0 0 10px;">{title}</td>'
+        f'<td style="font-family:{SERIF};font-size:21px;color:{INK};padding:0 0 10px;">{_escape_html(title)}</td>'
         f'</tr></table>'
         f'{_section_body(title, body_text)}'
         f'</div>'
-    )
-
-
-def _try_block(body_text):
-    paras = "".join(
-        f'<p style="font-family:{SANS};font-size:15px;line-height:1.7;'
-        f'color:#e8e4de;margin:0 0 10px;">{_inline(line.strip(), dark=True)}</p>'
-        for line in body_text.strip().split("\n")
-        if line.strip()
-    )
-    return (
-        f'<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" '
-        f'style="margin:0 0 34px;"><tr>'
-        f'<td bgcolor="{INK}" style="background:{INK};padding:28px 26px;">'
-        f'<div style="font-family:{SANS};font-size:11px;letter-spacing:0.2em;'
-        f'color:{ACCENT};margin:0 0 12px;">&rarr; TRY THIS</div>'
-        f'{paras}'
-        f'</td></tr></table>'
     )
 
 
@@ -163,11 +145,8 @@ def render_email(md_content, today_str):
     parts = []
     number = 0
     for title, body in parse_sections(body_md):
-        if "Try This" in title:
-            parts.append(_try_block(body))
-        else:
-            number += 1
-            parts.append(_section(number, title, body))
+        number += 1
+        parts.append(_section(number, title, body))
     sections_html = "\n".join(parts)
 
     formatted_date = datetime.strptime(today_str, "%Y-%m-%d").strftime("%A, %d %B %Y")
@@ -182,7 +161,7 @@ def render_email(md_content, today_str):
   <title>AI Digest — {today_str}</title>
 </head>
 <body style="margin:0;padding:0;background:{PAPER};color:{INK};">
-  <div style="display:none;max-height:0;max-width:0;opacity:0;overflow:hidden;font-size:1px;line-height:1px;color:{PAPER};">{preheader}</div>
+  <div style="display:none;max-height:0;max-width:0;opacity:0;overflow:hidden;font-size:1px;line-height:1px;color:{PAPER};">{_escape_html(preheader)}</div>
   <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="{PAPER}" style="background:{PAPER};">
     <tr>
       <td align="center" style="padding:28px 20px 48px;">

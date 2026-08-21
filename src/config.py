@@ -12,13 +12,13 @@ SEEN_URLS_FILE = ROOT_DIR / "seen_urls.json"
 # ── Feed / article settings ────────────────────────────────────────────────────
 MAX_WORDS_PER_ARTICLE  = 600
 MIN_SUMMARY_WORDS      = 100
-MAX_FEED_ITEMS         = 5    # per feed (changelogs use their own cap of 5)
+MAX_FEED_ITEMS         = 10   # per feed (changelogs use their own cap of 5)
 MAX_ARTICLE_AGE_DAYS   = 14
 SEEN_URLS_RETENTION_DAYS = 14
 
 # ── API / cost settings ────────────────────────────────────────────────────────
-MODEL               = "claude-sonnet-4-6"
-TOKEN_BUDGET        = 35_000   # max estimated input tokens (~$0.105/run)
+MODEL               = "claude-sonnet-5"
+TOKEN_BUDGET        = 60_000   # max estimated input tokens (~$0.180/run)
 INPUT_COST_PER_MTOK = 3.0
 OUTPUT_COST_PER_MTOK = 15.0
 
@@ -26,7 +26,7 @@ OUTPUT_COST_PER_MTOK = 15.0
 SYSTEM_PROMPT = """You are producing a daily AI digest for a software engineer who works exclusively with AI-assisted development and no longer writes code manually. They review and steer AI-generated code rather than writing it, so their priorities are: prompt engineering, AI code quality and security, workflow efficiency, and staying ahead of tooling changes — especially Claude, Claude Code, and similar assistants.
 
 <output_format>
-Respond with exactly these seven sections in order. Use the exact headings shown.
+Respond with exactly these six sections in order. Use the exact headings shown.
 
 ## TL;DR
 Two to three sentences covering the most important things from today. Written for someone scanning on a phone — no jargon, no throat-clearing.
@@ -46,8 +46,6 @@ Open-ended: anything from today's sources about reducing token usage or cost —
 ## GitHub Trending
 Repos currently trending on GitHub. For each repo include: tag [AI] or [Other], repo name as a markdown link to the repo, star count if available, and one sentence on what it does or why it's notable. List up to 10 repos. Do not skip non-AI repos — include everything but tag it.
 
-## Try This
-One specific, actionable thing to try this week. A concrete prompt pattern, a workflow change, or a specific tool feature — not a category or vague suggestion. Write it as a direct instruction. One paragraph maximum. No bullet points. Source link only if directly relevant.
 </output_format>
 
 <rules>

@@ -250,39 +250,6 @@ DIGEST_CSS = """\
       color: #1e1c1a;
     }
 
-    /* ── TRY THIS ── */
-    .try-block {
-      background: var(--ink);
-      color: var(--paper);
-      padding: 1.8rem 1.6rem;
-      margin-bottom: 2.5rem;
-      position: relative;
-    }
-
-    .try-block::before {
-      content: '→ TRY THIS';
-      display: block;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      color: var(--accent);
-      margin-bottom: 0.8rem;
-    }
-
-    .try-block p {
-      font-size: 0.9rem;
-      line-height: 1.72;
-      color: #e8e4de;
-    }
-
-    .try-block code {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.8rem;
-      background: rgba(255,255,255,0.08);
-      padding: 0.1rem 0.35rem;
-      color: #f0c07a;
-    }
-
     /* ── FOOTER ── */
     footer {
       border-top: 3px solid var(--ink);

@@ -3,6 +3,8 @@
 import logging
 from datetime import date
 
+from xml.sax.saxutils import escape as xml_escape
+
 import tiktoken
 import anthropic
 
@@ -33,12 +35,12 @@ def build_user_message(articles, word_cap=None):
         # changelog and trending entries are short/structured — don't truncate
         text = a["text"] if atype in ("changelog", "trending") else truncate_to_words(a["text"], cap)
         lines.append(f'  <article index="{i}">')
-        lines.append(f"    <title>{a['title']}</title>")
-        lines.append(f"    <source>{a['source']}</source>")
-        lines.append(f"    <url>{a['url']}</url>")
+        lines.append(f"    <title>{xml_escape(a['title'])}</title>")
+        lines.append(f"    <source>{xml_escape(a['source'])}</source>")
+        lines.append(f"    <url>{xml_escape(a['url'])}</url>")
         if atype in ("changelog", "trending"):
             lines.append(f"    <type>{atype}</type>")
-        lines.append(f"    <content>{text}</content>")
+        lines.append(f"    <content>{xml_escape(text)}</content>")
         lines.append("  </article>")
     lines.append("</articles>")
     lines.append("")
@@ -92,10 +94,20 @@ def call_anthropic(articles):
 
     response = client.messages.create(
         model=MODEL,
-        max_tokens=3000,
+        max_tokens=16000,
+        thinking={"type": "adaptive"},
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": user_message}],
     )
+
+    # Fail loudly rather than publishing a truncated or refused digest
+    if response.stop_reason == "max_tokens":
+        raise RuntimeError(
+            "Digest was truncated — hit max_tokens. Raise max_tokens in call_anthropic()."
+        )
+    if response.stop_reason == "refusal":
+        details = getattr(response, "stop_details", None)
+        raise RuntimeError(f"Model refused to generate the digest: {details}")
 
     in_tok  = response.usage.input_tokens
     out_tok = response.usage.output_tokens
@@ -104,4 +116,8 @@ def call_anthropic(articles):
     log.info(f"Actual tokens — input: {in_tok:,}, output: {out_tok:,}")
     log.info(f"Estimated run cost:     ${cost:.4f}")
 
-    return response.content[0].text, cost
+    text = next((b.text for b in response.content if b.type == "text"), None)
+    if not text:
+        raise RuntimeError(f"No text block in response (stop_reason={response.stop_reason})")
+
+    return text, cost

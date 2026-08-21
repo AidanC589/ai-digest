@@ -1,6 +1,7 @@
 """Markdown parsing and HTML fragment generation."""
 
 import re
+import html as html_mod
 
 
 def slugify(text):
@@ -8,16 +9,41 @@ def slugify(text):
 
 
 def _escape_html(text):
-    return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+    """Escape text for safe use in HTML body content and quoted attributes."""
+    return (
+        text.replace("&", "&amp;")
+            .replace("<", "&lt;")
+            .replace(">", "&gt;")
+            .replace('"', "&quot;")
+            .replace("'", "&#39;")
+    )
+
+
+def safe_url(url):
+    """Allow only http(s) links; anything else (javascript:, data:, ...) becomes '#'.
+
+    Idempotent: callers pass either a raw URL (render_section_body) or one that
+    inline() has already escaped, so unescape first and escape exactly once —
+    otherwise "?a=1&b=2" would become "?a=1&amp;amp;b=2" and resolve wrongly.
+    Validating the *unescaped* value also blocks entity-obfuscated schemes.
+    """
+    u = html_mod.unescape(url.strip())
+    return _escape_html(u) if re.match(r"https?://", u, re.I) else "#"
 
 
 def inline(text):
-    """Apply inline markdown: bold, code, links."""
+    """Apply inline markdown: bold, code, links.
+
+    Model output is untrusted — it derives from arbitrary RSS/Reddit/HN content —
+    so everything is escaped FIRST and markdown is applied to the escaped text.
+    Never emit an unescaped substring of `text`.
+    """
+    text = _escape_html(text)
     text = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", text)
-    text = re.sub(r"`([^`]+)`", lambda m: f"<code>{_escape_html(m.group(1))}</code>", text)
+    text = re.sub(r"`([^`]+)`", r"<code>\1</code>", text)
     text = re.sub(
         r"\[([^\]]+)\]\(([^)]+)\)",
-        r'<a href="\2" target="_blank" rel="noopener">\1</a>',
+        lambda m: f'<a href="{safe_url(m.group(2))}" target="_blank" rel="noopener">{m.group(1)}</a>',
         text,
     )
     return text
@@ -76,7 +102,7 @@ def render_section_body(title, body_text):
                 parts.append(
                     f'<div class="tool-entry">'
                     f'<div class="tool-name">'
-                    f'<a href="{url}" target="_blank" rel="noopener">{link_text}</a>'
+                    f'<a href="{safe_url(url)}" target="_blank" rel="noopener">{_escape_html(link_text)}</a>'
                     f'{tag_html}</div>'
                     f'<div class="tool-desc">{inline(desc)}</div>'
                     f'</div>'
@@ -85,7 +111,7 @@ def render_section_body(title, body_text):
                 parts.append(
                     f'<div class="entry">'
                     f'<div class="entry-source">'
-                    f'<a href="{url}" target="_blank" rel="noopener">{link_text}</a>'
+                    f'<a href="{safe_url(url)}" target="_blank" rel="noopener">{_escape_html(link_text)}</a>'
                     f'</div>'
                     f'<div class="entry-body">{inline(desc)}</div>'
                     f'</div>'
@@ -97,16 +123,6 @@ def render_section_body(title, body_text):
             )
 
     return "\n".join(parts)
-
-
-def render_try_block(body_text):
-    """Render the Try This section as a dark callout block."""
-    parts = [
-        f"<p>{inline(line.strip())}</p>"
-        for line in body_text.strip().split("\n")
-        if line.strip()
-    ]
-    return '<div class="try-block" id="try-this">\n' + "\n".join(parts) + "\n</div>"
 
 
 def to_html(md_text):

@@ -37,9 +37,6 @@ Claude Code v2.1.87 ships a fix for co-work dispatch message delivery. OpenAI's 
 ## Tool Updates
 - [Claude Code v2.1.87](https://github.com/anthropics/claude-code/releases/tag/v2.1.87) — Fixed messages in co-work dispatch not being delivered. Minor stability improvements to the MCP server connection handling.
 - [Codex CLI 0.118.0-alpha.3](https://github.com/openai/codex/releases/tag/0.118.0-alpha.3) — Adds `--context-file` flag to pass additional context without including it in the conversation history. Fixes token counting bug on Windows.
-
-## Try This
-When reviewing AI-generated code, add a second prompt pass specifically focused on assumptions: "List every assumption this code makes about its inputs, the environment, and the behaviour of dependencies. For each assumption, tell me whether it is validated anywhere." This surfaces edge cases that a general review prompt misses, particularly around error handling and boundary conditions.
 """
 
 
