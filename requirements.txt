@@ -1,5 +1,7 @@
-anthropic
-feedparser
-trafilatura
-tiktoken
-pyyaml
+# Compatible-release pins: patch and minor updates (incl. security fixes) flow in
+# automatically; a new major cannot land unannounced in the 03:00 UTC CI run.
+anthropic~=1.0
+feedparser~=6.0
+trafilatura~=2.2
+tiktoken~=0.14
+pyyaml~=6.0
