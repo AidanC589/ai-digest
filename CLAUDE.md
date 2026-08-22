@@ -1,7 +1,5 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
 ## What This Project Does
 
 AI Digest is an automated daily news aggregation pipeline that fetches RSS feeds, extracts article text, sends everything to Claude in one API call, and publishes the resulting digest as HTML to Cloudflare Pages and email.
@@ -19,12 +17,6 @@ python preview.py
 
 # Same, but render the email template instead of the web page
 python preview.py --email
-
-# Install Python dependencies
-pip install -r requirements.txt
-
-# Install Node dependencies (Wrangler for deployment)
-npm install
 ```
 
 There are no automated tests. Use `python preview.py` (add `--email` for the email template) to verify HTML rendering changes without an API call.
@@ -48,7 +40,6 @@ The web page (`src/render.py` + `src/styles.py`) and the email (`src/email_rende
 ## Configuration
 
 - **`sources.yml`** — Feed sources. Sources with `type: changelog` bypass editorial filtering and are always included.
-- **`src/config.py`** — All numeric constants (`TOKEN_BUDGET`, `MAX_WORDS_PER_ARTICLE`, `MAX_FEED_ITEMS`, `MAX_ARTICLE_AGE_DAYS`, etc.), the Claude model name, and the full system prompt.
 - **`seen_urls.json`** — Persisted URL dedup state (git-tracked, committed by GitHub Actions).
 
 ## Environment Variables
@@ -60,7 +51,3 @@ The web page (`src/render.py` + `src/styles.py`) and the email (`src/email_rende
 | `GMAIL_APP_PASSWORD` | No | Email delivery via SMTP |
 | `CF_API_TOKEN` | Deployment only | Cloudflare Pages deploy |
 | `CF_ACCOUNT_ID` | Deployment only | Cloudflare Pages deploy |
-
-## Automation
-
-`.github/workflows/digest.yml` runs at 03:00 UTC daily. It commits changes to `digests/`, `docs/`, and `seen_urls.json`, then deploys `docs/` to Cloudflare Pages via Wrangler. Trigger manually with `gh workflow run digest.yml`.
