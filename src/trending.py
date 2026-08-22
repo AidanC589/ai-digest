@@ -26,6 +26,7 @@ class _TrendingParser(HTMLParser):
         # per-repo state
         self._repo = {}
         self._capture = None     # which field we're currently capturing
+        self._in_h2 = False      # inside the <h2> holding the repo link
 
     # ── helpers ────────────────────────────────────────────────────────────────
 
@@ -34,6 +35,7 @@ class _TrendingParser(HTMLParser):
         self._article_depth = self._depth
         self._repo = {}
         self._capture = None
+        self._in_h2 = False
 
     def _end_repo(self):
         r = self._repo
@@ -42,6 +44,7 @@ class _TrendingParser(HTMLParser):
         self._in_article = False
         self._repo = {}
         self._capture = None
+        self._in_h2 = False
 
     # ── parser callbacks ───────────────────────────────────────────────────────
 
@@ -58,9 +61,14 @@ class _TrendingParser(HTMLParser):
             return
 
         # Repo name link: <h2 class="h3 …"><a href="/owner/repo">
-        if tag == "h2" and "h3" in classes:
+        # Only the <a> *inside* the h2 is the repo. Cards for owners with GitHub
+        # Sponsors enabled also carry a "/sponsors/<owner>" link, which is likewise
+        # two segments and appears first — without the h2 guard it wins and the
+        # "name" check below then blocks the real repo link from overwriting it.
+        if tag == "h2":
+            self._in_h2 = True
             self._capture = None  # wait for the <a> inside
-        if tag == "a" and self._capture is None and "name" not in self._repo:
+        if tag == "a" and self._in_h2 and self._capture is None and "name" not in self._repo:
             href = attrs.get("href", "")
             # href is "/owner/repo" (two segments)
             if href.count("/") == 2:
@@ -100,6 +108,9 @@ class _TrendingParser(HTMLParser):
 
         if not self._in_article:
             return
+
+        if tag == "h2":
+            self._in_h2 = False
 
         if self._capture and tag in ("p", "span", "a"):
             value = re.sub(r"\s+", " ", self._buf).strip()
@@ -150,11 +161,15 @@ def fetch_github_trending() -> list[dict]:
         return []
 
     articles = []
+    missing_today = 0
     for r in repos:
         stars_total = _parse_star_count(r.get("stars_total", "0"))
         stars_today_raw = r.get("stars_today", "")
         # strip trailing " stars today" / " star today"
         stars_today = re.sub(r"\s*stars?\s*today", "", stars_today_raw, flags=re.I).strip()
+        stars_today_n = _parse_star_count(stars_today) if stars_today else 0
+        if not stars_today_n:
+            missing_today += 1
 
         parts = []
         if r.get("language"):
@@ -175,7 +190,15 @@ def fetch_github_trending() -> list[dict]:
             "text":   text,
             "source": "GitHub Trending",
             "type":   "trending",
+            # Structured values for src/velocity.py — the prose `text` above is for
+            # the model, these are what get rendered and persisted.
+            "repo":        r["name"],
+            "stars_total": stars_total,
+            "stars_today": stars_today_n or None,
+            "description": desc,
         })
 
     log.info(f"  → {len(articles)} articles from GitHub Trending")
+    if missing_today:
+        log.warning(f"  → {missing_today}/{len(articles)} trending repos had no 'stars today' count")
     return articles

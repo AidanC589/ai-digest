@@ -244,6 +244,10 @@ DIGEST_CSS = """\
     .tool-tag.alpha { background: #6b4f1a; }
     .tool-tag.minor { background: #2a5a3a; }
 
+    /* GitHub Trending [AI]/[Other] chip — leads the row rather than trailing it */
+    .tool-tag.repo-tag { margin-left: 0; margin-right: 0.5rem; }
+    .tool-tag.repo-tag.other { background: var(--muted); }
+
     .tool-desc {
       font-size: 0.88rem;
       line-height: 1.65;

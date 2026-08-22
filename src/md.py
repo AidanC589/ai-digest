@@ -118,8 +118,18 @@ def render_section_body(title, body_text):
                 )
         else:
             cls = "tool-desc" if is_tool else "entry-body"
+            # GitHub Trending rows lead with an [AI]/[Other] tag before the repo
+            # link, so they never match the pattern above. Render the tag as a chip
+            # instead of leaving the brackets as literal text. Mirrors the same
+            # handling in email_render.render_section_body.
+            tag_html = ""
+            tag_m = re.match(r'^\[(AI|Other)\]\s*', content)
+            if tag_m:
+                variant = " other" if tag_m.group(1) == "Other" else ""
+                tag_html = f'<span class="tool-tag repo-tag{variant}">{tag_m.group(1)}</span>'
+                content = content[tag_m.end():]
             parts.append(
-                f'<div class="entry"><div class="{cls}">{inline(content)}</div></div>'
+                f'<div class="entry"><div class="{cls}">{tag_html}{inline(content)}</div></div>'
             )
 
     return "\n".join(parts)

@@ -9,6 +9,7 @@ from src.config import SEEN_URLS_RETENTION_DAYS
 from src.feeds import load_sources, fetch_feed
 from src.trending import fetch_github_trending
 from src.llm import call_anthropic
+from src.velocity import load_history, save_history, rewrite_trending_section
 from src.email_render import render_email
 from src.output import (
     write_markdown, write_html, send_email,
@@ -50,13 +51,20 @@ def main():
         sys.exit(1)
 
     # Append trending repos after dedup — same repo can trend on multiple days
-    all_articles.extend(fetch_github_trending())
+    trending = fetch_github_trending()
+    all_articles.extend(trending)
+
+    # Prior days only — today's counts are recorded after a clean run
+    star_history = load_history()
 
     log.info(f"Total articles collected: {len(all_articles)}")
 
     # Summarise
     log.info("Calling Anthropic API…")
     digest_md, run_cost = call_anthropic(all_articles)
+
+    # Render trending stats deterministically — the model only wrote descriptions
+    digest_md = rewrite_trending_section(digest_md, trending, star_history)
 
     # Validate
     log.info("Checking links in digest…")
@@ -70,6 +78,9 @@ def main():
     # Persist seen URLs
     save_seen_urls(seen_urls, [a["url"] for a in all_articles if a.get("type") != "trending"])
     log.info(f"Saved {len(all_articles)} URLs to seen list")
+
+    # Persist star counts last, so a crashed run doesn't record a partial day
+    save_history(star_history, trending)
 
     log.info("Done.")
 

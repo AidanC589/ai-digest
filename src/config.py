@@ -8,6 +8,7 @@ SOURCES_FILE   = ROOT_DIR / "sources.yml"
 DIGESTS_DIR    = ROOT_DIR / "digests"
 DOCS_DIR       = ROOT_DIR / "docs"
 SEEN_URLS_FILE = ROOT_DIR / "seen_urls.json"
+TRENDING_HISTORY_FILE = ROOT_DIR / "trending_history.json"
 
 # ── Feed / article settings ────────────────────────────────────────────────────
 MAX_WORDS_PER_ARTICLE  = 600
@@ -15,6 +16,12 @@ MIN_SUMMARY_WORDS      = 100
 MAX_FEED_ITEMS         = 10   # per feed (changelogs use their own cap of 5)
 MAX_ARTICLE_AGE_DAYS   = 14
 SEEN_URLS_RETENTION_DAYS = 14
+
+# ── GitHub Trending velocity ───────────────────────────────────────────────────
+TRENDING_HISTORY_RETENTION_DAYS = 90
+VELOCITY_MIN_OBSERVATIONS = 2    # need a prior point to compute a baseline
+VELOCITY_MIN_DAYS         = 7    # a short baseline produces wild ratios
+VELOCITY_MIN_RATIO        = 1.5  # below this the marker isn't worth showing
 
 # Retry on rate limits (429) and transient 5xx. Delay doubles each attempt,
 # unless the server sends a Retry-After we can use.
@@ -50,7 +57,9 @@ Concrete updates to tools this engineer uses: Claude, Claude Code, Cursor, GitHu
 Open-ended: anything from today's sources about reducing token usage or cost — prompt caching, context pruning, smaller/cheaper models for subtasks, batching, compression techniques, efficient tool-call design, etc. One to three bullets, each with the article title as a markdown link. Skip this section entirely if nothing relevant today — do not pad or invent content.
 
 ## GitHub Trending
-Repos currently trending on GitHub. For each repo include: tag [AI] or [Other], repo name as a markdown link to the repo, star count if available, and one sentence on what it does or why it's notable. List up to 10 repos. Do not skip non-AI repos — include everything but tag it.
+Repos currently trending on GitHub. Write each as exactly:
+`- [AI] [owner/repo](url) — one sentence on what it does or why it's notable.`
+Do NOT include star counts, daily changes, or any other metrics — those are added automatically after you write the digest, and any numbers you write will be discarded. List up to 10 repos. Do not skip non-AI repos — include everything but tag it.
 
 </output_format>
 
