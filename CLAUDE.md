@@ -35,6 +35,8 @@ Data flows through four stages:
 
 The web page (`src/render.py` + `src/styles.py`) and the email (`src/email_render.py`) are separate templates. Mail clients strip CSS custom properties, `<style>` blocks, flex/grid, and external font links, so the email is a table layout with inline styles only. Markdown parsing is shared via `src/md.py` — keep it there rather than duplicating it.
 
+Outbound fetches of URLs the pipeline does not control — article links from feeds, and the model's own links during validation — go through `src/net.py`, which rejects loopback/private addresses and re-checks every redirect hop. Use `safe_urlopen`/`safe_fetch_bytes` rather than `urlopen` or `trafilatura.fetch_url` for anything feed- or model-supplied.
+
 **Key design constraint:** Everything goes to Claude in a single API call — no streaming, no chunking — to preserve coherence and leverage prompt caching.
 
 ## Configuration

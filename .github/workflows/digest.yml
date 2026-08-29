@@ -5,43 +5,45 @@ on:
     - cron: "0 3 * * *"  # 03:00 UTC — off-peak, ready before you wake up
   workflow_dispatch:        # allow manual runs
 
-permissions:
-  contents: write
+permissions: {}
 
 jobs:
   digest:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
+      # persist-credentials: false keeps GITHUB_TOKEN out of .git/config, so it
+      # is absent from the environment while third-party deps and untrusted feed
+      # content are being processed. The push step below opts back in explicitly.
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Set up Python 3.12
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97  # v7.0.0
         with:
           python-version: "3.12"
 
+      # Hash-pinned lockfile: a compromised upstream release cannot enter this
+      # job, which holds the Anthropic, Gmail, and Cloudflare secrets.
+      # Regenerate with:
+      #   uv pip compile requirements.txt --generate-hashes --universal \
+      #     --python-version 3.12 -o requirements-lock.txt
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install --require-hashes -r requirements-lock.txt
 
       - name: Run digest
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-          REDDIT_USERNAME: ${{ secrets.REDDIT_USERNAME }}
-          REDDIT_PASSWORD: ${{ secrets.REDDIT_PASSWORD }}
         run: python digest.py
 
-      - name: Commit and push changes
-        run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add digests/ docs/ seen_urls.json trending_history.json
-          git diff --staged --quiet || git commit -m "digest: $(date -u +%Y-%m-%d)"
-          git pull --rebase origin main
-          git push
-
+      # Deploys from docs/ on disk, so it does not depend on the commit below.
+      # Ordered first to keep the git token out of the npm/wrangler steps.
       - name: Deploy to Cloudflare Pages
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
@@ -49,3 +51,16 @@ jobs:
         run: |
           npm ci
           npx wrangler pages deploy docs/ --project-name ai-digest --branch main --commit-dirty=true
+
+      - name: Commit and push changes
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add digests/ docs/ seen_urls.json trending_history.json
+          git diff --staged --quiet && exit 0
+          git commit -m "digest: $(date -u +%Y-%m-%d)"
+          git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git pull --rebase origin main
+          git push origin HEAD:main

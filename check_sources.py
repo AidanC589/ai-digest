@@ -6,8 +6,7 @@ import yaml
 import feedparser
 from datetime import datetime, timezone, timedelta
 from src.config import SOURCES_FILE, MAX_ARTICLE_AGE_DAYS
-from src.feeds import _reddit_auth_header, _parse_feed_with_retry, REDDIT_DOMAINS
-from urllib.parse import urlparse
+from src.feeds import _parse_feed_with_retry
 
 BASE_HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; ai-digest/1.0)"}
 RECENT_DAYS = 7  # warn if newest article is older than this
@@ -24,10 +23,7 @@ def check_sources():
         result = {"name": name, "url": url}
 
         try:
-            headers = dict(BASE_HEADERS)
-            if urlparse(url).netloc in REDDIT_DOMAINS:
-                headers.update(_reddit_auth_header())
-            feed = _parse_feed_with_retry(url, headers, name)
+            feed = _parse_feed_with_retry(url, dict(BASE_HEADERS), name)
             status = getattr(feed, "status", None)
             result["status"] = status
             result["entries"] = len(feed.entries)

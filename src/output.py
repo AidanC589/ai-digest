@@ -8,10 +8,10 @@ import smtplib
 from datetime import date, timedelta
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from urllib.request import urlopen, Request
 from urllib.error import URLError, HTTPError
 
 from src.config import DIGESTS_DIR, DOCS_DIR, SEEN_URLS_FILE, SEEN_URLS_RETENTION_DAYS
+from src.net import safe_urlopen, BlockedURL
 from src.render import render_html, update_archive
 
 log = logging.getLogger(__name__)
@@ -80,9 +80,11 @@ def check_links(md_text):
     dead = []
     for anchor, url in urls:
         try:
-            req = Request(url, method="HEAD", headers={"User-Agent": "Mozilla/5.0 (compatible; ai-digest/1.0)"})
-            with urlopen(req, timeout=8) as resp:
+            with safe_urlopen(url, method="HEAD", timeout=8) as resp:
                 status = resp.status
+        except BlockedURL as e:
+            status = "blocked"
+            log.warning(f"Blocked link check: {e}")
         except HTTPError as e:
             status = e.code
         except URLError as e:

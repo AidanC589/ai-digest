@@ -1,9 +1,7 @@
 """RSS feed fetching and article text extraction."""
 
 import re
-import base64
 import logging
-import os
 import time
 from datetime import datetime, timezone, timedelta
 from urllib.parse import urlparse
@@ -17,23 +15,13 @@ from src.config import (
     MIN_SUMMARY_WORDS, MAX_ARTICLE_AGE_DAYS,
     FEED_MAX_RETRIES, FEED_RETRY_BASE_DELAY, FEED_RETRY_MAX_DELAY,
 )
+from src.net import safe_fetch_bytes, BlockedURL
 
 log = logging.getLogger(__name__)
 logging.getLogger("trafilatura").setLevel(logging.CRITICAL)
 
 SKIP_FULL_FETCH_DOMAINS = {"reddit.com", "www.reddit.com", "github.com", "arxiv.org"}
-REDDIT_DOMAINS = {"reddit.com", "www.reddit.com"}
 RETRYABLE_STATUSES = {429, 500, 502, 503, 504}
-
-
-def _reddit_auth_header():
-    """Return Authorization header for Reddit basic auth, or None if creds not set."""
-    user = os.environ.get("REDDIT_USERNAME")
-    pwd  = os.environ.get("REDDIT_PASSWORD")
-    if user and pwd:
-        token = base64.b64encode(f"{user}:{pwd}".encode()).decode()
-        return {"Authorization": f"Basic {token}"}
-    return {}
 
 
 def _retry_after(parsed):
@@ -101,12 +89,21 @@ def truncate_to_words(text, max_words):
 
 
 def fetch_article_text(url):
-    """Fetch and extract clean body text from a URL using trafilatura."""
+    """Fetch and extract clean body text from a URL using trafilatura.
+
+    The download goes through src.net rather than trafilatura.fetch_url: the URL
+    comes from a feed entry, so it is only as trustworthy as whoever submitted it,
+    and whatever comes back gets published. trafilatura.extract takes the raw
+    bytes and does its own charset detection.
+    """
     try:
-        downloaded = trafilatura.fetch_url(url)
+        downloaded = safe_fetch_bytes(url)
         if not downloaded:
             return None
         return trafilatura.extract(downloaded, include_comments=False, include_tables=False)
+    except BlockedURL as e:
+        log.warning(f"Blocked article fetch: {e}")
+        return None
     except Exception as e:
         log.warning(f"Failed to fetch {url}: {e}")
         return None
@@ -120,10 +117,7 @@ def fetch_feed(feed_cfg):
     item_cap = 5 if is_changelog else MAX_FEED_ITEMS
 
     log.info(f"Fetching feed: {name}{' [changelog]' if is_changelog else ''}")
-    feed_domain = urlparse(url).netloc
     headers = {"User-Agent": "Mozilla/5.0 (compatible; ai-digest/1.0)"}
-    if feed_domain in REDDIT_DOMAINS:
-        headers.update(_reddit_auth_header())
     try:
         parsed = _parse_feed_with_retry(url, headers, name)
         if parsed.bozo and not parsed.entries:

@@ -1,3 +1,7 @@
+# Direct dependencies, human-edited. CI does NOT install from this file — it
+# installs the fully-pinned, hash-checked requirements-lock.txt compiled from it.
+# After changing anything here, regenerate the lock (command in digest.yml).
+#
 # Compatible-release pins: patch and minor updates (incl. security fixes) flow in
 # automatically; a new major cannot land unannounced in the 03:00 UTC CI run.
 anthropic~=1.0

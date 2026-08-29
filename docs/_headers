@@ -1,0 +1,12 @@
+# Cloudflare Pages response headers. Not served as a file — Pages consumes it.
+#
+# The script-src hash covers the one inline <script> on archive.html, which is
+# emitted by src/render.py:update_archive. If you edit that script, recompute:
+#   python -c "import re,hashlib,base64,pathlib;h=pathlib.Path('docs/archive.html').read_text(encoding='utf-8');b=re.search(r'<script>(.*?)</script>',h,re.S).group(1);print('sha256-'+base64.b64encode(hashlib.sha256(b.encode()).digest()).decode())"
+
+/*
+  Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'sha256-7JJ0syjkm+nuVBs5C0sCcane9HYnZpTLO4YlKXBbOuA='; img-src 'self' data:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), camera=(), microphone=(), payment=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains

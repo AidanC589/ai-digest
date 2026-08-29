@@ -7,6 +7,9 @@
 # updates) and fire on advisories regardless of the schedule below.
 version: 2
 updates:
+  # Picks up both requirements.txt and requirements-lock.txt; the "requirements*.txt"
+  # name is what makes the lock discoverable, so Dependabot updates its pins and
+  # hashes itself rather than leaving them to drift behind the input file.
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
