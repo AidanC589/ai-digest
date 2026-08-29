@@ -1,4 +1,4 @@
-# Dependabot version updates. Complements the pins in requirements.txt and
+# Dependabot version updates. Complements the locks in uv.lock and
 # package-lock.json: a new major arrives as a reviewable PR instead of
 # silently entering the 03:00 UTC run.
 #
@@ -7,10 +7,11 @@
 # updates) and fire on advisories regardless of the schedule below.
 version: 2
 updates:
-  # Picks up both requirements.txt and requirements-lock.txt; the "requirements*.txt"
-  # name is what makes the lock discoverable, so Dependabot updates its pins and
-  # hashes itself rather than leaving them to drift behind the input file.
-  - package-ecosystem: "pip"
+  # uv, not pip. Dependabot regenerates uv.lock through uv itself, so an update
+  # re-resolves the whole graph. The pip ecosystem edits a flat hashed
+  # requirements file line by line, which produced locks that could not install
+  # — it bumped pydantic-core past the version pydantic pins.
+  - package-ecosystem: "uv"
     directory: "/"
     schedule:
       interval: "monthly"

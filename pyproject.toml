@@ -1,0 +1,21 @@
+[project]
+name = "ai-digest"
+version = "0.1.0"
+description = "Daily AI news digest pipeline"
+requires-python = ">=3.12"
+
+# Direct dependencies only. Compatible-release pins: patch and minor updates
+# (incl. security fixes) flow in automatically; a new major cannot land
+# unannounced in the 03:00 UTC run. The full resolved graph, with hashes, is
+# uv.lock — CI installs from that, never from these ranges.
+dependencies = [
+    "anthropic~=1.0",
+    "feedparser~=6.0",
+    "trafilatura~=2.2",
+    "tiktoken~=0.14",
+    "pyyaml~=6.0",
+]
+
+[tool.uv]
+# digest.py and src/ are run from the repo root, not installed as a package.
+package = false

@@ -13,7 +13,7 @@ Runs every day at 03:00 UTC via GitHub Actions:
 1. Fetches RSS feeds from configured sources
 2. Filters out articles older than 14 days and URLs already seen in the past 14 days
 3. Extracts full article text where the feed summary is too short (via Trafilatura)
-4. Passes all articles to Claude (Sonnet 4.6) in a single API call
+4. Passes all articles to Claude (Sonnet 5) in a single API call
 5. Publishes the digest as:
    - A dated Markdown file in `digests/` (permanent archive)
    - `docs/index.html` — latest digest, deployed to Cloudflare Pages
@@ -34,8 +34,8 @@ flowchart TD
 
 ## Tech stack
 
-- **Python** — pipeline, feed parsing, HTML rendering
-- **Claude API (Sonnet 4.6)** — summarisation and editorial curation
+- **Python** (deps via `uv`, locked in `uv.lock`) — pipeline, feed parsing, HTML rendering
+- **Claude API (Sonnet 5)** — summarisation and editorial curation
 - **Trafilatura** — full-text extraction from article URLs
 - **GitHub Actions** — daily scheduling, git commit, Cloudflare deployment
 - **Cloudflare Pages** — static site hosting
@@ -73,11 +73,11 @@ Key constants in `src/config.py`:
 
 | Constant | Default | Purpose |
 |---|---|---|
-| `MAX_FEED_ITEMS` | 5 | Articles fetched per feed |
+| `MAX_FEED_ITEMS` | 10 | Articles fetched per feed |
 | `MAX_ARTICLE_AGE_DAYS` | 14 | Filters out older articles |
 | `MAX_WORDS_PER_ARTICLE` | 600 | Text cap per article before API call |
-| `TOKEN_BUDGET` | 35,000 | Input token cap — trims content if exceeded |
-| `MODEL` | claude-sonnet-4-6 | Anthropic model used |
+| `TOKEN_BUDGET` | 60,000 | Input token cap — trims content if exceeded |
+| `MODEL` | claude-sonnet-5 | Anthropic model used |
 
 ## Secrets required
 

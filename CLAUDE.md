@@ -9,15 +9,22 @@ Live site: https://ai-digest-elw.pages.dev
 ## Commands
 
 ```bash
+# Sync the environment from uv.lock (do this first, and after pulling)
+uv sync
+
 # Run the full digest (requires ANTHROPIC_API_KEY)
-python digest.py
+uv run python digest.py
 
 # Render a local preview without calling Claude (opens docs/index.html)
-python preview.py
+uv run python preview.py
 
 # Same, but render the email template instead of the web page
-python preview.py --email
+uv run python preview.py --email
 ```
+
+Dependencies live in `pyproject.toml` (direct, with `~=` ranges) and `uv.lock` (the
+full resolved graph, with hashes). CI runs `uv sync --locked`, which fails if the two
+have drifted. After editing `pyproject.toml`, run `uv lock` and commit both.
 
 There are no automated tests. Use `python preview.py` (add `--email` for the email template) to verify HTML rendering changes without an API call.
 

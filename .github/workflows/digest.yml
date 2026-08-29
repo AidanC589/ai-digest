@@ -22,25 +22,25 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Set up Python 3.12
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97  # v7.0.0
+      - name: Set up uv and Python 3.12
+        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d  # v10.0.1
         with:
           python-version: "3.12"
+          enable-cache: true
 
-      # Hash-pinned lockfile: a compromised upstream release cannot enter this
-      # job, which holds the Anthropic, Gmail, and Cloudflare secrets.
-      # Regenerate with:
-      #   uv pip compile requirements.txt --generate-hashes --universal \
-      #     --python-version 3.12 -o requirements-lock.txt
+      # uv.lock pins the whole graph with hashes, so a compromised upstream
+      # release cannot enter this job, which holds the Anthropic, Gmail, and
+      # Cloudflare secrets. --locked fails if the lock has drifted from
+      # pyproject.toml rather than silently resolving something new.
       - name: Install dependencies
-        run: pip install --require-hashes -r requirements-lock.txt
+        run: uv sync --locked
 
       - name: Run digest
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-        run: python digest.py
+        run: uv run python digest.py
 
       # Deploys from docs/ on disk, so it does not depend on the commit below.
       # Ordered first to keep the git token out of the npm/wrangler steps.
