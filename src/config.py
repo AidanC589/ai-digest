@@ -30,10 +30,11 @@ FEED_RETRY_BASE_DELAY  = 2.0   # seconds
 FEED_RETRY_MAX_DELAY   = 60.0  # ceiling, incl. server-supplied Retry-After
 
 # ── API / cost settings ────────────────────────────────────────────────────────
-MODEL               = "claude-sonnet-5"
-TOKEN_BUDGET        = 60_000   # max estimated input tokens (~$0.180/run)
-INPUT_COST_PER_MTOK = 3.0
-OUTPUT_COST_PER_MTOK = 15.0
+MODEL               = "claude-sonnet-5-5"
+EFFORT              = "medium"  # levels are model-specific — re-check when changing MODEL
+TOKEN_BUDGET        = 60_000   # max estimated input tokens (~$0.120/run)
+INPUT_COST_PER_MTOK = 2.0
+OUTPUT_COST_PER_MTOK = 10.0
 
 # ── System prompt ──────────────────────────────────────────────────────────────
 SYSTEM_PROMPT = """You are producing a daily AI digest for a software engineer who works exclusively with AI-assisted development and no longer writes code manually. They review and steer AI-generated code rather than writing it, so their priorities are: prompt engineering, AI code quality and security, workflow efficiency, and staying ahead of tooling changes — especially Claude, Claude Code, and similar assistants.

@@ -9,7 +9,7 @@ import tiktoken
 import anthropic
 
 from src.config import (
-    MODEL, SYSTEM_PROMPT, TOKEN_BUDGET,
+    MODEL, EFFORT, SYSTEM_PROMPT, TOKEN_BUDGET,
     MAX_WORDS_PER_ARTICLE, INPUT_COST_PER_MTOK, OUTPUT_COST_PER_MTOK,
 )
 from src.feeds import truncate_to_words
@@ -92,13 +92,21 @@ def call_anthropic(articles):
     log.info(f"Estimated input tokens: {input_tokens:,}")
     log.info(f"Estimated input cost:   ${(input_tokens / 1_000_000) * INPUT_COST_PER_MTOK:.4f}")
 
-    response = client.messages.create(
+    # fallbacks="default" re-runs a cyber/frontier_llm classifier decline on the
+    # previous Sonnet server-side, so one flagged article doesn't lose the day.
+    response = client.beta.messages.create(
         model=MODEL,
         max_tokens=16000,
         thinking={"type": "adaptive"},
+        output_config={"effort": EFFORT},
+        betas=["server-side-fallback-2026-07-01"],
+        fallbacks="default",
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": user_message}],
     )
+
+    if response.model != MODEL:
+        log.warning(f"{MODEL} declined — digest written by fallback model {response.model}")
 
     # Fail loudly rather than publishing a truncated or refused digest
     if response.stop_reason == "max_tokens":
