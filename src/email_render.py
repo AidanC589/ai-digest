@@ -82,7 +82,7 @@ def _section_body(title, body_text):
             )
             continue
 
-        m = re.match(r'\[(.+?)\]\(([^)]+)\)\s*[—–-]+\s*(.*)', content, re.DOTALL)
+        m = re.match(r'\[(.+?)\]\(([^)]+)\)\s*[—–:-]+\s*(.*)', content, re.DOTALL)
         if m:
             link_text, url, desc = m.group(1), m.group(2), m.group(3).strip()
             link_text = re.sub(r'^\[[^\]]+\]\s*', '', link_text)

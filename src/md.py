@@ -88,7 +88,7 @@ def render_section_body(title, body_text):
             parts.append(f'<p class="empty">{inline(s)}</p>')
             continue
 
-        m = re.match(r'\[(.+?)\]\(([^)]+)\)\s*[—–-]+\s*(.*)', content, re.DOTALL)
+        m = re.match(r'\[(.+?)\]\(([^)]+)\)\s*[—–:-]+\s*(.*)', content, re.DOTALL)
         if m:
             link_text, url, desc = m.group(1), m.group(2), m.group(3).strip()
             # Strip leading [Tag] prefixes e.g. "[AINews] Title" → "Title"

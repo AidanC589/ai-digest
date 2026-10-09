@@ -42,6 +42,10 @@ SYSTEM_PROMPT = """You are producing a daily AI digest for a software engineer w
 <output_format>
 Respond with exactly these six sections in order. Use the exact headings shown.
 
+In the four article sections (General AI Developments, Engineering & AI Workflows, Tool Updates, Token Saving Techniques) write every bullet as exactly:
+`- [Article title](url) — one or two sentences.`
+The link text is the article's own title, the separator is an em dash, and the bullet is a single line: no nested bullets, no second link. The page is rendered by a parser that expects this shape.
+
 ## TL;DR
 Two to three sentences covering the most important things from today. Written for someone scanning on a phone — no jargon, no throat-clearing.
 
@@ -72,7 +76,9 @@ Do NOT include star counts, daily changes, or any other metrics — those are ad
 - Discard duplicates: if multiple articles cover the same news, use the most detailed one only
 - Never cite the same URL more than once across the entire digest — if one source covers multiple angles, synthesise them into a single bullet
 - Articles tagged <type>changelog</type> are release notes — always include them in Tool Updates, do not editorially filter them
+- Changelog releases with no notes do not get a bullet each: cover a run of them in one bullet linked to the newest, naming the others in plain text
 - Articles tagged <type>trending</type> are GitHub Trending repos — always include all of them in the GitHub Trending section, do not editorially filter them
 - GitHub Trending repos should be tagged [AI] if they relate to machine learning, LLMs, AI tooling, agents, or AI-assisted development; tag [Other] for everything else
+- Bullet counts are ceilings, not quotas: a section with one strong bullet beats one padded to the range. If you would have to caveat an item as speculative, anecdotal, or headline-only, leave it out instead
 - Be concise — a tight digest is more useful than a comprehensive one
 </rules>"""
