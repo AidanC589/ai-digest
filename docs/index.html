@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI Digest — 2026-10-13</title>
+  <title>AI Digest — 2026-10-14</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
@@ -327,64 +327,68 @@
   <div class="masthead">
     <p class="masthead-kicker">Daily AI Intelligence</p>
     <h1 class="masthead-title">AI Digest</h1>
-    <p class="masthead-date">Tuesday, 13 October 2026</p>
+    <p class="masthead-date">Wednesday, 14 October 2026</p>
   </div>
   <nav class="nav-bar"><a href="#general-ai-developments">General AI Developments</a><a href="#engineering-ai-workflows">Engineering & AI Workflows</a><a href="#tool-updates">Tool Updates</a><a href="#token-saving-techniques">Token Saving Techniques</a><a href="#github-trending">GitHub Trending</a></nav>
   <div class="wrapper">
     <div class="tldr-block">
       <span class="tldr-label">TL;DR</span>
-      <p>A Harvard study of 700+ firms finds AI coding agents boost code output by about 30% but not shipped software, because human code review is the bottleneck. Anthropic launched &quot;dynamic workflows&quot; for multi-agent orchestration and published research suggesting small models could soon self-replicate on IoT devices. Meta&#39;s Muse Wonder lands near the frontier on third-party evals.</p>
+      <p>Anthropic says its merge rate rose from about 2,500 to over 30,000 changes a day, and it built a replacement for Git to cope. Google&#39;s Gemini 4 Argon is now generally available at $2/$10 per million tokens, doubling on Dec 1. A Reddit post warns that Claude Code left an uncapped background test loop running after hitting its usage limit, racking up about $2.1K, so set spend alarms.</p>
     </div>
     <section class="section" id="general-ai-developments">
   <div class="section-header">
     <span class="section-number">01</span>
     <h2 class="section-title">General AI Developments</h2>
   </div>
-  <div class="entry"><div class="entry-source"><a href="https://www.anthropic.com/research/self-replicating-ai" target="_blank" rel="noopener">AI models may be capable of self-replicating without access to a datacenter</a></div><div class="entry-body">Anthropic&#39;s red team found a 9B model got inference running on 8 of 9 hardware types, and a 26B model ran across 15 cheap Android TV boxes at 0.39 tokens/sec. They project small models matching end-to-end replication ability by year&#39;s end, which makes poorly defended IoT devices a real security concern.</div></div>
-<div class="entry"><div class="entry-source"><a href="https://www.latent.space/p/ainews-meta-muse-wonder-and-wonder" target="_blank" rel="noopener">Meta Muse Wonder &amp; Wonder Full: MSL&#39;s Claude 5.5-tier Frontier Model</a></div><div class="entry-body">Artificial Analysis puts Wonder Full at 56 on its Intelligence Index against Opus 5.5&#39;s 58, with big agentic gains (Terminal-Bench 4.0: 33% to 57%). Launch-day quota-drain bugs hit Muse Code and were fixed with a reset.</div></div>
+  <div class="entry"><div class="entry-source"><a href="https://simonwillison.net/2026/Oct/13/llm-gemini/" target="_blank" rel="noopener">Llm-gemini 0.35</a></div><div class="entry-body">Gemini 4 Argon launches at $2/$10 per million tokens, doubling Dec 1 to match Opus 5.5. Artificial Analysis&#39;s cost-to-run-benchmark figure ($2,407) suggests it is still cheaper per task than OpenAI, Anthropic and Meta&#39;s latest.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://arxiv.org/abs/2610.14071" target="_blank" rel="noopener">Loose Lips: Understanding Privacy Leakage in Agentic Dialogue</a></div><div class="entry-body">On open-weight Qwen3 and Llama 3.1 models, more capable models leak more private information, and thinking models leak more than non-thinking ones. Leakage rose up to 3x from 1 to 6 turns, which matters for long agent sessions that handle sensitive data.</div></div>
 </section>
 <section class="section" id="engineering-ai-workflows">
   <div class="section-header">
     <span class="section-number">02</span>
     <h2 class="section-title">Engineering &amp; AI Workflows</h2>
   </div>
-  <div class="entry"><div class="entry-source"><a href="https://arstechnica.com/ai/2026/10/ai-coding-agents-generate-more-code-but-not-more-software/" target="_blank" rel="noopener">AI coding agents generate more code, but not more software</a></div><div class="entry-body">Across 700+ firms, agents raised lines of code 30% and PRs 23%, but Jira issue resolution didn&#39;t change significantly. Reviews got longer, PRs needed more revisions, and reviewers left more comments, so review is your bottleneck.</div></div>
-<div class="entry"><div class="entry-source"><a href="https://www.latent.space/p/claude-dynamic-workflows" target="_blank" rel="noopener">How Anthropic&#39;s Dynamic Workflows Coordinate Claude Agents</a></div><div class="entry-body">Claude writes its own orchestration program to launch agents, collect results and split work into verifiable units, instead of you configuring a subagent roster. Anthropic&#39;s answer to runaway agent counts is evals and lower defaults, and you can still pass in pre-configured specialist subagents.</div></div>
-<div class="entry"><div class="entry-source"><a href="https://yyhh.org/blog/2026/10/ai-is-a-tool/" target="_blank" rel="noopener">AI is a tool and using it well takes skill</a></div><div class="entry-body">A rebuttal to Rich Hickey&#39;s &quot;not a tool&quot; essay, arguing that the useful line is between wielding AI with a feedback loop and delegating without adequate understanding or oversight. That&#39;s a fair framing for your review-and-steer role.</div></div>
+  <div class="entry"><div class="entry-source"><a href="https://simonwillison.net/2026/Oct/13/redesigning-source-control-at-anthropic/" target="_blank" rel="noopener">Redesigning source control at Anthropic</a></div><div class="entry-body">Anthropic went from about 2,500 merged changes a day in May to over 30,000 in September and built its own source control system, Scion, to cope. Their adversarial review is effective but can be myopic, so engineers had to steer Claude away from over-engineering in response to hypothetical concerns.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://simonwillison.net/2026/Oct/13/geoffrey-huntley/" target="_blank" rel="noopener">Quoting Geoffrey Huntley</a></div><div class="entry-body">Instead of repeatedly updating AGENTS.md, use a pre-commit hook that checks the diff for banned patterns and fails the commit with a corrective prompt. Huntley reports it took the agent from inconsistent compliance to ten out of ten.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://parsimony.lasu.dev/" target="_blank" rel="noopener">Show HN: Parsimony – an open-source benchmark for how much code AI models add</a></div><div class="entry-body">Measures net &quot;coding units&quot; added by published benchmark patches, penalising bloat that solve rate and token cost miss. Newer models are only lightly tested (3–10 tasks), so treat those results as indicative, but the metric is useful for reviewing AI code.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://www.reddit.com/r/ClaudeAI/comments/1x540si/psa_claude_code_wrote_me_an_uncapped_test_loop/" target="_blank" rel="noopener">PSA: Claude Code wrote me an uncapped test loop, ran it in the background, told me it was &quot;idle,&quot; then hit its daily usage limit. It ran 17 hours and cost about $2.1K</a></div><div class="entry-body">A single user&#39;s account, unverified, of background processes calling Bedrock for about 17 hours after the session hit its limit. Regardless of the cause, review any agent-written loop that makes paid API calls, and set budget alarms and hard caps.</div></div>
 </section>
 <section class="section" id="tool-updates">
   <div class="section-header">
     <span class="section-number">03</span>
     <h2 class="section-title">Tool Updates</h2>
   </div>
-  <div class="tool-entry"><div class="tool-name"><a href="https://www.reddit.com/r/ClaudeAI/comments/1x4l1tj/didnt_expect_to_be_this_pleased_about_a_usage/" target="_blank" rel="noopener">Didn&#39;t expect to be this pleased about a usage limit reset</a></div><div class="tool-desc">Per one user, Claude Code now gives a wrap-up allowance past the 5-hour limit so sessions end at a sensible point, and it counts against the weekly limit. Pro gets it once a week, Max and Team Premium every time. A one-time free limit reset from the Opus 5.5 launch is under Settings &gt; Usage and expires 22 October.</div></div>
+  <div class="tool-entry"><div class="tool-name"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.299" target="_blank" rel="noopener">v2.1.299</a><span class="tool-tag">v2.1.299</span></div><div class="tool-desc">Claude Code adds idle compaction, which compacts a 200K+ token conversation about 54 minutes into idleness, before the one-hour prompt cache expires (<code>idleCompaction: false</code> disables it). Also adds <code>CLAUDE_CODE_DISABLE_FILE_MENTIONS</code> so <code>@</code> mentions pass paths rather than contents, new <code>/usage</code> warnings for max effort, workflows and large tool results, and several mod/hook fixes.</div></div>
+<div class="tool-entry"><div class="tool-name"><a href="https://www.latent.space/p/ainews-ai-engineer-nyc-gemini-4-argon" target="_blank" rel="noopener">AI Engineer NYC: Gemini 4 Argon, Vals AI Benchmarks</a></div><div class="tool-desc">Argon is available in Cursor, Devin and GitHub Copilot. Cursor reports 52.8% on CursorBench, on par with Opus 5.5, and Cognition offers a 75% Devin discount through Oct 27.</div></div>
+<div class="tool-entry"><div class="tool-name"><a href="https://github.com/openai/codex/releases/tag/rust-v0.163.0-alpha.11" target="_blank" rel="noopener">0.163.0-alpha.11</a></div><div class="tool-desc">Codex alpha builds with no release notes; alpha.10, alpha.9 and alpha.8 were also published.</div></div>
 </section>
 <section class="section" id="token-saving-techniques">
   <div class="section-header">
     <span class="section-number">04</span>
     <h2 class="section-title">Token Saving Techniques</h2>
   </div>
-  <div class="entry"><div class="entry-source"><a href="https://github.com/mksglu/context-mode" target="_blank" rel="noopener">mksglu/context-mode</a></div><div class="entry-body">Sandboxes tool output for a claimed 98% reduction, persists session memory, and routes via MCP and hooks across 17 platforms. It&#39;s a ready-made context-pruning layer for coding agents.</div></div>
+  <div class="entry"><div class="entry-source"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.299" target="_blank" rel="noopener">v2.1.299</a></div><div class="entry-body">Idle compaction and path-only <code>@</code> mentions are both token savers.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://sayora.ai/many-hands/jev-vs-embeddings/" target="_blank" rel="noopener">Jev handed our LLM the wrong page a tenth as often as our embeddings</a></div><div class="entry-body">Instead of chunked RAG, a cheap decision model ($0.042 per million input tokens) picks whole pages from a list, with a &quot;none&quot; option. In the authors&#39; test it handed over the wrong page 3% of the time versus 33% for embeddings. This is one team&#39;s test of a vendor model, but the pattern of using a cheap classifier for retrieval is reusable.</div></div>
 </section>
 <section class="section" id="github-trending">
   <div class="section-header">
     <span class="section-number">05</span>
     <h2 class="section-title">GitHub Trending</h2>
   </div>
-  <div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/morluto/rea" target="_blank" rel="noopener">morluto/rea</a></strong> ★182,286 · +45,327/day · day 7 — Agent-driven reverse engineering from app behavior down to native binaries.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/bilawalsidhu/gods-eye-view" target="_blank" rel="noopener">bilawalsidhu/gods-eye-view</a></strong> ★54,428 · +1,895/day · ▲2.0x · day 10 — Browser-based spy-satellite simulator showing live open-source spatial data on a 3D globe.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/mksglu/context-mode" target="_blank" rel="noopener">mksglu/context-mode</a></strong> ★27,695 · +246/day · day 8 — Context window optimization for AI coding agents via sandboxed tool output and session memory.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/storytold/artcraft" target="_blank" rel="noopener">storytold/artcraft</a></strong> ★23,662 · +4,095/day · day 5 — A crafting engine for artists, designers and filmmakers, written in Rust.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/open-webui/open-webui" target="_blank" rel="noopener">open-webui/open-webui</a></strong> ★155,472 · +157/day — User-friendly AI interface supporting Ollama, the OpenAI API and more.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/cathrynlavery/diagram-design" target="_blank" rel="noopener">cathrynlavery/diagram-design</a></strong> ★53,280 · +2,081/day · ▲3.0x · day 15 — Editorial diagram skills for Claude Code, Codex, Copilot and Cursor, with 44 diagram types as self-contained HTML and SVG.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/lyogavin/airllm" target="_blank" rel="noopener">lyogavin/airllm</a></strong> ★37,903 · +879/day · day 2 — Runs very large LLM inference on a single 4GB GPU.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/microsoft/BitNet" target="_blank" rel="noopener">microsoft/BitNet</a></strong> ★41,069 · +97/day — Official inference framework for 1-bit LLMs.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/Alishahryar1/free-claude-code" target="_blank" rel="noopener">Alishahryar1/free-claude-code</a></strong> ★59,745 · +626/day · ▲2.8x · day 5 — Lets you use Claude Code, Codex, OpenCode and other harnesses with free token allotments from terminal, IDE, phone or browser.</div></div>
+  <div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/morluto/rea" target="_blank" rel="noopener">morluto/rea</a></strong> ★220,972 · +54,679/day · ▲1.8x · day 8 — Reverse engineering with agents, from app behavior down to native binaries.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/bilawalsidhu/gods-eye-view" target="_blank" rel="noopener">bilawalsidhu/gods-eye-view</a></strong> ★55,960 · +1,961/day · ▲2.0x · day 11 — Browser-based spy satellite simulator with live open spatial data on a 3D globe.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/debpalash/VoiceStudio" target="_blank" rel="noopener">debpalash/VoiceStudio</a></strong> ★64,422 · +1,748/day · day 10 — Fully local, open-source ElevenLabs alternative for voice cloning, dubbing, transcription and audiobooks.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/mksglu/context-mode" target="_blank" rel="noopener">mksglu/context-mode</a></strong> ★28,563 · +969/day · ▲4.7x · day 9 — Context window optimization for coding agents that sandboxes tool output and persists session memory via MCP and hooks.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/cathrynlavery/diagram-design" target="_blank" rel="noopener">cathrynlavery/diagram-design</a></strong> ★54,737 · +1,815/day · ▲2.6x · day 16 — Editorial diagram skill set for Claude Code, Codex, Copilot and Cursor, with 44 diagram types as self-contained HTML and SVG.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/vercel-labs/skills" target="_blank" rel="noopener">vercel-labs/skills</a></strong> ★34,759 · +190/day · ▲1.7x · day 3 — Open agent skills tool, installed with <code>npx skills</code>.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/lyogavin/airllm" target="_blank" rel="noopener">lyogavin/airllm</a></strong> ★38,529 · +1,001/day · day 3 — Runs very large LLM inference on a single 4GB GPU.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/storytold/artcraft" target="_blank" rel="noopener">storytold/artcraft</a></strong> ★26,630 · +4,081/day · day 6 — Crafting engine for artists, designers and filmmakers.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/xtool-org/xtool" target="_blank" rel="noopener">xtool-org/xtool</a></strong> ★9,880 · +1,198/day — Cross-platform Xcode replacement for building and deploying iOS apps with SwiftPM on Linux, Windows and macOS.</div></div>
 </section>
     <footer>
       <div class="footer-left">AI Digest &middot; Daily Briefing</div>
       <div class="footer-right">
-        <a class="footer-archive" href="archive.html">Archive</a><span class="cost-pill">$0.0673</span>
+        <a class="footer-archive" href="archive.html">Archive</a><span class="cost-pill">$0.0915</span>
       </div>
     </footer>
   </div>
