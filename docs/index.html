@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI Digest — 2026-10-17</title>
+  <title>AI Digest — 2026-10-18</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
@@ -327,66 +327,57 @@
   <div class="masthead">
     <p class="masthead-kicker">Daily AI Intelligence</p>
     <h1 class="masthead-title">AI Digest</h1>
-    <p class="masthead-date">Saturday, 17 October 2026</p>
+    <p class="masthead-date">Sunday, 18 October 2026</p>
   </div>
-  <nav class="nav-bar"><a href="#general-ai-developments">General AI Developments</a><a href="#engineering-ai-workflows">Engineering & AI Workflows</a><a href="#tool-updates">Tool Updates</a><a href="#token-saving-techniques">Token Saving Techniques</a><a href="#github-trending">GitHub Trending</a></nav>
+  <nav class="nav-bar"><a href="#general-ai-developments">General AI Developments</a><a href="#engineering-ai-workflows">Engineering & AI Workflows</a><a href="#token-saving-techniques">Token Saving Techniques</a><a href="#github-trending">GitHub Trending</a></nav>
   <div class="wrapper">
     <div class="tldr-block">
       <span class="tldr-label">TL;DR</span>
-      <p>Anthropic&#39;s Claude Code team describes running continuous AI review before any human looks at a change. Separately, a Register headline says AI reviewers found more Postgres 19 bugs than humans could fix. Claude Code v2.1.302 adds a few new settings and fixes a prompt-cache miss.</p>
+      <p>Meta released Muse Spark Open, the strongest US open-weights model on one independent index, though it ranks last among top open models on agentic evals. An Opencode breach report is circulating with few details, so rotating keys is a sensible precaution. A new Git hook called Sphinx quizzes you on AI-written code before it ships.</p>
     </div>
     <section class="section" id="general-ai-developments">
   <div class="section-header">
     <span class="section-number">01</span>
     <h2 class="section-title">General AI Developments</h2>
   </div>
-  <div class="entry"><div class="entry-source"><a href="https://www.mercor.com/research/labor-index/benchmark-map/" target="_blank" rel="noopener">90% of US working hours are spent on tasks not covered well by AI benchmarks</a></div><div class="entry-body">Mercor mapped 29 benchmarks onto 923 O*NET occupations and found only 208 have a task with at least 5 benchmark prompts. The authors call the results provisional because their benchmark list is incomplete, but the gaps are a useful reminder that benchmark scores say little about most real work.</div></div>
-<div class="entry"><div class="entry-source"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1x7g3zq/china_proposes_export_controls_on_23_ai/" target="_blank" rel="noopener">China proposes export controls on 23 AI technologies (including large models, agents &amp; clusters); already open-sourced tech is exempted</a></div><div class="entry-body">The draft exempts already-open-sourced work and API/SaaS access, but unreleased models may need registration before weights go abroad. Future open releases from labs like DeepSeek and Qwen could face extra compliance steps. Comments are open until November 15.</div></div>
+  <div class="entry"><div class="entry-source"><a href="https://www.latent.space/p/ainews-high-taste-testers-ep-1" target="_blank" rel="noopener">High Taste Testers Ep. 1</a></div><div class="entry-body">Meta&#39;s open-weights Muse Spark Open (816B MoE) scores 39 on Artificial Analysis&#39;s index, the top US open model, but ranks last among the top nine open models on its agentic evals. Reflection Beam 1.0 (Apache 2.0) scores 30 but hallucinates 47% of the time on AA-Omniscience and gets just 3.0% on Terminal-Bench 4.0.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1x8bb6b/deepseek_v41_flash_1017_now_leads_openweight/" target="_blank" rel="noopener">DeepSeek V4.1 Flash (1017) Now Leads Open-Weight Models</a></div><div class="entry-body">The new 1017 checkpoint is reported as the leading open-weights model, though the post gives no benchmark detail. Per the Latent Space roundup, it costs about $0.27 per index task, versus $0.84 for Muse Spark Open.</div></div>
 </section>
 <section class="section" id="engineering-ai-workflows">
   <div class="section-header">
     <span class="section-number">02</span>
     <h2 class="section-title">Engineering &amp; AI Workflows</h2>
   </div>
-  <div class="entry"><div class="entry-source"><a href="https://simonwillison.net/2026/Oct/16/code-review/" target="_blank" rel="noopener">Quoting Addy Osmani, Morgan Westlee Lunt, and Qing Wang</a></div><div class="entry-body">The Claude Code team reframes review from &quot;did a human read it?&quot; to &quot;which check, automated or human, catches this risk?&quot;. Review now runs continuously, and most changes have been reviewed and fixed by Claude at least once before a human sees them, which saves human attention for higher-level questions.</div></div>
-<div class="entry"><div class="entry-source"><a href="https://www.theregister.com/databases/2026/10/16/postgres-19-delayed-after-ai-reviewers-find-more-bugs-than-humans-can-fix/5303471" target="_blank" rel="noopener">Postgres 19 delayed after AI reviewers find more bugs than humans can fix</a></div><div class="entry-body">Only the headline came through, with no article body. It suggests AI review can surface defects faster than maintainers can triage them, so plan for fix capacity when you add AI review.</div></div>
-<div class="entry"><div class="entry-source"><a href="https://simonwillison.net/2026/Oct/15/latex/" target="_blank" rel="noopener">LaTeX renderer</a></div><div class="entry-body">A worked example of prompting Claude Code to build a tool: Willison pointed it at an existing sandboxed-iframe pattern from his own tools to address XSS risk, and had it reuse the URL-loading feature from another tool. Reusing proven security patterns by reference is a good habit when steering generated code.</div></div>
-</section>
-<section class="section" id="tool-updates">
-  <div class="section-header">
-    <span class="section-number">03</span>
-    <h2 class="section-title">Tool Updates</h2>
-  </div>
-  <div class="tool-entry"><div class="tool-name"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.302" target="_blank" rel="noopener">v2.1.302</a><span class="tool-tag">v2.1.302</span></div><div class="tool-desc">Claude Code adds <code>CLAUDE_CODE_AUTO_MODE_MODEL</code> for the client-side auto mode classifier and an idle-compaction toggle in <code>/config</code>. It fixes a prompt cache miss when a tool added mid-session was reloaded via ToolSearch or after compaction, a &quot;Prompt is too long&quot; error when stopping during compaction, and a refusal to load images over 128 MB. Standalone Claude Design closes December 14, 2026.</div></div>
-<div class="tool-entry"><div class="tool-name"><a href="https://github.com/openai/codex/releases/tag/rust-v0.164.0-alpha.3" target="_blank" rel="noopener">0.164.0-alpha.3</a></div><div class="tool-desc">Codex shipped three alpha pre-releases (alpha.1 and alpha.2 as well) with no release notes.</div></div>
+  <div class="entry"><div class="entry-source"><a href="https://sphinx-six-theta.vercel.app/" target="_blank" rel="noopener">Show HN: Sphinx – A hook that quizzes you on your AI&#39;s code before shipping</a></div><div class="entry-body">A Git hook that has a reviewer, which never saw your chat, quiz you on failure-mode behaviour in the diff before a protected-branch push proceeds. It targets the gap where you approve code you don&#39;t understand, and it works with Claude Code, Codex and Cursor.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1x8gtvs/opencode_breached_rotate_keys_to_be_safe/" target="_blank" rel="noopener">Opencode breached, rotate keys to be safe.</a></div><div class="entry-body">Early, unconfirmed report with details still developing. If you use Opencode, rotating API keys is cheap insurance, and it&#39;s a reminder that agent harnesses hold your credentials.</div></div>
 </section>
 <section class="section" id="token-saving-techniques">
   <div class="section-header">
-    <span class="section-number">04</span>
+    <span class="section-number">03</span>
     <h2 class="section-title">Token Saving Techniques</h2>
   </div>
-  <div class="entry"><div class="entry-source"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1x7sq8e/10_things_you_maybe_didnt_know_you_can_do_with/" target="_blank" rel="noopener">10 Things you maybe didn&#39;t know you can do with Qwen 3.6 27B right now. (For Noobs)</a></div><div class="entry-body">The author notes MCP tools consume a lot of context and suggests handing work to a sub-agent with its own context limit, which effectively stretches the main agent&#39;s window. The advice is from the author&#39;s own use of local models, but the pattern carries over.</div></div>
+  <div class="entry"><div class="entry-body">[[AINews] High Taste Testers Ep. 1](https://www.latent.space/p/ainews-high-taste-testers-ep-1) is already cited above, so see the pricing note there: Muse Spark Open uses about 40k output tokens per task, the fewest among top open models, and providers charge $0.15 per M cached input tokens. Vals notes input tokens drive most of its cost, so caching matters more than output trimming.</div></div>
 </section>
 <section class="section" id="github-trending">
   <div class="section-header">
-    <span class="section-number">05</span>
+    <span class="section-number">04</span>
     <h2 class="section-title">GitHub Trending</h2>
   </div>
-  <div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/anthropics/claude-plugins-official" target="_blank" rel="noopener">anthropics/claude-plugins-official</a></strong> ★40,915 · +1,552/day · ▲11.9x · day 8 — Anthropic-managed directory of Claude Code plugins.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/K-Dense-AI/scientific-agent-skills" target="_blank" rel="noopener">K-Dense-AI/scientific-agent-skills</a></strong> ★51,755 · +1,158/day · ▲3.5x · day 10 — Library of scientific agent skills and database integrations compatible with Claude Code, Cursor, and Codex.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/affaan-m/ECC" target="_blank" rel="noopener">affaan-m/ECC</a></strong> ★281,742 · +1,057/day · day 17 — Agent harness optimization system with skills, memory, and security for Claude Code, Codex, and Cursor.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/HKUDS/CLI-Anything" target="_blank" rel="noopener">HKUDS/CLI-Anything</a></strong> ★53,648 · +281/day · ▲2.8x · day 5 — Aims to make existing software usable by agents through CLIs.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/mksglu/context-mode" target="_blank" rel="noopener">mksglu/context-mode</a></strong> ★30,332 · +449/day · ▲1.9x · day 12 — Context-window optimization for coding agents that sandboxes tool output and persists session memory via MCP and hooks.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/ruvnet/ruflo" target="_blank" rel="noopener">ruvnet/ruflo</a></strong> ★75,740 · +672/day · ▲5.3x · day 7 — Agent harness for multi-agent swarms and autonomous workflows with Claude Code and Codex integration.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/android/skills" target="_blank" rel="noopener">android/skills</a></strong> ★8,166 · +36/day — Android&#39;s skills repository for AI agents.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/obra/superpowers" target="_blank" rel="noopener">obra/superpowers</a></strong> ★300,843 · +973/day · ▲2.2x · day 13 — Agentic skills framework and software development methodology.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/cursor/plugins" target="_blank" rel="noopener">cursor/plugins</a></strong> ★12,085 · +278/day · ▲1.9x · day 9 — Cursor plugin specification and official plugins.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/debpalash/VoiceStudio" target="_blank" rel="noopener">debpalash/VoiceStudio</a></strong> ★71,768 · +2,301/day · ▲1.8x · day 13 — Fully local, open-source voice cloning, dubbing, and transcription tool positioned as an ElevenLabs alternative.</div></div>
+  <div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/anthropics/claude-plugins-official" target="_blank" rel="noopener">anthropics/claude-plugins-official</a></strong> ★42,086 · +1,397/day · ▲9.3x · day 9 — Anthropic-managed directory of Claude Code plugins.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/MadsLorentzen/ai-job-search" target="_blank" rel="noopener">MadsLorentzen/ai-job-search</a></strong> ★51,017 · +1,365/day · ▲4.4x · day 5 — Claude Code-based framework for evaluating job postings, tailoring CVs, writing cover letters and prepping interviews.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/affaan-m/ECC" target="_blank" rel="noopener">affaan-m/ECC</a></strong> ★282,771 · +1,145/day · ▲1.6x · day 18 — Agent harness optimization system with skills, memory and security for Claude Code, Codex, Opencode and Cursor.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/HKUDS/CLI-Anything" target="_blank" rel="noopener">HKUDS/CLI-Anything</a></strong> ★54,227 · +574/day · ▲5.3x · day 6 — Aims to make all software agent-native via CLIs, with a CLI-Hub.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/K-Dense-AI/scientific-agent-skills" target="_blank" rel="noopener">K-Dense-AI/scientific-agent-skills</a></strong> ★52,440 · +878/day · ▲2.6x · day 11 — Library of 177 science-focused agent skills plus 100+ scientific databases, compatible with Claude Code, Cursor and Codex.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/akitaonrails/ai-memory" target="_blank" rel="noopener">akitaonrails/ai-memory</a></strong> ★10,092 · +178/day · day 5 — Rust long-term memory for coding agent CLIs, easing handoff between vendors.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/android/skills" target="_blank" rel="noopener">android/skills</a></strong> ★8,532 · +355/day · day 2 — Android skills repository in Kotlin, with no description provided.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/stablyai/orca" target="_blank" rel="noopener">stablyai/orca</a></strong> ★95,742 · +830/day · day 3 — Workspace for running a fleet of coding agents such as Claude Code on your own subscription, across desktop, mobile and remote.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/anthropics/claude-code" target="_blank" rel="noopener">anthropics/claude-code</a></strong> ★152,137 · +179/day · day 7 — Anthropic&#39;s terminal-based agentic coding tool.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/debpalash/VoiceStudio" target="_blank" rel="noopener">debpalash/VoiceStudio</a></strong> ★73,884 · +2,125/day · ▲1.6x · day 14 — Fully local, open-source ElevenLabs alternative covering voice cloning, dubbing, dictation and transcription.</div></div>
 </section>
     <footer>
       <div class="footer-left">AI Digest &middot; Daily Briefing</div>
       <div class="footer-right">
-        <a class="footer-archive" href="archive.html">Archive</a><span class="cost-pill">$0.0542</span>
+        <a class="footer-archive" href="archive.html">Archive</a><span class="cost-pill">$0.0410</span>
       </div>
     </footer>
   </div>
