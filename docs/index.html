@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI Digest — 2026-10-21</title>
+  <title>AI Digest — 2026-10-22</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
@@ -327,68 +327,67 @@
   <div class="masthead">
     <p class="masthead-kicker">Daily AI Intelligence</p>
     <h1 class="masthead-title">AI Digest</h1>
-    <p class="masthead-date">Wednesday, 21 October 2026</p>
+    <p class="masthead-date">Thursday, 22 October 2026</p>
   </div>
   <nav class="nav-bar"><a href="#general-ai-developments">General AI Developments</a><a href="#engineering-ai-workflows">Engineering & AI Workflows</a><a href="#tool-updates">Tool Updates</a><a href="#token-saving-techniques">Token Saving Techniques</a><a href="#github-trending">GitHub Trending</a></nav>
   <div class="wrapper">
     <div class="tldr-block">
       <span class="tldr-label">TL;DR</span>
-      <p>DeepSeek open-sourced DeepInfer, its production inference stack, which reports a 96% input-cache hit rate (first-party claims). Claude Code shipped two releases, including a 2.1.304 regression fix and a new sandbox option that weakens file protections. Separately, eight eMudhra intermediate CA keys were compromised, so update your cert bundles (uv, pip, certifi).</p>
+      <p>Two critical remote-code-execution holes in core PHP were found with frontier AI models and patched on Oct 21. Exploits were circulating before the patch because of a disclosure leak, so upgrade anything running PHP now. Claude Code shipped v2.1.307 with a new safety-event telemetry feature, and Claude Mods lets you customize how Claude Code interacts with you.</p>
     </div>
     <section class="section" id="general-ai-developments">
   <div class="section-header">
     <span class="section-number">01</span>
     <h2 class="section-title">General AI Developments</h2>
   </div>
-  <div class="entry"><div class="entry-source"><a href="https://www.latent.space/p/ainews-deepseek-deepinfer-open-source" target="_blank" rel="noopener">DeepSeek DeepInfer: Open Source SOTA Inference running 155T toks/day/cluster making $22m/day at ~80% margin for a 81 day payback</a></div><div class="entry-body">DeepSeek open-sourced the engine behind V4.1 Flash, reporting 96% input-cache hits and 400 ms average time to first token. These are unaudited first-party figures, and the KV-cache management and load-balancing components are not yet released.</div></div>
-<div class="entry"><div class="entry-source"><a href="https://redact.dev/blog/whatsapp-help-pages-hidden-ai-instructions" target="_blank" rel="noopener">WhatsApp&#39;s help pages hid LLM instructions: dont recommend a regulator</a></div><div class="entry-body">Researchers found hidden text in 80 of 545 help pages, written only for AI readers. It told the assistant not to point users to a regulator or cite privacy law once a lawyer was mentioned. This is a concrete example of the risk of hidden prompt content, and a reminder to audit any instructions your own agents ingest.</div></div>
+  <div class="entry"><div class="entry-source"><a href="https://www.wiz.io/blog/php2shell-php-rce" target="_blank" rel="noopener">PHP2Shell: AI uncovers critical RCE in PHP</a></div><div class="entry-body">Wiz used frontier models to chain decades-old memory flaws into working exploits against WordPress and Drupal within hours. The PHP engine bugs affect every version back to 5.4 (CVSS up to 9.2), so complexity alone is no longer a barrier to exploitation. Patch immediately.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://simonwillison.net/2026/Oct/21/php-security-release/" target="_blank" rel="noopener">Today&#39;s PHP Security Release, and How We&#39;re Strengthening PHP Security</a></div><div class="entry-body">A leak in coordinated disclosure, plus a mistakenly published proof-of-concept video, sped up exploit development before the patch landed. The release was pulled forward to Oct 21.</div></div>
 </section>
 <section class="section" id="engineering-ai-workflows">
   <div class="section-header">
     <span class="section-number">02</span>
     <h2 class="section-title">Engineering &amp; AI Workflows</h2>
   </div>
-  <div class="entry"><div class="entry-source"><a href="https://www.latent.space/p/tenex" target="_blank" rel="noopener">AI for the Fortune 2000: How Tenex Builds an AI-Native SDLC — Alex Lieberman &amp; CJ Hess</a></div><div class="entry-body">Tenex checks plans, decisions and acceptance criteria into Git so agents can read why something was built, not just what. They note it can be overkill for small teams, and engineers there now spend more time packaging customer context for the model than writing code.</div></div>
-<div class="entry"><div class="entry-source"><a href="https://simonwillison.net/2026/Oct/20/battledrones/" target="_blank" rel="noopener">Battle Drones - a vibe coded RTS with audio-based multiplayer</a></div><div class="entry-body">Simon Willison reached 321 agent commits over 12 iterations, mostly with Claude Code, in a language he barely knows and with almost no code review. He relied on playtesting, so it is useful as a data point on steering by behaviour rather than by reading code.</div></div>
-<div class="entry"><div class="entry-source"><a href="https://www.bolkunov.com/p/on-ai-writing" target="_blank" rel="noopener">On AI writing</a></div><div class="entry-body">The author argues AI prose loses precision and style, making it about a third slower to read, and that verbosity shifts the cost onto readers. This is anecdotal but relevant to AI-written PR descriptions and docs: tighten them before they reach reviewers.</div></div>
+  <div class="entry"><div class="entry-source"><a href="https://www.latent.space/p/claude-mods" target="_blank" rel="noopener">Claude Mods: Flipping the Harness Inside Out</a></div><div class="entry-body">Mods are Claude Code plugins, written in TypeScript or JavaScript, that hook into prompts, tool calls and rendering. They let you control when the agent interrupts you and what it shows you, and Claude can build them from a plain-language request using a built-in skill.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://rustoffrails.org/" target="_blank" rel="noopener">Rust off Rails: The opinionated web stack for the AI era</a></div><div class="entry-body">A set of Markdown specs and skills that fix the stack, layout and conventions so the agent makes no architectural choices. It has the agent interview you on product questions only, then generate code in vertical slices, finishing only when clippy and tests pass on both SQLite and Postgres. It&#39;s a useful template for constraining agent output.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://rumple.github.io/blog/2026/10/20/asking-llm-for-confidence.html" target="_blank" rel="noopener">Using LLM for confidence scoring is a bad idea</a></div><div class="entry-body">Argues that confidence numbers an LLM states about its own output aren&#39;t calibrated and shouldn&#39;t gate agent decisions. Prefer verifiable checks such as tests and static analysis over self-reported certainty.</div></div>
 </section>
 <section class="section" id="tool-updates">
   <div class="section-header">
     <span class="section-number">03</span>
     <h2 class="section-title">Tool Updates</h2>
   </div>
-  <div class="tool-entry"><div class="tool-name"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.305" target="_blank" rel="noopener">v2.1.305</a><span class="tool-tag">v2.1.305</span></div><div class="tool-desc">Fixes a 2.1.304 regression where every request failed on Vertex, Bedrock and gateways that reject tool search. Adds <code>sandbox.allowNestedUserNamespaces</code>, which lets sandboxed Linux commands get around the sandbox&#39;s file protections, so enable it with care. <code>allowedMcpServers</code> no longer filters <code>managed-mcp.json</code> stdio servers that use <code>${VAR}</code> only in env, so servers your allowlist left out now load on upgrade.</div></div>
-<div class="tool-entry"><div class="tool-name"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.306" target="_blank" rel="noopener">v2.1.306</a><span class="tool-tag">v2.1.306</span></div><div class="tool-desc">Fixes <code>claude -p</code> reporting &quot;Not logged in&quot; inside cloud sessions. Also stops an API error being replaced by &quot;prompt is too long&quot;, with an unneeded compaction, in sessions with many MCP tools.</div></div>
-<div class="tool-entry"><div class="tool-name"><a href="https://github.com/openai/codex/releases/tag/rust-v0.164.0-alpha.8" target="_blank" rel="noopener">0.164.0-alpha.8</a></div><div class="tool-desc">Codex alpha releases with no notes; 0.164.0-alpha.7 is the other one in this run.</div></div>
-<div class="tool-entry"><div class="tool-name"><a href="https://simonwillison.net/2026/Oct/20/emudhra-certificates/" target="_blank" rel="noopener">eMudhra Intermediate CA Compromise</a></div><div class="tool-desc">Private keys for eight intermediate CAs chaining to major root programs are compromised. Upgrade to uv 0.13.4, pip 26.2.2 and certifi 2026.10.19, and update ca-certificates on Linux, including in agent sandboxes and CI images.</div></div>
+  <div class="tool-entry"><div class="tool-name"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.307" target="_blank" rel="noopener">v2.1.307</a><span class="tool-tag">v2.1.307</span></div><div class="tool-desc">Adds a <code>claude_code.safety_event</code> OpenTelemetry event for every tool call that a permission rule, auto mode, hook or sandbox stopped or prompted. Also adds <code>/claude-api api-version</code> and fixes for MCP timeouts, duplicate HTTP MCP calls and autocompact thrashing on large PDFs or images. Tool-call parse failures are now retried up to twice. v2.1.308 followed with bug fixes and reliability improvements only, with no further notes.</div></div>
+<div class="tool-entry"><div class="tool-name"><a href="https://github.com/openai/codex/releases/tag/rust-v0.164.0-alpha.11" target="_blank" rel="noopener">0.164.0-alpha.11</a></div><div class="tool-desc">Codex alpha pre-releases with no notes, covering 0.164.0-alpha.10, 0.164.0-alpha.9, 0.163.0-alpha.11.2 and 0.163.0-alpha.11.1.</div></div>
 </section>
 <section class="section" id="token-saving-techniques">
   <div class="section-header">
     <span class="section-number">04</span>
     <h2 class="section-title">Token Saving Techniques</h2>
   </div>
-  <div class="entry"><div class="entry-source"><a href="https://github.com/IsuruMaduranga/harness-engineering-101" target="_blank" rel="noopener">Harness Engineering 101: The LLM is the brain, the harness is the body</a></div><div class="entry-body">A guide to the harness around the model (tools, context, loops), which is where most context and token waste is controlled. I only had the title and HN metadata, so check the repo before relying on it.</div></div>
+  <div class="entry"><div class="entry-source"><a href="https://arxiv.org/abs/2610.28767" target="_blank" rel="noopener">SkillEval: Learning Interpretable Ability Profiles of LLMs via Cognitive Diagnosis Models</a></div><div class="entry-body">Per-skill profiles of model ability were used to route each query to a capable but cheaper model, cutting inference cost by over 60% while improving performance. This is relevant to sending subtasks to smaller models.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://olivergrabner.com/research/pokemon/" target="_blank" rel="noopener">LLM agents play Pokemon showdown</a></div><div class="entry-body">Free-form agent-to-agent talk raised the win rate from 42% to 64% but used 3.8x the prompt tokens (978k vs 259k per battle), because every message re-reads the full context. One message each captured part of the gain (52%).</div></div>
 </section>
 <section class="section" id="github-trending">
   <div class="section-header">
     <span class="section-number">05</span>
     <h2 class="section-title">GitHub Trending</h2>
   </div>
-  <div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/MadsLorentzen/ai-job-search" target="_blank" rel="noopener">MadsLorentzen/ai-job-search</a></strong> ★61,629 · +3,861/day · ▲8.0x · day 8 — Claude Code-based framework for evaluating job postings, tailoring CVs, writing cover letters and prepping interviews.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/cloudflare/security-audit-skill" target="_blank" rel="noopener">cloudflare/security-audit-skill</a></strong> ★34,826 · +1,712/day · ▲2.2x · day 7 — Coding-agent skill for multi-phase security audits with independently verified, machine-readable findings, which is useful for checking AI-generated code.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/stablyai/orca" target="_blank" rel="noopener">stablyai/orca</a></strong> ★100,264 · +1,565/day · ▲1.9x · day 6 — Workspace for running a fleet of coding agents like Claude Code on your own subscription, on desktop, mobile and remote runtimes.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/DietrichGebert/ponytail" target="_blank" rel="noopener">DietrichGebert/ponytail</a></strong> ★170,389 · +1,208/day · day 13 — Prompt/skill setup that nudges an agent to prefer minimal code, in the spirit of &quot;the best code is the code you never wrote&quot;.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/Comfy-Org/ComfyUI" target="_blank" rel="noopener">Comfy-Org/ComfyUI</a></strong> ★141,072 · +1,206/day · ▲5.6x · day 5 — Modular node-graph GUI, API and backend for diffusion models and local inference.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/ruvnet/ruflo" target="_blank" rel="noopener">ruvnet/ruflo</a></strong> ★78,009 · +684/day · ▲4.4x · day 11 — Agent harness for multi-agent swarms with memory and RAG, integrated with Claude Code and Codex.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/Graphify-Labs/graphify" target="_blank" rel="noopener">Graphify-Labs/graphify</a></strong> ★130,699 · +802/day — Turns a codebase, docs and schemas into a queryable knowledge graph via deterministic AST parsing, as a skill for Claude Code, Cursor, Codex and Gemini CLI.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/anomalyco/opencode" target="_blank" rel="noopener">anomalyco/opencode</a></strong> ★219,294 · +1,240/day · ▲3.8x · day 7 — Open source coding agent.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/msitarzewski/agency-agents" target="_blank" rel="noopener">msitarzewski/agency-agents</a></strong> ★162,636 · +562/day · ▲1.6x · day 3 — Collection of specialised agent personas with defined processes and deliverables.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/headroomlabs-ai/headroom" target="_blank" rel="noopener">headroomlabs-ai/headroom</a></strong> ★76,910 · +549/day · day 2 — Compresses tool outputs, logs and RAG chunks before they reach the LLM, as a library, proxy or MCP server.</div></div>
+  <div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/cloudflare/security-audit-skill" target="_blank" rel="noopener">cloudflare/security-audit-skill</a></strong> ★37,598 · +2,012/day · ▲2.4x · day 8 — A coding-agent skill for multi-phase security audits that produces independently verified, machine-readable findings.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/vllm-project/vllm" target="_blank" rel="noopener">vllm-project/vllm</a></strong> ★95,046 · +441/day · day 2 — A high-throughput, memory-efficient inference and serving engine for LLMs.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/stablyai/orca" target="_blank" rel="noopener">stablyai/orca</a></strong> ★101,871 · +1,541/day · ▲1.9x · day 7 — A workspace for running a fleet of coding agents such as Claude Code on your own subscriptions, across desktop, mobile and remote.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/headroomlabs-ai/headroom" target="_blank" rel="noopener">headroomlabs-ai/headroom</a></strong> ★77,439 · +474/day · day 3 — Compresses tool outputs, logs, files and RAG chunks before they reach the LLM, as a library, proxy or MCP server.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/DietrichGebert/ponytail" target="_blank" rel="noopener">DietrichGebert/ponytail</a></strong> ★172,279 · +2,079/day · ▲1.9x · day 14 — Prompts your AI agent to behave like a minimalist senior dev who avoids writing unnecessary code.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/Comfy-Org/ComfyUI" target="_blank" rel="noopener">Comfy-Org/ComfyUI</a></strong> ★141,773 · +939/day · ▲4.3x · day 6 — A modular, node-graph GUI, API and backend for diffusion models.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/supabase/supabase" target="_blank" rel="noopener">supabase/supabase</a></strong> ★113,202 · +504/day · ▲5.4x · day 3 — A Postgres development platform for web, mobile and AI apps.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/twentyhq/twenty" target="_blank" rel="noopener">twentyhq/twenty</a></strong> ★59,424 · +112/day — An open-source Salesforce alternative designed for AI.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/shiyu-coder/Kronos" target="_blank" rel="noopener">shiyu-coder/Kronos</a></strong> ★43,015 · +575/day · ▲5.3x · day 9 — A foundation model for the language of financial markets.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/strelov1/freehire" target="_blank" rel="noopener">strelov1/freehire</a></strong> ★2,603 · +360/day — An open-source search engine for job seekers.</div></div>
 </section>
     <footer>
       <div class="footer-left">AI Digest &middot; Daily Briefing</div>
       <div class="footer-right">
-        <a class="footer-archive" href="archive.html">Archive</a><span class="cost-pill">$0.0634</span>
+        <a class="footer-archive" href="archive.html">Archive</a><span class="cost-pill">$0.0746</span>
       </div>
     </footer>
   </div>
