@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI Digest — 2026-10-23</title>
+  <title>AI Digest — 2026-10-24</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
@@ -327,66 +327,65 @@
   <div class="masthead">
     <p class="masthead-kicker">Daily AI Intelligence</p>
     <h1 class="masthead-title">AI Digest</h1>
-    <p class="masthead-date">Friday, 23 October 2026</p>
+    <p class="masthead-date">Saturday, 24 October 2026</p>
   </div>
   <nav class="nav-bar"><a href="#general-ai-developments">General AI Developments</a><a href="#engineering-ai-workflows">Engineering & AI Workflows</a><a href="#tool-updates">Tool Updates</a><a href="#token-saving-techniques">Token Saving Techniques</a><a href="#github-trending">GitHub Trending</a></nav>
   <div class="wrapper">
     <div class="tldr-block">
       <span class="tldr-label">TL;DR</span>
-      <p>Anthropic is donating the Agent Skills standard to the Linux Foundation&#39;s Agentic AI Foundation. Claude Code 2.1.309 ships a batch of sandbox and permission-check fixes. A Reddit claim that Claude Code treats every edit approval as &quot;Feedback&quot; usable for training is worth checking, but Anthropic hasn&#39;t answered it.</p>
+      <p>Anthropic&#39;s new guide says most agents should use one main loop with skills and tool search instead of many subagents, and it cut Claude Code&#39;s own system prompt by over 80%. AI-found vulnerabilities (PHP2Shell, GitLab CVSS 10, a poisoned LiteLLM release) hit in one wave, so check your dependencies and rotate secrets. Kimi K3.1 Pro, with open weights promised for Nov 4, is now close to frontier models at half Opus 5.5&#39;s price.</p>
     </div>
     <section class="section" id="general-ai-developments">
   <div class="section-header">
     <span class="section-number">01</span>
     <h2 class="section-title">General AI Developments</h2>
   </div>
-  <div class="entry"><div class="entry-source"><a href="https://simonwillison.net/2026/Oct/22/donating-agent-skills/" target="_blank" rel="noopener">Donating Agent Skills to the Agentic AI Foundation</a></div><div class="entry-body">Anthropic is moving the Agent Skills standard under the Linux Foundation&#39;s AAIF, alongside MCP. Skills should stay vendor-neutral, so investing in them carries less lock-in risk.</div></div>
-<div class="entry"><div class="entry-source"><a href="https://www.reddit.com/r/ClaudeAI/comments/1xcraz9/did_they_nerf_opus_55_doesnt_look_like_it/" target="_blank" rel="noopener">Did they nerf Opus 5.5? Doesn&#39;t look like it. LiveNerf day 29 update</a></div><div class="entry-body">A community tracker found no Opus 5.5 capability drop over 29 days, within a detection threshold of about 6.6 points. Smaller regressions could still go unnoticed.</div></div>
+  <div class="entry"><div class="entry-source"><a href="https://simonwillison.net/2026/Oct/23/kimi-k31-pro/" target="_blank" rel="noopener">Introducing Kimi K3.1 Pro</a></div><div class="entry-body">Moonshot&#39;s model scores 55 on Artificial Analysis, behind only Opus 5.5 (58), at $2/$10 per million tokens, half Opus 5.5&#39;s price. Weights are promised by Nov 4, and the benchmarks are mostly Moonshot&#39;s own plus one independent index.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://latent.space/p/ainews-black-october/" target="_blank" rel="noopener">Black October</a></div><div class="entry-body">A cluster of critical disclosures landed within about 48 hours: a PHP RCE, a GitLab CVSS 10 flaw, and LiteLLM 1.107.0 shipping with a password stealer. Anthropic&#39;s deputy CISO expects things to get worse before they get better, so audit dependencies and rotate secrets if you use the affected packages.</div></div>
 </section>
 <section class="section" id="engineering-ai-workflows">
   <div class="section-header">
     <span class="section-number">02</span>
     <h2 class="section-title">Engineering &amp; AI Workflows</h2>
   </div>
-  <div class="entry"><div class="entry-source"><a href="https://arxiv.org/abs/2610.30161" target="_blank" rel="noopener">TauIndianBankBench: Procedure-Aware, Action-Oriented Evaluation of Tool-Using Conversational Agents</a></div><div class="entry-body">Checking only final state missed skipped required steps or unrequested changes in 6.5–12.0% of &quot;successful&quot; agent sessions. When reviewing agent output, check the process and side effects as well as the end result.</div></div>
-<div class="entry"><div class="entry-source"><a href="https://www.reddit.com/r/ClaudeAI/comments/1xd5ruf/anthropic_appears_to_sneak_in_a_legal_loophole_in/" target="_blank" rel="noopener">Anthropic appears to sneak in a legal loophole in Claude Code to train on &quot;feedback&quot; even with training off as in Claude Code&#39;s source theres a legal term that counts every &quot;Allow edit&quot; you press as feedback.</a></div><div class="entry-body">A user found a comment in the Claude Code binaries saying accept/reject decisions and their conversation context count as &quot;Feedback&quot; that may be used for training. This is one user&#39;s reading of that clause, and Anthropic hasn&#39;t replied. Check it if you work on proprietary code.</div></div>
-<div class="entry"><div class="entry-source"><a href="https://arxiv.org/abs/2610.30355" target="_blank" rel="noopener">CiteAnchor: Source-Aware Grounding for Hallucinated Citation Detection and Resolution</a></div><div class="entry-body">This approach separates &quot;is this reference valid?&quot; from &quot;can we recover the real source?&quot;, and it beats web-search baselines by wide margins. The same split is useful when you check whether AI-cited docs or packages exist.</div></div>
+  <div class="entry"><div class="entry-source"><a href="https://www.reddit.com/r/ClaudeAI/comments/1xdwquj/anthropics_new_guide_oct_22_argues_most_agents/" target="_blank" rel="noopener">Anthropic&#39;s new guide (Oct 22) argues most agents should have fewer subagents: one main loop, skills and tool search instead. Includes &quot;we cut Claude Code&#39;s system prompt by over 80%&quot;</a></div><div class="entry-body">Keep subagents only when you measure context-bloat degradation or need parallel work with disposable context. Tool selection degrades past 30-50 definitions, and the guide suggests starting with about 10 golden evals, each run more than once.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://latent.space/p/claude-mods/" target="_blank" rel="noopener">Claude Mods: Flipping the Harness Inside Out</a></div><div class="entry-body">Mods are TypeScript/JS plugins that hook Claude Code events such as prompts, tool calls and rendering. This lets a reviewer control when the agent interrupts and what it surfaces, and Claude can write mods for you via a built-in skill.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://latent.space/p/tenex/" target="_blank" rel="noopener">AI for the Fortune 2000: How Tenex Builds an AI-Native SDLC — Alex Lieberman &amp; CJ Hess</a></div><div class="entry-body">Tenex checks plans, decisions and acceptance criteria into Git so agents can read why something was built. The write-up concedes this much structure can be overkill for small teams.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://www.reddit.com/r/ClaudeAI/comments/1xdhkzb/no_coding_or_gamedev_background_6_weeks_with_opus/" target="_blank" rel="noopener">No coding or gamedev background, 6 weeks with Opus 5.5 + Godot — from drawings to a playable game</a></div><div class="entry-body">Custom skills handle routing, handoff to a fresh session, and research verification, and every successful image prompt is saved as JSON. The route skill delegates suitable work to Sonnet/Haiku with Opus reviewing, which is a reusable pattern for review-centric workflows.</div></div>
 </section>
 <section class="section" id="tool-updates">
   <div class="section-header">
     <span class="section-number">03</span>
     <h2 class="section-title">Tool Updates</h2>
   </div>
-  <div class="tool-entry"><div class="tool-name"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.309" target="_blank" rel="noopener">v2.1.309</a><span class="tool-tag">v2.1.309</span></div><div class="tool-desc">Claude Code fixes several sandbox and permission gaps: shell startup files running outside the sandbox, sandboxed commands being able to edit the <code>--mcp-config</code> file, and compound <code>cd</code>+<code>git</code> commands skipping prompts. It also stops repeated compaction caused by an oversized nested CLAUDE.md. Worth upgrading.</div></div>
-<div class="tool-entry"><div class="tool-name"><a href="https://github.com/openai/codex/releases/tag/rust-v0.164.0" target="_blank" rel="noopener">0.164.0</a></div><div class="tool-desc">Codex adds <code>/presets</code> slots for reusable prompts, inline <code>/model</code> and <code>/permissions</code> arguments, and credential masking in remote Bash sessions. It also fixes compaction failures that left partial summaries in history. Alphas 0.164.0-alpha.12 and 0.164.0-alpha.11.1 shipped with no notes.</div></div>
-<div class="tool-entry"><div class="tool-name"><a href="https://github.com/NVIDIA/OpenShell" target="_blank" rel="noopener">NVIDIA/OpenShell: safe, private runtime for autonomous AI agents</a></div><div class="tool-desc">NVIDIA&#39;s runtime for sandboxing fleets of autonomous agents drew heavy discussion on Hacker News. It&#39;s a candidate if you want stronger isolation around agent execution.</div></div>
+  <div class="tool-entry"><div class="tool-name"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.310" target="_blank" rel="noopener">v2.1.310</a><span class="tool-tag">v2.1.310</span></div><div class="tool-desc">Claude Code fixes compaction after a &quot;Prompt is too long&quot; error keeping too much dense text (base64/SVG), and a Windows bug where PreToolUse/PermissionRequest hooks let tool calls through when Git Bash is missing. It also shows symlink targets in read-permission prompts and adds the Monitor tool on Bedrock, Vertex and Foundry.</div></div>
+<div class="tool-entry"><div class="tool-name"><a href="https://github.com/openai/codex/releases/tag/rust-v0.165.0-alpha.1" target="_blank" rel="noopener">0.165.0-alpha.1</a></div><div class="tool-desc">Codex alpha release with no published notes.</div></div>
 </section>
 <section class="section" id="token-saving-techniques">
   <div class="section-header">
     <span class="section-number">04</span>
     <h2 class="section-title">Token Saving Techniques</h2>
   </div>
-  <div class="entry"><div class="entry-source"><a href="https://arxiv.org/abs/2610.30379" target="_blank" rel="noopener">MemPlan: Memory-Conditioned PDDL Planning for Partially Observable Text Environments</a></div><div class="entry-body">Moving long-horizon planning to a symbolic planner, with the LLM only translating between language and symbols, cut online token cost versus ReAct baselines while improving task completion. This points toward keeping deterministic work out of the LLM loop.</div></div>
+  <div class="entry"><div class="entry-source"><a href="https://latent.space/p/ainews-deepseek-deepinfer-open-source/" target="_blank" rel="noopener">DeepSeek DeepInfer: Open Source SOTA Inference running 155T toks/day/cluster making $22m/day at ~80% margin for a 81 day payback</a></div><div class="entry-body">DeepSeek reports 96% input cache hits in production and up to 72-hour prompt caching, and cached input is the main cost lever. These are first-party claims, and its KV-cache management and load-balancing components are not yet fully released.</div></div>
 </section>
 <section class="section" id="github-trending">
   <div class="section-header">
     <span class="section-number">05</span>
     <h2 class="section-title">GitHub Trending</h2>
   </div>
-  <div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/php/php-src" target="_blank" rel="noopener">php/php-src</a></strong> ★41,374 · +287/day — The PHP interpreter source.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/anthropics/knowledge-work-plugins" target="_blank" rel="noopener">anthropics/knowledge-work-plugins</a></strong> ★31,827 · +303/day · day 9 — Open-source plugins for knowledge workers using Claude Cowork.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/DietrichGebert/ponytail" target="_blank" rel="noopener">DietrichGebert/ponytail</a></strong> ★174,089 · +1,948/day · ▲1.8x · day 15 — Steers AI agents toward minimal-code, &quot;laziest senior dev&quot; behavior.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/cloudflare/security-audit-skill" target="_blank" rel="noopener">cloudflare/security-audit-skill</a></strong> ★40,306 · +2,979/day · ▲3.4x · day 9 — Coding-agent skill for multi-phase security audits with independently verified, machine-readable findings.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/Graphify-Labs/graphify" target="_blank" rel="noopener">Graphify-Labs/graphify</a></strong> ★133,396 · +1,408/day · day 3 — Turns a codebase and its docs into a queryable knowledge graph via local AST parsing, as a skill for Claude Code, Cursor, Codex and Gemini CLI.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/supabase/supabase" target="_blank" rel="noopener">supabase/supabase</a></strong> ★113,629 · +693/day · ▲6.7x · day 4 — Postgres development platform for web, mobile and AI apps.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/fastapi/fastapi" target="_blank" rel="noopener">fastapi/fastapi</a></strong> ★103,972 · +101/day — High-performance Python web framework.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/luongnv89/claude-howto" target="_blank" rel="noopener">luongnv89/claude-howto</a></strong> ★43,603 · +177/day — Example-driven Claude Code guide with copy-paste templates.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/Meloong-Git/PCL" target="_blank" rel="noopener">Meloong-Git/PCL</a></strong> ★8,828 · +119/day — Plain Craft Launcher, a Minecraft launcher.</div></div>
+  <div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/cloudflare/security-audit-skill" target="_blank" rel="noopener">cloudflare/security-audit-skill</a></strong> ★42,663 · +2,716/day · ▲2.9x · day 10 — A coding-agent skill for multi-phase security audits with independently verified, machine-readable findings, directly useful for reviewing AI-generated code.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/php/php-src" target="_blank" rel="noopener">php/php-src</a></strong> ★41,612 · +716/day · day 2 — The PHP interpreter, trending amid the PHP2Shell disclosures.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/anthropics/knowledge-work-plugins" target="_blank" rel="noopener">anthropics/knowledge-work-plugins</a></strong> ★32,405 · +635/day · ▲2.9x · day 10 — Open source plugins for knowledge workers using Claude Cowork.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/NVIDIA/OpenShell" target="_blank" rel="noopener">NVIDIA/OpenShell</a></strong> ★18,986 · +1,119/day · ▲3.4x · day 5 — A safe, private runtime for autonomous AI agents.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/Renhuai123/ziwei-doushu" target="_blank" rel="noopener">Renhuai123/ziwei-doushu</a></strong> ★7,081 · +546/day — An open-source Zi Wei Dou Shu astrology chart engine with algorithms, transformation systems and classical text data.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/SnailSploit/Claude-Red" target="_blank" rel="noopener">SnailSploit/Claude-Red</a></strong> ★8,674 · +226/day · ▲1.9x · day 3 — A library of offensive-security SKILL.md files for Claude, covering SQLi through exploit development.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/OpenBMB/VoxCPM" target="_blank" rel="noopener">OpenBMB/VoxCPM</a></strong> ★40,399 · +150/day · ▲2.0x · day 2 — A tokenizer-free multilingual TTS model with voice design and cloning.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/nodejs/node" target="_blank" rel="noopener">nodejs/node</a></strong> ★122,983 · +66/day — The Node.js JavaScript runtime.</div></div>
 </section>
     <footer>
       <div class="footer-left">AI Digest &middot; Daily Briefing</div>
       <div class="footer-right">
-        <a class="footer-archive" href="archive.html">Archive</a><span class="cost-pill">$0.0808</span>
+        <a class="footer-archive" href="archive.html">Archive</a><span class="cost-pill">$0.0800</span>
       </div>
     </footer>
   </div>
