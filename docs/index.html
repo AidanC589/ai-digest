@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI Digest — 2026-10-25</title>
+  <title>AI Digest — 2026-10-26</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
@@ -327,58 +327,57 @@
   <div class="masthead">
     <p class="masthead-kicker">Daily AI Intelligence</p>
     <h1 class="masthead-title">AI Digest</h1>
-    <p class="masthead-date">Sunday, 25 October 2026</p>
+    <p class="masthead-date">Monday, 26 October 2026</p>
   </div>
-  <nav class="nav-bar"><a href="#general-ai-developments">General AI Developments</a><a href="#engineering-ai-workflows">Engineering & AI Workflows</a><a href="#token-saving-techniques">Token Saving Techniques</a><a href="#github-trending">GitHub Trending</a></nav>
+  <nav class="nav-bar"><a href="#general-ai-developments">General AI Developments</a><a href="#engineering-ai-workflows">Engineering & AI Workflows</a><a href="#tool-updates">Tool Updates</a><a href="#github-trending">GitHub Trending</a></nav>
   <div class="wrapper">
     <div class="tldr-block">
       <span class="tldr-label">TL;DR</span>
-      <p>An AI-assisted academic paper was found citing at least ten of 44 references that couldn&#39;t be located, a reminder to verify anything an LLM hands you. Separately, Apollo reports no financial payoff from AI outside big tech, with companies starting to treat token spend as a cost center. A Reddit post cautions that KLD, the metric often used to rank quantized models, is easy to game.</p>
+      <p>Apollo&#39;s chief economist says AI has produced no financial payoff outside the tech sector, and that mainstream companies now treat token spend as a margin-eating cost. Separately, a research paper shows that LLM-as-judge scores can mislead, and an llama.cpp out-of-bounds write bug (CVE-2026-116096) was reported, with a fix in b11796.</p>
     </div>
     <section class="section" id="general-ai-developments">
   <div class="section-header">
     <span class="section-number">01</span>
     <h2 class="section-title">General AI Developments</h2>
   </div>
-  <div class="entry"><div class="entry-source"><a href="https://www.apollo.com/wealth/insights-news/insights/daily-spark/no-signs-of-ai-payoff-outside-the-tech-sector" target="_blank" rel="noopener">No signs of AI payoff outside the tech sector</a></div><div class="entry-body">Apollo says revenue per worker and margins are flat for the S&amp;P 493 while rising for the Mag 7, and mainstream firms increasingly see token spend as a margin-draining cost. Useful context for how much scrutiny your AI spend may face.</div></div>
-<div class="entry"><div class="entry-source"><a href="https://www.cerebras.ai/blog/how-we-deploy-trillion-parameter-frontier-models-on-cerebras" target="_blank" rel="noopener">Cerebras Deploys Trillion-Parameter AI Models</a></div><div class="entry-body">Cerebras explains how it splits the ~3T-parameter open model Kimi K3 across 59 wafers to serve 1000-2000+ tokens/sec. The post cites Kimi K3 at 88.3% on Terminal-Bench 2.1 versus 88.8% for GPT-5.6 Sol, so open models are close to proprietary ones on agentic coding benchmarks.</div></div>
+  <div class="entry"><div class="entry-source"><a href="https://www.businessinsider.com/apollo-ai-zero-financial-payoff-corporate-america-economic-analysis-2026-10" target="_blank" rel="noopener">Apollo says AI has delivered &#39;zero financial payoff&#39; outside the tech industry</a></div><div class="entry-body">Apollo&#39;s analysis finds revenue per employee and profit margins have risen only for tech firms since 2022, while the rest of the S&amp;P 500 is flat. Non-tech companies increasingly see token spend as a cost center, which could put pressure on AI budgets.</div></div>
 </section>
 <section class="section" id="engineering-ai-workflows">
   <div class="section-header">
     <span class="section-number">02</span>
     <h2 class="section-title">Engineering &amp; AI Workflows</h2>
   </div>
-  <div class="entry"><div class="entry-source"><a href="https://torrentfreak.com/ai-assisted-paper-on-z-library-cites-a-torrentfreak-article-that-doesnt-exist/" target="_blank" rel="noopener">AI-Assisted Paper on Z-Library Cites a TorrentFreak Article That Doesn&#39;t Exist</a></div><div class="entry-body">A peer-reviewed paper that used Consensus AI and ChatGPT had at least ten of 44 references that couldn&#39;t be located. They were plausible-looking but fabricated, the same failure mode to watch for in AI-generated code that references nonexistent APIs, packages, or docs.</div></div>
-<div class="entry"><div class="entry-source"><a href="https://simonwillison.net/2026/Oct/24/battledrones/" target="_blank" rel="noopener">battledrones v14: Compass Rose, a four player map</a></div><div class="entry-body">Simon Willison shows a concrete prompting pattern: a single feature-level prompt specifying symmetry, player counts, and fallback behavior (AI fills spare slots) led Claude Opus 5.5 to add a new map and extend the WebSocket multiplayer code. It&#39;s a good example of specifying constraints and behavior rather than implementation.</div></div>
-<div class="entry"><div class="entry-source"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1xeim3m/kld_is_misunderstood/" target="_blank" rel="noopener">KLD is misunderstood</a></div><div class="entry-body">If you pick quantized local models for coding, don&#39;t trust KLD leaderboards. The metric is easy to inflate by evaluating on calibration-like data, so test on your own tasks instead.</div></div>
+  <div class="entry"><div class="entry-source"><a href="https://arxiv.org/abs/2610.31678" target="_blank" rel="noopener">Validating the Comparison, Not Just the Scorer: Why Overall Accuracy Can Mislead in Interactive LLM Evaluation</a></div><div class="entry-body">An automatic scorer with 0.916 F1 still had false-positive rates from 2.6% to 33.3% depending on the prompt, and a 9.3-point apparent effect shrank to 2.3 under independent raters. If you use LLM judges to compare prompts or review outputs, validate the specific comparison you care about, not just the judge overall.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://arxiv.org/abs/2610.31679" target="_blank" rel="noopener">MisconceptDialogue: Evaluation Criteria Shape Measured Success in LLM Math Tutoring</a></div><div class="entry-body">Exact-match scoring reported 42.1% success on the same dialogues where a human-calibrated LLM judge reported 81.3%, a spread bigger than the effect of model choice. The tutors also barely changed their results when given a deliberately wrong diagnosis, so check whether your models actually use the context you supply.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1xflw1l/is_the_horror_story_about_ai_agent_mass_deleting/" target="_blank" rel="noopener">Is the horror story about AI agent mass deleting your entire drive an old story or it still happen nowadays?</a></div><div class="entry-body">A user reports a VS Code Copilot agent wiping their database during a test run, saved only by a backup. This is anecdotal, but it is a reminder to keep agents away from production data and to require approval for destructive commands.</div></div>
 </section>
-<section class="section" id="token-saving-techniques">
+<section class="section" id="tool-updates">
   <div class="section-header">
     <span class="section-number">03</span>
-    <h2 class="section-title">Token Saving Techniques</h2>
+    <h2 class="section-title">Tool Updates</h2>
   </div>
-  <div class="entry"><div class="entry-source"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1xesda1/benchmark_stratabasalt_runs_qwen38_flash_next_iq3/" target="_blank" rel="noopener">Strata/Basalt runs Qwen3.8 Flash Next IQ3_S with 16GB VRAM and 55GB RAM with up to 250 tok/s generation and 5,600 tok/s prompt processing (5080, Concurrency 1)</a></div><div class="entry-body">In a 103-request agentic coding session using opencode, 99.5% of prompt tokens came from the prompt cache, with a median time to first token of 0.2s. This shows how effective prefix caching is for agent loops, even when running locally.</div></div>
+  <div class="tool-entry"><div class="tool-name"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1xfizft/psa_llamacpp_cve2026116096/" target="_blank" rel="noopener">PSA: llama.cpp CVE-2026-116096</a></div><div class="tool-desc">A heap out-of-bounds write in the Pocket-TTS path is triggered by a malformed <code>mmproj</code> file and requires local access. Upgrade to b11796 or later; on current builds it aborts on an assert instead of writing silently, but the structural fix (PR #29360) is still open.</div></div>
 </section>
 <section class="section" id="github-trending">
   <div class="section-header">
     <span class="section-number">04</span>
     <h2 class="section-title">GitHub Trending</h2>
   </div>
-  <div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/cloudflare/security-audit-skill" target="_blank" rel="noopener">cloudflare/security-audit-skill</a></strong> ★45,342 · +2,264/day · ▲2.3x · day 11 — A coding-agent skill for multi-phase security audits that produces independently verified, machine-readable findings.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/NVIDIA/OpenShell" target="_blank" rel="noopener">NVIDIA/OpenShell</a></strong> ★19,657 · +896/day · ▲2.6x · day 6 — A safe, private runtime for autonomous AI agents.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/aws/agent-toolkit-for-aws" target="_blank" rel="noopener">aws/agent-toolkit-for-aws</a></strong> ★3,223 · +13/day — Official AWS-supported MCP servers, skills, and plugins for AI agents building on AWS.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/Nutlope/hallmark" target="_blank" rel="noopener">Nutlope/hallmark</a></strong> ★32,570 · +455/day — An anti-AI-slop design skill for Claude Code, Cursor, and Codex.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/luongnv89/claude-howto" target="_blank" rel="noopener">luongnv89/claude-howto</a></strong> ★44,765 · +392/day · day 2 — A visual, example-driven guide to Claude Code with copy-paste templates.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/pbakaus/impeccable" target="_blank" rel="noopener">pbakaus/impeccable</a></strong> ★86,709 · +619/day · ▲1.6x · day 10 — A design language intended to make your AI harness better at design.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/pollen-robotics/microduck" target="_blank" rel="noopener">pollen-robotics/microduck</a></strong> ★11,182 · +319/day — A tiny biped duck robot.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/google-gemini/gemini-cli" target="_blank" rel="noopener">google-gemini/gemini-cli</a></strong> ★108,269 · +44/day — An open-source AI agent that brings Gemini into your terminal.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/jbiaojerry/ebook-treasure-chest" target="_blank" rel="noopener">jbiaojerry/ebook-treasure-chest</a></strong> ★22,916 · +227/day — A collection of ebook download links covering Chinese reading apps.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/makecindy/cindy" target="_blank" rel="noopener">makecindy/cindy</a></strong> ★4,303 · +477/day — An open-source AI agent that works out of the box.</div></div>
+  <div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/makecindy/cindy" target="_blank" rel="noopener">makecindy/cindy</a></strong> ★5,434 · +675/day · day 2 — Open-source AI agent that works out of the box.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/Nutlope/hallmark" target="_blank" rel="noopener">Nutlope/hallmark</a></strong> ★34,698 · +1,317/day · day 2 — Design skill for Claude Code, Cursor and Codex aimed at avoiding generic AI-looking UI.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/debpalash/VoiceStudio" target="_blank" rel="noopener">debpalash/VoiceStudio</a></strong> ★87,587 · +1,592/day · day 16 — Fully local, open-source ElevenLabs alternative for voice cloning, dubbing, transcription and audiobooks.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/pbakaus/impeccable" target="_blank" rel="noopener">pbakaus/impeccable</a></strong> ★88,212 · +1,092/day · ▲2.7x · day 10 — Design language intended to improve how AI harnesses handle design work.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/pollen-robotics/microduck" target="_blank" rel="noopener">pollen-robotics/microduck</a></strong> ★11,994 · +647/day · day 2 — Tiny biped duck robot.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/TauricResearch/TradingAgents" target="_blank" rel="noopener">TauricResearch/TradingAgents</a></strong> ★115,068 · +381/day · ▲1.6x · day 5 — Multi-agent LLM framework for financial trading.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/Renhuai123/ziwei-doushu" target="_blank" rel="noopener">Renhuai123/ziwei-doushu</a></strong> ★8,061 · +199/day · day 2 — Open-source Zi Wei Dou Shu astrology chart engine with algorithms and classical text data.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/JetBrains/thinkrail" target="_blank" rel="noopener">JetBrains/thinkrail</a></strong> ★2,160 · +51/day — Lightweight IDE for vibe coding with pi that adapts to how you work.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/coollabsio/coolify" target="_blank" rel="noopener">coollabsio/coolify</a></strong> ★64,744 · +152/day — Self-hostable open-source PaaS alternative to Vercel, Heroku and Netlify.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/cloudflare/security-audit-skill" target="_blank" rel="noopener">cloudflare/security-audit-skill</a></strong> ★47,533 · +2,878/day · ▲2.9x · day 12 — Coding-agent skill for multi-phase security audits with independently verified, machine-readable findings.</div></div>
 </section>
     <footer>
       <div class="footer-left">AI Digest &middot; Daily Briefing</div>
       <div class="footer-right">
-        <a class="footer-archive" href="archive.html">Archive</a><span class="cost-pill">$0.0440</span>
+        <a class="footer-archive" href="archive.html">Archive</a><span class="cost-pill">$0.0511</span>
       </div>
     </footer>
   </div>
