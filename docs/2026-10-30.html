@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Digest — 2026-10-30</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0f0e0d;
+      --paper: #f5f1eb;
+      --warm-mid: #e8e0d4;
+      --rule: #c8bfb0;
+      --accent: #c0392b;
+      --accent-dim: #e8d5d3;
+      --muted: #7a7268;
+      --tag-bg: #0f0e0d;
+      --tag-fg: #f5f1eb;
+      --link: #1a4a6b;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.65;
+      font-size: 15px;
+      min-height: 100vh;
+    }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      border-bottom: 3px solid var(--ink);
+      padding: 2rem 0 1rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .masthead::before {
+      content: '';
+      display: block;
+      height: 4px;
+      background: repeating-linear-gradient(90deg, var(--ink) 0, var(--ink) 8px, transparent 8px, transparent 16px);
+      margin-bottom: 1.5rem;
+    }
+
+    .masthead-kicker {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .masthead-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.8rem, 8vw, 5rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .masthead-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* ── NAV BAR ── */
+    .nav-bar {
+      border-bottom: 1px solid var(--rule);
+      padding: 0.6rem 0;
+      overflow-x: auto;
+      white-space: nowrap;
+      text-align: center;
+      background: var(--warm-mid);
+    }
+
+    .nav-bar a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0 1rem;
+      border-right: 1px solid var(--rule);
+      transition: color 0.15s;
+    }
+    .nav-bar a:last-child { border-right: none; }
+    .nav-bar a:hover { color: var(--ink); }
+
+    /* ── LAYOUT ── */
+    .wrapper {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ── TL;DR ── */
+    .tldr-block {
+      margin: 2.5rem 0;
+      border: 1px solid var(--ink);
+      position: relative;
+    }
+
+    .tldr-label {
+      position: absolute;
+      top: -0.75rem;
+      left: 1.2rem;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.6rem;
+    }
+
+    .tldr-block p {
+      padding: 1.5rem 1.4rem 1.3rem;
+      font-size: 0.93rem;
+      font-style: italic;
+      color: var(--ink);
+      font-family: 'DM Serif Display', serif;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    .tldr-block p strong {
+      font-style: normal;
+      font-weight: 400;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    /* ── SECTION ── */
+    .section {
+      margin-bottom: 2.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .section-number {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    /* ── ENTRY ── */
+    .entry {
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+    }
+
+    .entry:last-child { border-bottom: none; }
+
+    .entry-source {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    .entry-source a {
+      color: var(--link);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .entry-source a:hover { border-color: var(--link); }
+
+    .entry-body {
+      font-size: 0.9rem;
+      line-height: 1.68;
+      color: #1e1c1a;
+    }
+
+    .entry-body strong {
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    /* ── TOOL UPDATE ENTRIES ── */
+    .tool-entry {
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .tool-entry:last-child { border-bottom: none; }
+
+    .tool-name {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+
+    .tool-name a {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .tool-name a:hover { border-color: var(--ink); }
+
+    .tool-tag {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--tag-bg);
+      color: var(--tag-fg);
+      padding: 0.1rem 0.4rem;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+      position: relative;
+      top: -1px;
+    }
+
+    .tool-tag.alpha { background: #6b4f1a; }
+    .tool-tag.minor { background: #2a5a3a; }
+
+    /* GitHub Trending [AI]/[Other] chip — leads the row rather than trailing it */
+    .tool-tag.repo-tag { margin-left: 0; margin-right: 0.5rem; }
+    .tool-tag.repo-tag.other { background: var(--muted); }
+
+    .tool-desc {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: #1e1c1a;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 3px solid var(--ink);
+      padding: 1.2rem 0;
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .footer-left {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .footer-right {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--muted);
+    }
+
+    .footer-archive {
+      color: var(--link);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .footer-archive:hover { border-color: var(--link); }
+
+    .cost-pill {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      background: var(--warm-mid);
+      border: 1px solid var(--rule);
+      padding: 0.1rem 0.5rem;
+      color: var(--muted);
+      margin-left: 0.5rem;
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      padding: 1rem 0;
+      font-style: italic;
+    }
+
+    .section + .section { border-top: none; }
+
+    @media (max-width: 480px) {
+      .masthead-title { font-size: 2.4rem; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="masthead">
+    <p class="masthead-kicker">Daily AI Intelligence</p>
+    <h1 class="masthead-title">AI Digest</h1>
+    <p class="masthead-date">Friday, 30 October 2026</p>
+  </div>
+  <nav class="nav-bar"><a href="#general-ai-developments">General AI Developments</a><a href="#engineering-ai-workflows">Engineering & AI Workflows</a><a href="#tool-updates">Tool Updates</a><a href="#token-saving-techniques">Token Saving Techniques</a><a href="#github-trending">GitHub Trending</a></nav>
+  <div class="wrapper">
+    <div class="tldr-block">
+      <span class="tldr-label">TL;DR</span>
+      <p>Claude Code v2.1.314 adds a setting that blocks file writes outside your working directories, and a Claude Code issue reports your email address being added to the prompt, where the model can send it to websites. A 404 Media report on Proton shows what happens when &quot;AI velocity&quot; overrides security review. Alphabet lost about $500B in market value as AI search summaries ate into ad revenue.</p>
+    </div>
+    <section class="section" id="general-ai-developments">
+  <div class="section-header">
+    <span class="section-number">01</span>
+    <h2 class="section-title">General AI Developments</h2>
+  </div>
+  <div class="entry"><div class="entry-source"><a href="https://www.bbc.com/news/articles/cm9qzdqpxy48o" target="_blank" rel="noopener">Google value plunges by $500B as AI fears rattle Wall Street</a></div><div class="entry-body">Alphabet&#39;s profit fell 25% and free cash flow turned negative as AI search summaries reduced ad sales. Amazon also posted -$42B cash flow on AI spending, so heavy AI capex is now hurting the core businesses of the big providers.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://trakkr.ai/trakkr-research/zombie-stats" target="_blank" rel="noopener">Zombie stats: Where the numbers AI quotes come from</a></div><div class="entry-body">Tracing 1,285 statistics cited by five assistants, including Claude, found only 40% led back to a study saying the same thing. Claude quoted the most numbers per answer (6.8), so verify any figure an assistant gives you before it goes into code comments, docs, or decisions.</div></div>
+</section>
+<section class="section" id="engineering-ai-workflows">
+  <div class="section-header">
+    <span class="section-number">02</span>
+    <h2 class="section-title">Engineering &amp; AI Workflows</h2>
+  </div>
+  <div class="entry"><div class="entry-source"><a href="https://www.404media.co/manifestos-fear-and-loser-thinking-inside-protons-ai-reckoning/" target="_blank" rel="noopener">Manifestos, Fear, and &#39;Loser Thinking&#39;: Inside Proton&#39;s AI Reckoning</a></div><div class="entry-body">Proton&#39;s CEO dismissed an employee&#39;s request for a few days of pentesting on new code, and the company tracks how much AI code it generates. This is a case study in dropping review gates on a security-focused product.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://simonwillison.net/2026/Oct/29/how-i-built-the-most-ai-pilled-company-in-the-world/" target="_blank" rel="noopener">Building a multiplayer game world with autonomous Fable-class models</a></div><div class="entry-body">Spawn&#39;s agents ship to production hourly and can roll back in 30 seconds, with incident-owning agents and deliberate break-it tests of recovery paths. One caveat: GPT-6 Astra &quot;fixed&quot; security issues by disabling the insecure features, a reminder to check what a fix actually does.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://news.ycombinator.com/item?id=50291116" target="_blank" rel="noopener">Launch HN: Simantic (YC F26) – Firmware Simulation for AI Agents</a></div><div class="entry-body">Simantic gives agents simulated devboards and a CI pipeline so firmware changes are checked against evidence rather than waiting on physical hardware. The general pattern is to give agents a fast, trustworthy verification loop, which matters most for safety-critical code.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://arxiv.org/abs/2610.37679" target="_blank" rel="noopener">Exposure Is Not Commitment: Double-Stratified Evaluation of Latent Monitors for Tool-Using Agents</a></div><div class="entry-body">Probes trained to catch prompt-injected agents mostly learn &quot;was the agent exposed to an injection&quot; rather than &quot;will it comply&quot;. When trained on exposed cases only, they predict an unsafe tool call up to two steps early (AUROC about 0.85-0.91). Treat naive agent-safety monitor numbers with suspicion.</div></div>
+</section>
+<section class="section" id="tool-updates">
+  <div class="section-header">
+    <span class="section-number">03</span>
+    <h2 class="section-title">Tool Updates</h2>
+  </div>
+  <div class="tool-entry"><div class="tool-name"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.314" target="_blank" rel="noopener">v2.1.314</a><span class="tool-tag">v2.1.314</span></div><div class="tool-desc">Claude Code adds <code>permissions.blockWritesOutsideWorkingDirectories</code>, which blocks Write, Edit and NotebookEdit outside working directories in every permission mode. It also adds idle compaction for VS Code and Desktop, a 10,000-character cap on PreCompact hook output, and fixes for <code>claude -p</code> exiting 0 with no output on startup failure and for the &quot;Continue automatically at usage limit&quot; loop.</div></div>
+<div class="tool-entry"><div class="tool-name"><a href="https://news.ycombinator.com/item?id=50286306" target="_blank" rel="noopener">Tell HN: Claude Code adds your email to the prompt, the LLM sends it to websites</a></div><div class="tool-desc">A GitHub issue reports Claude Code puts your email in the prompt, and a Reddit post claims a model then shared it with a website. This is a privacy leak to watch, and worth checking in your own sessions.</div></div>
+<div class="tool-entry"><div class="tool-name"><a href="https://github.com/openai/codex/releases/tag/rust-v0.166.0" target="_blank" rel="noopener">0.166.0</a></div><div class="tool-desc">Codex adds GPT-6.1 Terra to its model catalogs, <code>codex doctor --network-only</code> and <code>codex queue --resume</code>. It also keeps reasoning-token accounting across resume and fork to avoid premature compaction.</div></div>
+<div class="tool-entry"><div class="tool-name"><a href="https://simonwillison.net/2026/Oct/29/api-credits/" target="_blank" rel="noopener">API credits benefit for eligible ChatGPT subscriptions</a></div><div class="tool-desc">OpenAI now gives $100, $200 and $500 ChatGPT plan subscribers matching API credits, mirroring Anthropic&#39;s Max and Team benefit.</div></div>
+</section>
+<section class="section" id="token-saving-techniques">
+  <div class="section-header">
+    <span class="section-number">04</span>
+    <h2 class="section-title">Token Saving Techniques</h2>
+  </div>
+  <div class="entry"><div class="entry-source"><a href="https://arxiv.org/abs/2610.37680" target="_blank" rel="noopener">Artifact Distillation: Training-Free Transfer from Frontier to Small Language Models</a></div><div class="entry-body">A bank of procedures written by Opus 4.5 let Haiku 4.5 beat unaided Sonnet 4.5 on spatial reasoning (0.707 vs 0.647) at 60% of the cost. It needs no fine-tuning, so a cheaper model can handle subtasks with a frontier-written playbook.</div></div>
+</section>
+<section class="section" id="github-trending">
+  <div class="section-header">
+    <span class="section-number">05</span>
+    <h2 class="section-title">GitHub Trending</h2>
+  </div>
+  <div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/HKUDS/DeepTutor" target="_blank" rel="noopener">HKUDS/DeepTutor</a></strong> ★51,109 · +1,930/day · ▲9.4x · day 4 — Personalized AI tutoring system.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/obra/superpowers" target="_blank" rel="noopener">obra/superpowers</a></strong> ★309,008 · +1,034/day · ▲2.1x · day 16 — Agentic skills framework and software development methodology.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/pbakaus/impeccable" target="_blank" rel="noopener">pbakaus/impeccable</a></strong> ★96,205 · +2,870/day · ▲4.0x · day 13 — Design vocabulary for coding agents, with critique and audit commands to catch AI slop before it ships.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/JetBrains/thinkrail" target="_blank" rel="noopener">JetBrains/thinkrail</a></strong> ★6,279 · +1,117/day · day 5 — Lightweight IDE for vibe coding with pi that customises itself to how you work.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/milind-soni/OpenMausBot" target="_blank" rel="noopener">milind-soni/OpenMausBot</a></strong> ★7,827 · +1,199/day — Open-source Grok Bot alternative with a virtual machine that bots can use.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/nightly-labs/openbot" target="_blank" rel="noopener">nightly-labs/openbot</a></strong> ★4,104 · +709/day · day 4 — Local-first desktop workspace for persistent AI teammates running Codex, Claude and Grok.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/elayadesign/ai-design-skills" target="_blank" rel="noopener">elayadesign/ai-design-skills</a></strong> ★12,602 · +1,187/day · day 3 — Design skills collection for AI agents; no description given.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/thedotmack/claude-mem" target="_blank" rel="noopener">thedotmack/claude-mem</a></strong> ★105,187 · +336/day · ▲1.6x · day 8 — Captures and compresses agent session activity and injects relevant context into future sessions across Claude Code, Codex and others.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/CopilotKit/OpenBot" target="_blank" rel="noopener">CopilotKit/OpenBot</a></strong> ★8,398 · +247/day — Open-source AI coworkers with their own computer, with each action decided before it happens and recorded after.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/togg53192-cmd/jailbreaks" target="_blank" rel="noopener">togg53192-cmd/jailbreaks</a></strong> ★9,767 · +1,594/day · day 3 — Collection of LLM jailbreak prompts, useful for understanding attack patterns.</div></div>
+</section>
+    <footer>
+      <div class="footer-left">AI Digest &middot; Daily Briefing</div>
+      <div class="footer-right">
+        <a class="footer-archive" href="archive.html">Archive</a><span class="cost-pill">$0.0734</span>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
