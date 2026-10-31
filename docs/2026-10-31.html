@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Digest — 2026-10-31</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0f0e0d;
+      --paper: #f5f1eb;
+      --warm-mid: #e8e0d4;
+      --rule: #c8bfb0;
+      --accent: #c0392b;
+      --accent-dim: #e8d5d3;
+      --muted: #7a7268;
+      --tag-bg: #0f0e0d;
+      --tag-fg: #f5f1eb;
+      --link: #1a4a6b;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.65;
+      font-size: 15px;
+      min-height: 100vh;
+    }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      border-bottom: 3px solid var(--ink);
+      padding: 2rem 0 1rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .masthead::before {
+      content: '';
+      display: block;
+      height: 4px;
+      background: repeating-linear-gradient(90deg, var(--ink) 0, var(--ink) 8px, transparent 8px, transparent 16px);
+      margin-bottom: 1.5rem;
+    }
+
+    .masthead-kicker {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .masthead-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.8rem, 8vw, 5rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .masthead-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* ── NAV BAR ── */
+    .nav-bar {
+      border-bottom: 1px solid var(--rule);
+      padding: 0.6rem 0;
+      overflow-x: auto;
+      white-space: nowrap;
+      text-align: center;
+      background: var(--warm-mid);
+    }
+
+    .nav-bar a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0 1rem;
+      border-right: 1px solid var(--rule);
+      transition: color 0.15s;
+    }
+    .nav-bar a:last-child { border-right: none; }
+    .nav-bar a:hover { color: var(--ink); }
+
+    /* ── LAYOUT ── */
+    .wrapper {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ── TL;DR ── */
+    .tldr-block {
+      margin: 2.5rem 0;
+      border: 1px solid var(--ink);
+      position: relative;
+    }
+
+    .tldr-label {
+      position: absolute;
+      top: -0.75rem;
+      left: 1.2rem;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.6rem;
+    }
+
+    .tldr-block p {
+      padding: 1.5rem 1.4rem 1.3rem;
+      font-size: 0.93rem;
+      font-style: italic;
+      color: var(--ink);
+      font-family: 'DM Serif Display', serif;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    .tldr-block p strong {
+      font-style: normal;
+      font-weight: 400;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    /* ── SECTION ── */
+    .section {
+      margin-bottom: 2.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .section-number {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    /* ── ENTRY ── */
+    .entry {
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+    }
+
+    .entry:last-child { border-bottom: none; }
+
+    .entry-source {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    .entry-source a {
+      color: var(--link);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .entry-source a:hover { border-color: var(--link); }
+
+    .entry-body {
+      font-size: 0.9rem;
+      line-height: 1.68;
+      color: #1e1c1a;
+    }
+
+    .entry-body strong {
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    /* ── TOOL UPDATE ENTRIES ── */
+    .tool-entry {
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .tool-entry:last-child { border-bottom: none; }
+
+    .tool-name {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+
+    .tool-name a {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .tool-name a:hover { border-color: var(--ink); }
+
+    .tool-tag {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--tag-bg);
+      color: var(--tag-fg);
+      padding: 0.1rem 0.4rem;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+      position: relative;
+      top: -1px;
+    }
+
+    .tool-tag.alpha { background: #6b4f1a; }
+    .tool-tag.minor { background: #2a5a3a; }
+
+    /* GitHub Trending [AI]/[Other] chip — leads the row rather than trailing it */
+    .tool-tag.repo-tag { margin-left: 0; margin-right: 0.5rem; }
+    .tool-tag.repo-tag.other { background: var(--muted); }
+
+    .tool-desc {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: #1e1c1a;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 3px solid var(--ink);
+      padding: 1.2rem 0;
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .footer-left {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .footer-right {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--muted);
+    }
+
+    .footer-archive {
+      color: var(--link);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .footer-archive:hover { border-color: var(--link); }
+
+    .cost-pill {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      background: var(--warm-mid);
+      border: 1px solid var(--rule);
+      padding: 0.1rem 0.5rem;
+      color: var(--muted);
+      margin-left: 0.5rem;
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      padding: 1rem 0;
+      font-style: italic;
+    }
+
+    .section + .section { border-top: none; }
+
+    @media (max-width: 480px) {
+      .masthead-title { font-size: 2.4rem; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="masthead">
+    <p class="masthead-kicker">Daily AI Intelligence</p>
+    <h1 class="masthead-title">AI Digest</h1>
+    <p class="masthead-date">Saturday, 31 October 2026</p>
+  </div>
+  <nav class="nav-bar"><a href="#general-ai-developments">General AI Developments</a><a href="#engineering-ai-workflows">Engineering & AI Workflows</a><a href="#tool-updates">Tool Updates</a><a href="#github-trending">GitHub Trending</a></nav>
+  <div class="wrapper">
+    <div class="tldr-block">
+      <span class="tldr-label">TL;DR</span>
+      <p>Tech stocks sold off hard on AI spending fears, and Google admitted AI Mode is hurting its search revenue. In engineering news, one startup reports 5x more merged changes per engineer with a revert rate under 0.5%, while PostgreSQL 19 slipped because AI-generated bug reports and patches overwhelmed its maintainers. Claude Code v2.1.316 deprecates Opus 4.8 fast mode (removed Nov 30), and Anthropic dropped the 5-hour limit on its Ultra tier.</p>
+    </div>
+    <section class="section" id="general-ai-developments">
+  <div class="section-header">
+    <span class="section-number">01</span>
+    <h2 class="section-title">General AI Developments</h2>
+  </div>
+  <div class="entry"><div class="entry-source"><a href="https://www.bbc.co.uk/news/articles/cvwy72e0n72yo" target="_blank" rel="noopener">US tech stocks see sharp falls over AI cost fears</a></div><div class="entry-body">Intel fell 28% and Alphabet lost over $500bn in value after saying AI summaries are hurting search ad revenue, while Amazon, Meta, Oracle, Microsoft and Alphabet plan roughly $800bn of 2026 AI spending. The Nasdaq had its worst month since March 2025, and sustained pressure could eventually affect model pricing and subsidies.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://www.phoronix.com/news/PostgreSQL-19-Late" target="_blank" rel="noopener">PostgreSQL 19 Running Behind Schedule Due to AI/LLM Burden</a></div><div class="entry-body">Maintainers say AI-found bugs and LLM-drafted patches that &quot;aren&#39;t always correct or compliant&quot; with project standards still need human review, causing late reverts and a delayed release. This is a concrete example of AI output shifting the burden onto reviewers.</div></div>
+</section>
+<section class="section" id="engineering-ai-workflows">
+  <div class="section-header">
+    <span class="section-number">02</span>
+    <h2 class="section-title">Engineering &amp; AI Workflows</h2>
+  </div>
+  <div class="entry"><div class="entry-source"><a href="https://twitter.com/sgondala2/status/2115832070274723875" target="_blank" rel="noopener">Building an AI-native engineering org</a></div><div class="entry-body">FurtherAI reports about 5x more merged changes per engineer per day since January with a revert rate under 0.5%. The approach: agents write the tests (91% of changes now include them, up from 15%), AI reviews 99% of changes before humans do, and recurring review findings become 21 automated rule checks that agents hit and self-correct against. Up to a third of changes now merge without a person.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://www.404media.co/protons-ceo-cancels-ai-re-interviews/" target="_blank" rel="noopener">Proton&#39;s CEO Cancels AI &#39;Re-Interviews&#39;</a></div><div class="entry-body">Proton&#39;s CEO pushed AI-written code live over a security employee&#39;s request for a few days of pentesting, telling staff to &quot;stop lovingly handcrafting all our code&quot;. It&#39;s a cautionary tale about skipping security review on AI-generated code, and it triggered employee and user backlash.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://newsletter.signoz.io/p/ai-isnt-replacing-sres-its-deskilling" target="_blank" rel="noopener">AI isn&#39;t replacing SREs, it&#39;s deskilling them</a></div><div class="entry-body">Applies Bainbridge&#39;s &quot;Ironies of Automation&quot; to argue that automating routine work erodes the skills needed for the rare, hard failures humans still own. The same logic applies to engineers who only review AI-written code.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://news.ycombinator.com/item?id=50301479" target="_blank" rel="noopener">Ask HN: Are you tired too in this AI era?</a></div><div class="entry-body">A highly discussed thread (139 comments) on the mental load of parallel agents, reading large volumes of generated output, and constant context switching. Useful for spotting review-fatigue risks in your own workflow.</div></div>
+</section>
+<section class="section" id="tool-updates">
+  <div class="section-header">
+    <span class="section-number">03</span>
+    <h2 class="section-title">Tool Updates</h2>
+  </div>
+  <div class="tool-entry"><div class="tool-name"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.316" target="_blank" rel="noopener">v2.1.316</a><span class="tool-tag">v2.1.316</span></div><div class="tool-desc">Fast mode for Opus 4.8 is deprecated and will be removed Nov 30 (requests then error rather than fall back), so migrate to Opus 5.5. It also adds <code>CLAUDE_CODE_DISABLE_ULTRATHINK</code>, <code>CLAUDE_CODE_SUBAGENT_EFFORT</code> and pooled group budgets for the apps gateway. Fixes include <code>--restricted</code> sessions uploading files outside the working directories and PowerShell hooks not blocking on exit code 2.</div></div>
+<div class="tool-entry"><div class="tool-name"><a href="https://latent.space/p/ainews-google-admits-ai-mode-hurts-search-revenue-15-500b-drop-worst-since-2004-ipo-ai-bear-market-c/" target="_blank" rel="noopener">Google admits AI Mode hurts Search revenue; -15% $500B drop worst since 2004 IPO. AI Bear Market coming?</a></div><div class="tool-desc">Anthropic renamed Max 5x to &quot;Max&quot; ($100) and Max 20x to &quot;Ultra&quot; ($200), and verified Ultra accounts no longer have the 5-hour session limit (weekly limits unchanged; newer accounts keep a temporary limit until verified). The same issue covers the Gemini 4 Carbon release, ranked #1 in Text Arena.</div></div>
+<div class="tool-entry"><div class="tool-name"><a href="https://github.com/openai/codex/releases/tag/rust-v0.167.0-alpha.1" target="_blank" rel="noopener">rust-v0.167.0-alpha.1</a><span class="tool-tag">v0.167.0</span></div><div class="tool-desc">New Codex alpha release; no release notes were published.</div></div>
+</section>
+<section class="section" id="github-trending">
+  <div class="section-header">
+    <span class="section-number">04</span>
+    <h2 class="section-title">GitHub Trending</h2>
+  </div>
+  <div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/thedotmack/claude-mem" target="_blank" rel="noopener">thedotmack/claude-mem</a></strong> ★106,840 · +1,140/day · ▲5.0x · day 9 — Captures and compresses agent session activity, then injects relevant context into future sessions across Claude Code, Codex, Gemini, Copilot and others.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/milind-soni/OpenMausBot" target="_blank" rel="noopener">milind-soni/OpenMausBot</a></strong> ★9,083 · +895/day · day 2 — Open-source Grok Bot alternative with a virtual machine that bots can use.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/pbakaus/impeccable" target="_blank" rel="noopener">pbakaus/impeccable</a></strong> ★97,527 · +2,300/day · ▲3.2x · day 14 — A design vocabulary for steering and reviewing coding agents, aimed at catching AI slop before it ships.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/CopilotKit/OpenBot" target="_blank" rel="noopener">CopilotKit/OpenBot</a></strong> ★8,990 · +706/day · day 2 — Open-source AI coworkers, each with its own browser, files and tools, where every action is decided before it happens and recorded after.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/Renhuai123/ziwei-doushu" target="_blank" rel="noopener">Renhuai123/ziwei-doushu</a></strong> ★11,710 · +1,126/day · ▲1.7x · day 3 — Open-source Zi Wei Dou Shu chart-casting engine with algorithms, transformation systems and classical text data.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/expo/skills" target="_blank" rel="noopener">expo/skills</a></strong> ★3,958 · +38/day · day 2 — A collection of agent skills for Expo projects and Expo Application Services.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/macro-inc/macro" target="_blank" rel="noopener">macro-inc/macro</a></strong> ★5,969 · +57/day · day 4 — A unified team workspace combining email, chat, docs, tasks, agents, calls and CRM with shared AI memory.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/mattpocock/skills" target="_blank" rel="noopener">mattpocock/skills</a></strong> ★307,753 · +876/day · day 17 — Skills for engineers, taken from the author&#39;s own .agents directory.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/pingdotgg/t3code" target="_blank" rel="noopener">pingdotgg/t3code</a></strong> ★33,227 · +930/day · ▲4.9x · day 5 — Trending TypeScript project from Ping with no description provided.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/HKUDS/DeepTutor" target="_blank" rel="noopener">HKUDS/DeepTutor</a></strong> ★52,150 · +2,282/day · ▲10.6x · day 5 — Lifelong personalized AI tutoring system.</div></div>
+</section>
+    <footer>
+      <div class="footer-left">AI Digest &middot; Daily Briefing</div>
+      <div class="footer-right">
+        <a class="footer-archive" href="archive.html">Archive</a><span class="cost-pill">$0.0621</span>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
