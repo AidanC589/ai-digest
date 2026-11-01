@@ -9,7 +9,7 @@ requires-python = ">=3.12"
 # unannounced in the 03:00 UTC run. The full resolved graph, with hashes, is
 # uv.lock — CI installs from that, never from these ranges.
 dependencies = [
-    "anthropic~=1.0",
+    "anthropic>=1,<3",
     "feedparser~=6.0",
     "trafilatura~=2.2",
     "tiktoken~=0.14",
