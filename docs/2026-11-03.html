@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Digest — 2026-11-03</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0f0e0d;
+      --paper: #f5f1eb;
+      --warm-mid: #e8e0d4;
+      --rule: #c8bfb0;
+      --accent: #c0392b;
+      --accent-dim: #e8d5d3;
+      --muted: #7a7268;
+      --tag-bg: #0f0e0d;
+      --tag-fg: #f5f1eb;
+      --link: #1a4a6b;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.65;
+      font-size: 15px;
+      min-height: 100vh;
+    }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      border-bottom: 3px solid var(--ink);
+      padding: 2rem 0 1rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .masthead::before {
+      content: '';
+      display: block;
+      height: 4px;
+      background: repeating-linear-gradient(90deg, var(--ink) 0, var(--ink) 8px, transparent 8px, transparent 16px);
+      margin-bottom: 1.5rem;
+    }
+
+    .masthead-kicker {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .masthead-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.8rem, 8vw, 5rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .masthead-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* ── NAV BAR ── */
+    .nav-bar {
+      border-bottom: 1px solid var(--rule);
+      padding: 0.6rem 0;
+      overflow-x: auto;
+      white-space: nowrap;
+      text-align: center;
+      background: var(--warm-mid);
+    }
+
+    .nav-bar a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0 1rem;
+      border-right: 1px solid var(--rule);
+      transition: color 0.15s;
+    }
+    .nav-bar a:last-child { border-right: none; }
+    .nav-bar a:hover { color: var(--ink); }
+
+    /* ── LAYOUT ── */
+    .wrapper {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ── TL;DR ── */
+    .tldr-block {
+      margin: 2.5rem 0;
+      border: 1px solid var(--ink);
+      position: relative;
+    }
+
+    .tldr-label {
+      position: absolute;
+      top: -0.75rem;
+      left: 1.2rem;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.6rem;
+    }
+
+    .tldr-block p {
+      padding: 1.5rem 1.4rem 1.3rem;
+      font-size: 0.93rem;
+      font-style: italic;
+      color: var(--ink);
+      font-family: 'DM Serif Display', serif;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    .tldr-block p strong {
+      font-style: normal;
+      font-weight: 400;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    /* ── SECTION ── */
+    .section {
+      margin-bottom: 2.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .section-number {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    /* ── ENTRY ── */
+    .entry {
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+    }
+
+    .entry:last-child { border-bottom: none; }
+
+    .entry-source {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    .entry-source a {
+      color: var(--link);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .entry-source a:hover { border-color: var(--link); }
+
+    .entry-body {
+      font-size: 0.9rem;
+      line-height: 1.68;
+      color: #1e1c1a;
+    }
+
+    .entry-body strong {
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    /* ── TOOL UPDATE ENTRIES ── */
+    .tool-entry {
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .tool-entry:last-child { border-bottom: none; }
+
+    .tool-name {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+
+    .tool-name a {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .tool-name a:hover { border-color: var(--ink); }
+
+    .tool-tag {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--tag-bg);
+      color: var(--tag-fg);
+      padding: 0.1rem 0.4rem;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+      position: relative;
+      top: -1px;
+    }
+
+    .tool-tag.alpha { background: #6b4f1a; }
+    .tool-tag.minor { background: #2a5a3a; }
+
+    /* GitHub Trending [AI]/[Other] chip — leads the row rather than trailing it */
+    .tool-tag.repo-tag { margin-left: 0; margin-right: 0.5rem; }
+    .tool-tag.repo-tag.other { background: var(--muted); }
+
+    .tool-desc {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: #1e1c1a;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 3px solid var(--ink);
+      padding: 1.2rem 0;
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .footer-left {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .footer-right {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--muted);
+    }
+
+    .footer-archive {
+      color: var(--link);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .footer-archive:hover { border-color: var(--link); }
+
+    .cost-pill {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      background: var(--warm-mid);
+      border: 1px solid var(--rule);
+      padding: 0.1rem 0.5rem;
+      color: var(--muted);
+      margin-left: 0.5rem;
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      padding: 1rem 0;
+      font-style: italic;
+    }
+
+    .section + .section { border-top: none; }
+
+    @media (max-width: 480px) {
+      .masthead-title { font-size: 2.4rem; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="masthead">
+    <p class="masthead-kicker">Daily AI Intelligence</p>
+    <h1 class="masthead-title">AI Digest</h1>
+    <p class="masthead-date">Tuesday, 03 November 2026</p>
+  </div>
+  <nav class="nav-bar"><a href="#general-ai-developments">General AI Developments</a><a href="#engineering-ai-workflows">Engineering & AI Workflows</a><a href="#tool-updates">Tool Updates</a><a href="#token-saving-techniques">Token Saving Techniques</a><a href="#github-trending">GitHub Trending</a></nav>
+  <div class="wrapper">
+    <div class="tldr-block">
+      <span class="tldr-label">TL;DR</span>
+      <p>Anthropic&#39;s IPO filing says Claude wrote over 90% of its new code in September, and its internal Claude usage, valued at retail prices, now exceeds employee pay. Two research results bear on agent design: keeping structured data out of the model&#39;s context and in deterministic code raised correctness from 46% to 92%, and a small trained context-compaction agent beat much larger models at a fraction of the cost. Claude Code v2.1.317 ships new safety checks and bug fixes.</p>
+    </div>
+    <section class="section" id="general-ai-developments">
+  <div class="section-header">
+    <span class="section-number">01</span>
+    <h2 class="section-title">General AI Developments</h2>
+  </div>
+  <div class="entry"><div class="entry-source"><a href="https://www.businessinsider.com/anthropic-claude-internal-ai-use-exceeds-employee-pay-tokens-2026-11" target="_blank" rel="noopener">Anthropic&#39;s internal AI use, at retail prices, now exceeds its employee pay</a></div><div class="entry-body">The IPO filing shows internal Claude usage, valued at customer prices, passed monthly employee compensation (excluding stock) in April and grew more than 250-fold from January to September. More than 90% of code added in September was written by Claude. This is a valuation, not cash spent.</div></div>
+</section>
+<section class="section" id="engineering-ai-workflows">
+  <div class="section-header">
+    <span class="section-number">02</span>
+    <h2 class="section-title">Engineering &amp; AI Workflows</h2>
+  </div>
+  <div class="entry"><div class="entry-source"><a href="https://simonwillison.net/2026/Nov/2/llm/" target="_blank" rel="noopener">llm 0.37</a></div><div class="entry-body">Simon Willison reports that 12 mostly AI-assisted contributors sent fixes for this release, and reviewing them was far less burdensome than expected. He treats them as bug reports with attached examples and uses a frontier model for triage. Sometimes he lands the PR, sometimes he writes his own fix.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://arxiv.org/abs/2611.00442" target="_blank" rel="noopener">Fidelity Collapses with Table Size, Not Turn Count: Delivery Architecture in a Deployed Tool-Using Agent</a></div><div class="entry-body">In a production agent, keeping records in session state and using a deterministic filter was 92.3% correct per turn, versus 45.7% when records were fed into the model&#39;s context. Accuracy fell off sharply beyond about 74 rows. Review agent designs for tool output that the model re-emits.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://latent.space/p/building-ai-for-lawyers-jacob-lauritzen-cto-of-legora/" target="_blank" rel="noopener">Building AI for Lawyers - Jacob Lauritzen, CTO of Legora</a></div><div class="entry-body">Legora can&#39;t read customer traces, so it builds simulated work environments, such as a 10,000-file data room, and plots model results by task. It also classifies production failures into 10–20 known modes and runs cheap LLM checks on them. One model release took citation accuracy from 70% to 99% with no changes on their side.</div></div>
+</section>
+<section class="section" id="tool-updates">
+  <div class="section-header">
+    <span class="section-number">03</span>
+    <h2 class="section-title">Tool Updates</h2>
+  </div>
+  <div class="tool-entry"><div class="tool-name"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.317" target="_blank" rel="noopener">v2.1.317</a><span class="tool-tag">v2.1.317</span></div><div class="tool-desc">Claude Code adds a confirmation before a web or shell tool call sends your account email to the network. It also adds a warning when <code>/schedule</code> attaches connectors you didn&#39;t request, and <code>onFailure: &quot;block&quot;</code> for Agent SDK hook callbacks. Fixes include auto mode failing against LLM gateways that return 403 or 422, MCP servers disconnecting after the first turn in some desktop sessions, and <code>claude -p</code> exiting 0 after losing its transcript write.</div></div>
+<div class="tool-entry"><div class="tool-name"><a href="https://github.com/openai/codex/releases/tag/rust-v0.167.0-alpha.4" target="_blank" rel="noopener">0.167.0-alpha.4</a></div><div class="tool-desc">Codex alpha release with no published notes.</div></div>
+</section>
+<section class="section" id="token-saving-techniques">
+  <div class="section-header">
+    <span class="section-number">04</span>
+    <h2 class="section-title">Token Saving Techniques</h2>
+  </div>
+  <div class="entry"><div class="entry-source"><a href="https://arxiv.org/abs/2611.00244" target="_blank" rel="noopener">MEMENTO: Learning Context Management for Long Context Processing Agents</a></div><div class="entry-body">An 8B model trained to compact its own context raised book-level QA accuracy from 36.9% to 67.8% while never holding more than 20K tokens. It cost under 1/50 as much as a GPT-5.5 agent in the same harness, which scored 13.1%.</div></div>
+</section>
+<section class="section" id="github-trending">
+  <div class="section-header">
+    <span class="section-number">05</span>
+    <h2 class="section-title">GitHub Trending</h2>
+  </div>
+  <div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/vercel-labs/agent-desktop" target="_blank" rel="noopener">vercel-labs/agent-desktop</a></strong> ★11,395 · +2,275/day — Rust computer-use CLI that lets AI agents operate a desktop.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/thedotmack/claude-mem" target="_blank" rel="noopener">thedotmack/claude-mem</a></strong> ★111,225 · +1,803/day · ▲6.4x · day 12 — Captures what an agent does in a session, compresses it, and injects relevant context into later sessions across Claude Code, Codex, Gemini and others.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/D4Vinci/Scrapling" target="_blank" rel="noopener">D4Vinci/Scrapling</a></strong> ★93,656 · +706/day — Python web scraping framework covering everything from single requests to full crawls.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/hyprwm/Hyprland" target="_blank" rel="noopener">hyprwm/Hyprland</a></strong> ★40,155 · +509/day — Customizable dynamic tiling Wayland compositor.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/Donchitos/Claude-Code-Game-Studios" target="_blank" rel="noopener">Donchitos/Claude-Code-Game-Studios</a></strong> ★34,086 · +1,379/day · day 4 — Turns Claude Code into a game dev studio with 49 agents and 72 workflow skills.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/FlashML-org/FreeToken" target="_blank" rel="noopener">FlashML-org/FreeToken</a></strong> ★16,385 · +653/day · day 2 — Aims to bring datacenter-style model serving to the desktop for running large models locally.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/pingdotgg/t3code" target="_blank" rel="noopener">pingdotgg/t3code</a></strong> ★42,944 · +3,229/day · ▲10.9x · day 8 — Trending TypeScript repo with no description provided, apparently a coding-agent tool.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/shiyu-coder/Kronos" target="_blank" rel="noopener">shiyu-coder/Kronos</a></strong> ★46,204 · +857/day · ▲7.6x · day 6 — Foundation model for the language of financial markets.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/kornia/kornia" target="_blank" rel="noopener">kornia/kornia</a></strong> ★12,280 · +412/day · day 2 — Geometric computer vision library for spatial AI.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/JustVugg/colibri" target="_blank" rel="noopener">JustVugg/colibri</a></strong> ★46,880 · +675/day · ▲1.9x · day 8 — C inference engine for large MoE models that tiers experts across GPU, RAM and NVMe.</div></div>
+</section>
+    <footer>
+      <div class="footer-left">AI Digest &middot; Daily Briefing</div>
+      <div class="footer-right">
+        <a class="footer-archive" href="archive.html">Archive</a><span class="cost-pill">$0.0757</span>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
