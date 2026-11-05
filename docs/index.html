@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI Digest — 2026-11-03</title>
+  <title>AI Digest — 2026-11-05</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
@@ -327,65 +327,71 @@
   <div class="masthead">
     <p class="masthead-kicker">Daily AI Intelligence</p>
     <h1 class="masthead-title">AI Digest</h1>
-    <p class="masthead-date">Tuesday, 03 November 2026</p>
+    <p class="masthead-date">Thursday, 05 November 2026</p>
   </div>
   <nav class="nav-bar"><a href="#general-ai-developments">General AI Developments</a><a href="#engineering-ai-workflows">Engineering & AI Workflows</a><a href="#tool-updates">Tool Updates</a><a href="#token-saving-techniques">Token Saving Techniques</a><a href="#github-trending">GitHub Trending</a></nav>
   <div class="wrapper">
     <div class="tldr-block">
       <span class="tldr-label">TL;DR</span>
-      <p>Anthropic&#39;s IPO filing says Claude wrote over 90% of its new code in September, and its internal Claude usage, valued at retail prices, now exceeds employee pay. Two research results bear on agent design: keeping structured data out of the model&#39;s context and in deterministic code raised correctness from 46% to 92%, and a small trained context-compaction agent beat much larger models at a fraction of the cost. Claude Code v2.1.317 ships new safety checks and bug fixes.</p>
+      <p>OpenAI says an autonomous pipeline found and patched 948 Linux kernel privilege-escalation bugs in one run, and AI-assisted auditing also surfaced the critical PHP2Shell flaw, so expect more legacy-code vulnerabilities to be exposed. Separately, tests show agents still hallucinate live data like prices even with web search, and Claude Code 2.1.318 ships a long list of fixes.</p>
     </div>
     <section class="section" id="general-ai-developments">
   <div class="section-header">
     <span class="section-number">01</span>
     <h2 class="section-title">General AI Developments</h2>
   </div>
-  <div class="entry"><div class="entry-source"><a href="https://www.businessinsider.com/anthropic-claude-internal-ai-use-exceeds-employee-pay-tokens-2026-11" target="_blank" rel="noopener">Anthropic&#39;s internal AI use, at retail prices, now exceeds its employee pay</a></div><div class="entry-body">The IPO filing shows internal Claude usage, valued at customer prices, passed monthly employee compensation (excluding stock) in April and grew more than 250-fold from January to September. More than 90% of code added in September was written by Claude. This is a valuation, not cash spent.</div></div>
+  <div class="entry"><div class="entry-source"><a href="https://spectrum.ieee.org/ai-in-cybersecurity-php2shell-vulnerability" target="_blank" rel="noopener">AI is forcing us to pay off 40 years of technical debt</a></div><div class="entry-body">An out-of-memory bug reported in 2024 was turned into a remote code execution exploit (PHP2Shell) within two weeks by an AI-assisted researcher. Researchers say experts working with AI can now exploit bugs once dismissed as mere crashes, which raises the stakes for legacy code.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://latent.space/p/ainews-it-s-swapping-season/" target="_blank" rel="noopener">It&#39;s Swapping Season</a></div><div class="entry-body">OpenAI reports an autonomous pipeline that validated and patched 948 Linux kernel privilege-escalation bugs for about $1.2M in API cost. Also notable: Claude Code&#39;s head of product Cat Wu is leaving Anthropic for OpenAI, and Kimi K3.1 Pro is now open-weights, ranking #1 among open models on Agent Arena.</div></div>
 </section>
 <section class="section" id="engineering-ai-workflows">
   <div class="section-header">
     <span class="section-number">02</span>
     <h2 class="section-title">Engineering &amp; AI Workflows</h2>
   </div>
-  <div class="entry"><div class="entry-source"><a href="https://simonwillison.net/2026/Nov/2/llm/" target="_blank" rel="noopener">llm 0.37</a></div><div class="entry-body">Simon Willison reports that 12 mostly AI-assisted contributors sent fixes for this release, and reviewing them was far less burdensome than expected. He treats them as bug reports with attached examples and uses a frontier model for triage. Sometimes he lands the PR, sometimes he writes his own fix.</div></div>
-<div class="entry"><div class="entry-source"><a href="https://arxiv.org/abs/2611.00442" target="_blank" rel="noopener">Fidelity Collapses with Table Size, Not Turn Count: Delivery Architecture in a Deployed Tool-Using Agent</a></div><div class="entry-body">In a production agent, keeping records in session state and using a deterministic filter was 92.3% correct per turn, versus 45.7% when records were fed into the model&#39;s context. Accuracy fell off sharply beyond about 74 rows. Review agent designs for tool output that the model re-emits.</div></div>
-<div class="entry"><div class="entry-source"><a href="https://latent.space/p/building-ai-for-lawyers-jacob-lauritzen-cto-of-legora/" target="_blank" rel="noopener">Building AI for Lawyers - Jacob Lauritzen, CTO of Legora</a></div><div class="entry-body">Legora can&#39;t read customer traces, so it builds simulated work environments, such as a 10,000-file data room, and plots model results by task. It also classifies production failures into 10–20 known modes and runs cheap LLM checks on them. One model release took citation accuracy from 70% to 99% with no changes on their side.</div></div>
+  <div class="entry"><div class="entry-source"><a href="https://blog.apify.com/llm-grounding-with-live-data/" target="_blank" rel="noopener">AI agents hallucinate prices: LLM grounding with live data</a></div><div class="entry-body">In tests on 15 products, Claude Opus 5.5 and GPT-6 Luna each matched the live price exactly for only 2 from memory, and web search still left wrong prices with source links attached. The fix is to have code, not the model, write fetched values into the answer, and to have tools report failure explicitly. Prompting for &quot;UNKNOWN&quot; alone didn&#39;t solve it.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://news.ycombinator.com/item?id=50366117" target="_blank" rel="noopener">Ask HN: What&#39;s your current AI agentic setup?</a></div><div class="entry-body">A large thread (350+ comments) on which subscriptions, harnesses and orchestration tools people actually use. It&#39;s a useful snapshot for benchmarking your own setup against peers.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://techcrunch.com/2026/11/02/y-combinators-garry-tan-uses-ai-agents-so-much-he-spends-up-to-200k-a-year-on-tokens/" target="_blank" rel="noopener">YC&#39;s Garry Tan uses AI agents so much, he spends up to $200K a year on tokens</a></div><div class="entry-body">Tan shares his 23-skill Claude Code setup (gstack) and argues against over-optimising for repeatability at the expense of agent autonomy. He also flags cost as the main barrier to mainstream personal agents.</div></div>
 </section>
 <section class="section" id="tool-updates">
   <div class="section-header">
     <span class="section-number">03</span>
     <h2 class="section-title">Tool Updates</h2>
   </div>
-  <div class="tool-entry"><div class="tool-name"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.317" target="_blank" rel="noopener">v2.1.317</a><span class="tool-tag">v2.1.317</span></div><div class="tool-desc">Claude Code adds a confirmation before a web or shell tool call sends your account email to the network. It also adds a warning when <code>/schedule</code> attaches connectors you didn&#39;t request, and <code>onFailure: &quot;block&quot;</code> for Agent SDK hook callbacks. Fixes include auto mode failing against LLM gateways that return 403 or 422, MCP servers disconnecting after the first turn in some desktop sessions, and <code>claude -p</code> exiting 0 after losing its transcript write.</div></div>
-<div class="tool-entry"><div class="tool-name"><a href="https://github.com/openai/codex/releases/tag/rust-v0.167.0-alpha.4" target="_blank" rel="noopener">0.167.0-alpha.4</a></div><div class="tool-desc">Codex alpha release with no published notes.</div></div>
+  <div class="tool-entry"><div class="tool-name"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.318" target="_blank" rel="noopener">v2.1.318</a><span class="tool-tag">v2.1.318</span></div><div class="tool-desc">Claude Code fixes a <code>--continue</code> regression from 2.1.314 that could lose earlier conversation, idle compaction replacing a conversation with a non-summary, and permission prompts answered by stray keystrokes. It also adds an <code>effort</code> option for a mod&#39;s <code>$.model.fork</code>, <code>assume_role</code> for AWS cost attribution, and sign-in expiry info in <code>claude auth status</code>.</div></div>
+<div class="tool-entry"><div class="tool-name"><a href="https://github.com/openai/codex/releases/tag/rust-v0.168.0-alpha.3" target="_blank" rel="noopener">0.168.0-alpha.3</a></div><div class="tool-desc">Codex shipped a run of alpha builds with no release notes: 0.168.0-alpha.2, 0.168.0-alpha.1, 0.167.0-alpha.5 and 0.167.0-alpha.3.2.</div></div>
 </section>
 <section class="section" id="token-saving-techniques">
   <div class="section-header">
     <span class="section-number">04</span>
     <h2 class="section-title">Token Saving Techniques</h2>
   </div>
-  <div class="entry"><div class="entry-source"><a href="https://arxiv.org/abs/2611.00244" target="_blank" rel="noopener">MEMENTO: Learning Context Management for Long Context Processing Agents</a></div><div class="entry-body">An 8B model trained to compact its own context raised book-level QA accuracy from 36.9% to 67.8% while never holding more than 20K tokens. It cost under 1/50 as much as a GPT-5.5 agent in the same harness, which scored 13.1%.</div></div>
+  <div class="entry"><div class="entry-source"><a href="https://inference.alchemy.com" target="_blank" rel="noopener">More daily API calls than Google searches, now applied to LLM inference</a></div><div class="entry-body">Alchemy&#39;s new serverless inference for Kimi, GLM and DeepSeek models argues that cost per completed task, including retries and quality, matters more than raw token price. It&#39;s in early access, with up to $1,000 in credits.</div></div>
 </section>
 <section class="section" id="github-trending">
   <div class="section-header">
     <span class="section-number">05</span>
     <h2 class="section-title">GitHub Trending</h2>
   </div>
-  <div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/vercel-labs/agent-desktop" target="_blank" rel="noopener">vercel-labs/agent-desktop</a></strong> ★11,395 · +2,275/day — Rust computer-use CLI that lets AI agents operate a desktop.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/thedotmack/claude-mem" target="_blank" rel="noopener">thedotmack/claude-mem</a></strong> ★111,225 · +1,803/day · ▲6.4x · day 12 — Captures what an agent does in a session, compresses it, and injects relevant context into later sessions across Claude Code, Codex, Gemini and others.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/D4Vinci/Scrapling" target="_blank" rel="noopener">D4Vinci/Scrapling</a></strong> ★93,656 · +706/day — Python web scraping framework covering everything from single requests to full crawls.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/hyprwm/Hyprland" target="_blank" rel="noopener">hyprwm/Hyprland</a></strong> ★40,155 · +509/day — Customizable dynamic tiling Wayland compositor.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/Donchitos/Claude-Code-Game-Studios" target="_blank" rel="noopener">Donchitos/Claude-Code-Game-Studios</a></strong> ★34,086 · +1,379/day · day 4 — Turns Claude Code into a game dev studio with 49 agents and 72 workflow skills.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/FlashML-org/FreeToken" target="_blank" rel="noopener">FlashML-org/FreeToken</a></strong> ★16,385 · +653/day · day 2 — Aims to bring datacenter-style model serving to the desktop for running large models locally.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/pingdotgg/t3code" target="_blank" rel="noopener">pingdotgg/t3code</a></strong> ★42,944 · +3,229/day · ▲10.9x · day 8 — Trending TypeScript repo with no description provided, apparently a coding-agent tool.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/shiyu-coder/Kronos" target="_blank" rel="noopener">shiyu-coder/Kronos</a></strong> ★46,204 · +857/day · ▲7.6x · day 6 — Foundation model for the language of financial markets.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/kornia/kornia" target="_blank" rel="noopener">kornia/kornia</a></strong> ★12,280 · +412/day · day 2 — Geometric computer vision library for spatial AI.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/JustVugg/colibri" target="_blank" rel="noopener">JustVugg/colibri</a></strong> ★46,880 · +675/day · ▲1.9x · day 8 — C inference engine for large MoE models that tiers experts across GPU, RAM and NVMe.</div></div>
+  <div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/NVIDIA/auto-ontology" target="_blank" rel="noopener">NVIDIA/auto-ontology</a></strong> ★6,171 · +2,050/day — Python framework for building graph-based semantic layers that give LLM agents better context retrieval and deterministic query generation.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/max-sixty/worktrunk" target="_blank" rel="noopener">max-sixty/worktrunk</a></strong> ★11,276 · +531/day · ▲7.2x · day 3 — Rust CLI for Git worktree management, built for running parallel AI agents.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/mattpocock/skills" target="_blank" rel="noopener">mattpocock/skills</a></strong> ★314,004 · +1,379/day · day 20 — A collection of agent skills pulled from the author&#39;s own .agents directory.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/floci-io/floci" target="_blank" rel="noopener">floci-io/floci</a></strong> ★29,951 · +1,090/day — Free AWS local emulator alternative written in Java.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/thedotmack/claude-mem" target="_blank" rel="noopener">thedotmack/claude-mem</a></strong> ★113,230 · +1,172/day · ▲3.9x · day 13 — Captures and compresses agent session activity, then injects relevant context into future sessions across Claude Code, Codex and others.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/vercel-labs/agent-desktop" target="_blank" rel="noopener">vercel-labs/agent-desktop</a></strong> ★16,019 · +2,470/day · day 2 — Computer-use CLI for AI agents.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/github/spec-kit" target="_blank" rel="noopener">github/spec-kit</a></strong> ★147,592 · +808/day · ▲3.5x · day 4 — Toolkit for getting started with spec-driven development (SDD) and similar processes.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/The-PR-Agent/pr-agent" target="_blank" rel="noopener">The-PR-Agent/pr-agent</a></strong> ★14,977 · +280/day — Open-source AI pull request reviewer.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/harry0703/MoneyPrinterTurbo" target="_blank" rel="noopener">harry0703/MoneyPrinterTurbo</a></strong> ★139,495 · +617/day · day 7 — Generates HD short videos from a topic or keyword via an automated AI workflow.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/garrytan/gstack" target="_blank" rel="noopener">garrytan/gstack</a></strong> ★139,585 · +290/day · ▲2.1x · day 2 — Garry Tan&#39;s Claude Code setup: 23 opinionated tools acting as roles like designer, eng manager, release manager and QA.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/FareedKhan-dev/kimi-k3-in-c" target="_blank" rel="noopener">FareedKhan-dev/kimi-k3-in-c</a></strong> ★10,615 · +351/day — Portable C99 inference of the 2.78T-parameter Kimi K3 on a single CPU in 8.24 GB of RAM.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/JiaFeiMiao-K-Cat/DiscImageStudio" target="_blank" rel="noopener">JiaFeiMiao-K-Cat/DiscImageStudio</a></strong> ★6,931 · +1,778/day — C# project with no description provided.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/MichaelCade/90DaysOfDevOps" target="_blank" rel="noopener">MichaelCade/90DaysOfDevOps</a></strong> ★30,721 · +97/day — Structured community learning map covering DevOps principles, processes and tooling.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/D4Vinci/Scrapling" target="_blank" rel="noopener">D4Vinci/Scrapling</a></strong> ★97,212 · +2,005/day · day 2 — Python web scraping framework that handles everything from single requests to full crawls.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/Thysrael/Horizon" target="_blank" rel="noopener">Thysrael/Horizon</a></strong> ★12,801 · +121/day — AI-powered news radar that generates daily briefings in English and Chinese.</div></div>
 </section>
     <footer>
       <div class="footer-left">AI Digest &middot; Daily Briefing</div>
       <div class="footer-right">
-        <a class="footer-archive" href="archive.html">Archive</a><span class="cost-pill">$0.0757</span>
+        <a class="footer-archive" href="archive.html">Archive</a><span class="cost-pill">$0.0879</span>
       </div>
     </footer>
   </div>
