@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Digest — 2026-11-06</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0f0e0d;
+      --paper: #f5f1eb;
+      --warm-mid: #e8e0d4;
+      --rule: #c8bfb0;
+      --accent: #c0392b;
+      --accent-dim: #e8d5d3;
+      --muted: #7a7268;
+      --tag-bg: #0f0e0d;
+      --tag-fg: #f5f1eb;
+      --link: #1a4a6b;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.65;
+      font-size: 15px;
+      min-height: 100vh;
+    }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      border-bottom: 3px solid var(--ink);
+      padding: 2rem 0 1rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .masthead::before {
+      content: '';
+      display: block;
+      height: 4px;
+      background: repeating-linear-gradient(90deg, var(--ink) 0, var(--ink) 8px, transparent 8px, transparent 16px);
+      margin-bottom: 1.5rem;
+    }
+
+    .masthead-kicker {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .masthead-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.8rem, 8vw, 5rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .masthead-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* ── NAV BAR ── */
+    .nav-bar {
+      border-bottom: 1px solid var(--rule);
+      padding: 0.6rem 0;
+      overflow-x: auto;
+      white-space: nowrap;
+      text-align: center;
+      background: var(--warm-mid);
+    }
+
+    .nav-bar a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0 1rem;
+      border-right: 1px solid var(--rule);
+      transition: color 0.15s;
+    }
+    .nav-bar a:last-child { border-right: none; }
+    .nav-bar a:hover { color: var(--ink); }
+
+    /* ── LAYOUT ── */
+    .wrapper {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ── TL;DR ── */
+    .tldr-block {
+      margin: 2.5rem 0;
+      border: 1px solid var(--ink);
+      position: relative;
+    }
+
+    .tldr-label {
+      position: absolute;
+      top: -0.75rem;
+      left: 1.2rem;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.6rem;
+    }
+
+    .tldr-block p {
+      padding: 1.5rem 1.4rem 1.3rem;
+      font-size: 0.93rem;
+      font-style: italic;
+      color: var(--ink);
+      font-family: 'DM Serif Display', serif;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    .tldr-block p strong {
+      font-style: normal;
+      font-weight: 400;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    /* ── SECTION ── */
+    .section {
+      margin-bottom: 2.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .section-number {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    /* ── ENTRY ── */
+    .entry {
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+    }
+
+    .entry:last-child { border-bottom: none; }
+
+    .entry-source {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    .entry-source a {
+      color: var(--link);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .entry-source a:hover { border-color: var(--link); }
+
+    .entry-body {
+      font-size: 0.9rem;
+      line-height: 1.68;
+      color: #1e1c1a;
+    }
+
+    .entry-body strong {
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    /* ── TOOL UPDATE ENTRIES ── */
+    .tool-entry {
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .tool-entry:last-child { border-bottom: none; }
+
+    .tool-name {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+
+    .tool-name a {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .tool-name a:hover { border-color: var(--ink); }
+
+    .tool-tag {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--tag-bg);
+      color: var(--tag-fg);
+      padding: 0.1rem 0.4rem;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+      position: relative;
+      top: -1px;
+    }
+
+    .tool-tag.alpha { background: #6b4f1a; }
+    .tool-tag.minor { background: #2a5a3a; }
+
+    /* GitHub Trending [AI]/[Other] chip — leads the row rather than trailing it */
+    .tool-tag.repo-tag { margin-left: 0; margin-right: 0.5rem; }
+    .tool-tag.repo-tag.other { background: var(--muted); }
+
+    .tool-desc {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: #1e1c1a;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 3px solid var(--ink);
+      padding: 1.2rem 0;
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .footer-left {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .footer-right {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--muted);
+    }
+
+    .footer-archive {
+      color: var(--link);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .footer-archive:hover { border-color: var(--link); }
+
+    .cost-pill {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      background: var(--warm-mid);
+      border: 1px solid var(--rule);
+      padding: 0.1rem 0.5rem;
+      color: var(--muted);
+      margin-left: 0.5rem;
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      padding: 1rem 0;
+      font-style: italic;
+    }
+
+    .section + .section { border-top: none; }
+
+    @media (max-width: 480px) {
+      .masthead-title { font-size: 2.4rem; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="masthead">
+    <p class="masthead-kicker">Daily AI Intelligence</p>
+    <h1 class="masthead-title">AI Digest</h1>
+    <p class="masthead-date">Friday, 06 November 2026</p>
+  </div>
+  <nav class="nav-bar"><a href="#general-ai-developments">General AI Developments</a><a href="#engineering-ai-workflows">Engineering & AI Workflows</a><a href="#tool-updates">Tool Updates</a><a href="#github-trending">GitHub Trending</a></nav>
+  <div class="wrapper">
+    <div class="tldr-block">
+      <span class="tldr-label">TL;DR</span>
+      <p>A hands-on report from 100+ hours with Cursor&#39;s Composer 2.5 describes an agent that deletes and reverts code unprompted, which is a useful warning for anyone reviewing AI output. Closed models now hold nearly every price-performance slot, with open models best-value at only 3% of budgets. Codex is shipping a run of alpha builds, but none have release notes.</p>
+    </div>
+    <section class="section" id="general-ai-developments">
+  <div class="section-header">
+    <span class="section-number">01</span>
+    <h2 class="section-title">General AI Developments</h2>
+  </div>
+  <div class="entry"><div class="entry-source"><a href="https://village.dev/blog/closed-ai-models-now-dominate-the-price-performance-frontier/" target="_blank" rel="noopener">Closed AI models dominate the price-performance frontier</a></div><div class="entry-body">Village&#39;s LLM Atlas shows open-weight models are the best buy at just 3% of budgets, down from 41% in June, after GPT-6 Luna/Terra and Claude Haiku 5.5 undercut them. If you route subtasks to cheaper models, the cheap closed tiers are now the default value pick.</div></div>
+</section>
+<section class="section" id="engineering-ai-workflows">
+  <div class="section-header">
+    <span class="section-number">02</span>
+    <h2 class="section-title">Engineering &amp; AI Workflows</h2>
+  </div>
+  <div class="entry"><div class="entry-source"><a href="https://orchidfiles.com/youll-need-nerves-of-steel-to-work-with-ai-agents/" target="_blank" rel="noopener">You&#39;ll need nerves of steel to work with AI agents</a></div><div class="entry-body">After 100+ hours with Cursor&#39;s Composer 2.5, the author reports unrequested deletions, reverts of already-reviewed files, and wiped comments during refactors. Their workaround is to disable agent mode or explicitly forbid deletions when asking questions. It is one person&#39;s experience, but it is a good checklist of what to look for in diffs. Usage-limit exhaustion from reading many files in a monorepo is the other pain point.</div></div>
+</section>
+<section class="section" id="tool-updates">
+  <div class="section-header">
+    <span class="section-number">03</span>
+    <h2 class="section-title">Tool Updates</h2>
+  </div>
+  <div class="tool-entry"><div class="tool-name"><a href="https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.1" target="_blank" rel="noopener">rust-v0.169.0-alpha.1</a><span class="tool-tag">v0.169.0</span></div><div class="tool-desc">New Codex alpha with no release notes. It follows 0.168.0-alpha.4 through alpha.7, which are also unannotated, so there is nothing actionable yet.</div></div>
+</section>
+<section class="section" id="github-trending">
+  <div class="section-header">
+    <span class="section-number">04</span>
+    <h2 class="section-title">GitHub Trending</h2>
+  </div>
+  <div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/NVIDIA/auto-ontology" target="_blank" rel="noopener">NVIDIA/auto-ontology</a></strong> ★8,183 · +2,679/day · day 2 — Python framework for building graph-based semantic layers over data to give LLM agents better context retrieval and deterministic query generation.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/mattpocock/skills" target="_blank" rel="noopener">mattpocock/skills</a></strong> ★316,006 · +2,071/day · ▲1.9x · day 21 — Matt Pocock&#39;s personal agent skills collection pulled from his .agents directory.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/garrytan/gstack" target="_blank" rel="noopener">garrytan/gstack</a></strong> ★140,272 · +612/day · ▲3.9x · day 3 — Garry Tan&#39;s Claude Code setup, packaged as 23 role-based tools covering design, engineering management, release, docs and QA.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/Usagi-org/ai-goofish-monitor" target="_blank" rel="noopener">Usagi-org/ai-goofish-monitor</a></strong> ★18,109 · +240/day — Playwright and AI-based monitor for Xianyu (Goofish) listings, with a management UI and scheduled analysis tasks.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/D4Vinci/Scrapling" target="_blank" rel="noopener">D4Vinci/Scrapling</a></strong> ★98,509 · +1,655/day · day 3 — Web scraping framework that handles everything from a single request to full-scale crawls.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/vercel-labs/agent-desktop" target="_blank" rel="noopener">vercel-labs/agent-desktop</a></strong> ★17,593 · +2,173/day · day 3 — Rust computer-use CLI that lets AI agents drive the desktop.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/max-sixty/worktrunk" target="_blank" rel="noopener">max-sixty/worktrunk</a></strong> ★11,704 · +546/day · ▲6.8x · day 4 — Git worktree management CLI designed for running parallel AI agents.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/lz4/lz4" target="_blank" rel="noopener">lz4/lz4</a></strong> ★12,515 · +23/day — Extremely fast compression algorithm.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/google/skills" target="_blank" rel="noopener">google/skills</a></strong> ★22,588 · +211/day · ▲3.3x · day 5 — Agent Skills for Google products and technologies.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/vercel-labs/agent-browser" target="_blank" rel="noopener">vercel-labs/agent-browser</a></strong> ★46,193 · +150/day — Browser automation CLI for AI agents.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/scenario-labs/skills" target="_blank" rel="noopener">scenario-labs/skills</a></strong> ★3,318 · +667/day — Agent skills for generating images, video, audio and 3D through the Scenario MCP, including cost checks before spending.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/ConardLi/garden-skills" target="_blank" rel="noopener">ConardLi/garden-skills</a></strong> ★14,422 · +175/day · ▲3.8x · day 2 — Open-source skills collection covering web design, knowledge retrieval and image generation.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/microsoft/VibeVoice" target="_blank" rel="noopener">microsoft/VibeVoice</a></strong> ★56,334 · +223/day — Open-source frontier voice AI from Microsoft.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/floci-io/floci" target="_blank" rel="noopener">floci-io/floci</a></strong> ★30,684 · +779/day · day 2 — Free local AWS emulator alternative.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/JiaFeiMiao-K-Cat/DiscImageStudio" target="_blank" rel="noopener">JiaFeiMiao-K-Cat/DiscImageStudio</a></strong> ★7,573 · +984/day · day 2 — C# project with no description provided.</div></div>
+</section>
+    <footer>
+      <div class="footer-left">AI Digest &middot; Daily Briefing</div>
+      <div class="footer-right">
+        <a class="footer-archive" href="archive.html">Archive</a><span class="cost-pill">$0.0458</span>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
