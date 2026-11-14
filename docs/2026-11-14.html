@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Digest — 2026-11-14</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0f0e0d;
+      --paper: #f5f1eb;
+      --warm-mid: #e8e0d4;
+      --rule: #c8bfb0;
+      --accent: #c0392b;
+      --accent-dim: #e8d5d3;
+      --muted: #7a7268;
+      --tag-bg: #0f0e0d;
+      --tag-fg: #f5f1eb;
+      --link: #1a4a6b;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.65;
+      font-size: 15px;
+      min-height: 100vh;
+    }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      border-bottom: 3px solid var(--ink);
+      padding: 2rem 0 1rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .masthead::before {
+      content: '';
+      display: block;
+      height: 4px;
+      background: repeating-linear-gradient(90deg, var(--ink) 0, var(--ink) 8px, transparent 8px, transparent 16px);
+      margin-bottom: 1.5rem;
+    }
+
+    .masthead-kicker {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .masthead-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.8rem, 8vw, 5rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .masthead-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* ── NAV BAR ── */
+    .nav-bar {
+      border-bottom: 1px solid var(--rule);
+      padding: 0.6rem 0;
+      overflow-x: auto;
+      white-space: nowrap;
+      text-align: center;
+      background: var(--warm-mid);
+    }
+
+    .nav-bar a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0 1rem;
+      border-right: 1px solid var(--rule);
+      transition: color 0.15s;
+    }
+    .nav-bar a:last-child { border-right: none; }
+    .nav-bar a:hover { color: var(--ink); }
+
+    /* ── LAYOUT ── */
+    .wrapper {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ── TL;DR ── */
+    .tldr-block {
+      margin: 2.5rem 0;
+      border: 1px solid var(--ink);
+      position: relative;
+    }
+
+    .tldr-label {
+      position: absolute;
+      top: -0.75rem;
+      left: 1.2rem;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.6rem;
+    }
+
+    .tldr-block p {
+      padding: 1.5rem 1.4rem 1.3rem;
+      font-size: 0.93rem;
+      font-style: italic;
+      color: var(--ink);
+      font-family: 'DM Serif Display', serif;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    .tldr-block p strong {
+      font-style: normal;
+      font-weight: 400;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    /* ── SECTION ── */
+    .section {
+      margin-bottom: 2.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .section-number {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    /* ── ENTRY ── */
+    .entry {
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+    }
+
+    .entry:last-child { border-bottom: none; }
+
+    .entry-source {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    .entry-source a {
+      color: var(--link);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .entry-source a:hover { border-color: var(--link); }
+
+    .entry-body {
+      font-size: 0.9rem;
+      line-height: 1.68;
+      color: #1e1c1a;
+    }
+
+    .entry-body strong {
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    /* ── TOOL UPDATE ENTRIES ── */
+    .tool-entry {
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .tool-entry:last-child { border-bottom: none; }
+
+    .tool-name {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+
+    .tool-name a {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .tool-name a:hover { border-color: var(--ink); }
+
+    .tool-tag {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--tag-bg);
+      color: var(--tag-fg);
+      padding: 0.1rem 0.4rem;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+      position: relative;
+      top: -1px;
+    }
+
+    .tool-tag.alpha { background: #6b4f1a; }
+    .tool-tag.minor { background: #2a5a3a; }
+
+    /* GitHub Trending [AI]/[Other] chip — leads the row rather than trailing it */
+    .tool-tag.repo-tag { margin-left: 0; margin-right: 0.5rem; }
+    .tool-tag.repo-tag.other { background: var(--muted); }
+
+    .tool-desc {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: #1e1c1a;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 3px solid var(--ink);
+      padding: 1.2rem 0;
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .footer-left {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .footer-right {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--muted);
+    }
+
+    .footer-archive {
+      color: var(--link);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .footer-archive:hover { border-color: var(--link); }
+
+    .cost-pill {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      background: var(--warm-mid);
+      border: 1px solid var(--rule);
+      padding: 0.1rem 0.5rem;
+      color: var(--muted);
+      margin-left: 0.5rem;
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      padding: 1rem 0;
+      font-style: italic;
+    }
+
+    .section + .section { border-top: none; }
+
+    @media (max-width: 480px) {
+      .masthead-title { font-size: 2.4rem; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="masthead">
+    <p class="masthead-kicker">Daily AI Intelligence</p>
+    <h1 class="masthead-title">AI Digest</h1>
+    <p class="masthead-date">Saturday, 14 November 2026</p>
+  </div>
+  <nav class="nav-bar"><a href="#general-ai-developments">General AI Developments</a><a href="#engineering-ai-workflows">Engineering & AI Workflows</a><a href="#tool-updates">Tool Updates</a><a href="#token-saving-techniques">Token Saving Techniques</a><a href="#github-trending">GitHub Trending</a></nav>
+  <div class="wrapper">
+    <div class="tldr-block">
+      <span class="tldr-label">TL;DR</span>
+      <p>Anthropic launched a redesigned Claude Code Projects beta. A coordinator now runs parallel cloud-session threads, each opening PRs on its own branch, with shared memory across threads. The &quot;No AI Slop&quot; manifesto from AIE Code Summit is getting attention for its argument about the review burden of AI output. Claude Code v2.1.325 also ships a zstd security fix and several subagent model fixes.</p>
+    </div>
+    <section class="section" id="general-ai-developments">
+  <div class="section-header">
+    <span class="section-number">01</span>
+    <h2 class="section-title">General AI Developments</h2>
+  </div>
+  <div class="entry"><div class="entry-source"><a href="https://www.dwarkesh.com/p/rsi" target="_blank" rel="noopener">The avalanche that hit math is coming for AI development</a></div><div class="entry-body">Dwarkesh argues AI research automation is close, citing METR&#39;s finding that Anthropic&#39;s progress on well-scoped tasks is 2x last year&#39;s, and Anthropic&#39;s report that Claude leads over 26% of its AI R&amp;D work. The timeline predictions are speculative, but the cited data points are concrete.</div></div>
+</section>
+<section class="section" id="engineering-ai-workflows">
+  <div class="section-header">
+    <span class="section-number">02</span>
+    <h2 class="section-title">Engineering &amp; AI Workflows</h2>
+  </div>
+  <div class="entry"><div class="entry-source"><a href="https://www.slopmanifesto.com/" target="_blank" rel="noopener">No AI Slop: A Manifesto</a></div><div class="entry-body">Written by AIE Code Summit speakers, it frames slop as asymmetric: a thousand-line PR costs almost nothing to produce but the same effort to review. Its practical commitments are to disclose agent-written work, check the parts that matter, and review plans or designs even if you stop reading all the code. Useful as a team discussion tool.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://claude.com/resources/articles/projects-redesigned" target="_blank" rel="noopener">Projects redesigned: from folder to conversation</a></div><div class="entry-body">The coordinator breaks a goal into threads, each a Claude Code cloud session on its own branch. Overlapping work surfaces as ordinary merge conflicts, which keeps review in familiar PR territory. Shared memory across threads is meant to cut down on prompt engineering.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://www.reddit.com/r/ClaudeAI/comments/1xvnq0t/psa_using_fable_as_an_advisor_doesnt_touch_your/" target="_blank" rel="noopener">PSA: Using Fable as an advisor doesn&#39;t touch your Fable weekly limit</a></div><div class="entry-body">A user runs Opus 5.5 as the main model with Fable 5.2 as an advisor via <code>/advisor</code>, and says the advisor calls don&#39;t draw on the Fable weekly quota. This is one user&#39;s report, but it&#39;s cheap to test.</div></div>
+</section>
+<section class="section" id="tool-updates">
+  <div class="section-header">
+    <span class="section-number">03</span>
+    <h2 class="section-title">Tool Updates</h2>
+  </div>
+  <div class="tool-entry"><div class="tool-name"><a href="https://claude.com/resources/articles/projects-redesigned" target="_blank" rel="noopener">Anthropic upgrades Claude Code Projects to run parallel AI workers</a></div><div class="tool-desc">Wait, this URL is already cited above, so see the Projects bullet in Engineering &amp; AI Workflows. The beta is rolling out to select Pro and Max users on cloud sessions, with wider access over the coming week.</div></div>
+<div class="tool-entry"><div class="tool-name"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.325" target="_blank" rel="noopener">v2.1.325</a><span class="tool-tag">v2.1.325</span></div><div class="tool-desc">Fixes a security issue in zstd-compressed response decoding. Also fixes subagents with their own model being moved to the plan-mode model under <code>opusplan</code> or <code>haiku</code>, subagents sizing file reads and MCP results with the main session&#39;s model, and context-length errors on third-party gateways instead of compacting.</div></div>
+<div class="tool-entry"><div class="tool-name"><a href="https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.5" target="_blank" rel="noopener">0.171.0-alpha.5</a></div><div class="tool-desc">Codex alpha releases with no notes; 0.171.0-alpha.4 is the previous one.</div></div>
+<div class="tool-entry"><div class="tool-name"><a href="https://www.reddit.com/r/ClaudeAI/comments/1xvw39p/discussion_hub_for_new_claude_incident_some_users/" target="_blank" rel="noopener">Discussion Hub for new Claude incident: Some users unable to sign up with Apple on the Claude iOS app on Nov 14, 2026</a></div><div class="tool-desc">Sign in with Apple is failing on the Claude iOS app, mainly for new accounts. Google and email sign-up still work.</div></div>
+</section>
+<section class="section" id="token-saving-techniques">
+  <div class="section-header">
+    <span class="section-number">04</span>
+    <h2 class="section-title">Token Saving Techniques</h2>
+  </div>
+  <div class="entry"><div class="entry-source"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1xvuit5/paper_read_less_solve_more_tokenefficient_sparse/" target="_blank" rel="noopener">Read Less, Solve More: Token-Efficient Sparse Reading of External Content for AI Agents</a></div><div class="entry-body">SparseRead is a reading-control layer that caps how much raw content an agent ingests per episode, with a full-view fallback. It reports up to 92.9% fewer tokens across six models, including Claude Opus 5, while preserving or improving quality in 97% of settings.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://github.com/garritfra/llmtee" target="_blank" rel="noopener">Show HN: Log every LLM call with tokens, cost, latency, and time to first token</a></div><div class="entry-body">A single-binary proxy that logs per-call tokens, cost and latency to SQLite, adding about 0.2 ms. It gives you the visibility to find where your agents spend tokens.</div></div>
+</section>
+<section class="section" id="github-trending">
+  <div class="section-header">
+    <span class="section-number">05</span>
+    <h2 class="section-title">GitHub Trending</h2>
+  </div>
+  <div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/alibaba/open-code-review" target="_blank" rel="noopener">alibaba/open-code-review</a></strong> ★50,950 · +215/day · day 9 — Code review tool combining deterministic pipelines with an LLM agent, giving line-level comments and built-in rules for NPEs, thread safety, XSS and SQL injection.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/GoogleChrome/modern-web-guidance-src" target="_blank" rel="noopener">GoogleChrome/modern-web-guidance-src</a></strong> ★5,224 · +1,925/day · day 3 — Keeps coding agents current on modern web best practices.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/openai/codex-security" target="_blank" rel="noopener">openai/codex-security</a></strong> ★13,341 · +751/day · day 3 — OpenAI&#39;s CLI and TypeScript SDK for finding, validating and fixing security vulnerabilities.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/ZhuLinsen/daily_stock_analysis" target="_blank" rel="noopener">ZhuLinsen/daily_stock_analysis</a></strong> ★71,997 · +256/day — LLM-powered multi-market stock analysis with news, dashboards and scheduled notifications.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/we-promise/sure" target="_blank" rel="noopener">we-promise/sure</a></strong> ★14,953 · +925/day · day 5 — A community-built personal finance app.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/backnotprop/plannotator" target="_blank" rel="noopener">backnotprop/plannotator</a></strong> ★10,615 · +108/day — A workspace for planning, annotating and reviewing agent work, with feedback sent back to agents in one click.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/louislam/uptime-kuma" target="_blank" rel="noopener">louislam/uptime-kuma</a></strong> ★93,997 · +71/day — Self-hosted monitoring tool.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/block/buzz" target="_blank" rel="noopener">block/buzz</a></strong> ★37,392 · +97/day · day 3 — A &quot;hive mind&quot; communication platform written in Rust.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/tradermonty/claude-trading-skills" target="_blank" rel="noopener">tradermonty/claude-trading-skills</a></strong> ★4,366 · +69/day — Claude Code skills for market analysis, charting, screeners and trading strategy development.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/tailscale/tailcat" target="_blank" rel="noopener">tailscale/tailcat</a></strong> ★9,628 · +256/day · ▲2.8x · day 4 — Netcat-like tool that runs over Tailscale&#39;s data plane without its control plane.</div></div>
+</section>
+    <footer>
+      <div class="footer-left">AI Digest &middot; Daily Briefing</div>
+      <div class="footer-right">
+        <a class="footer-archive" href="archive.html">Archive</a><span class="cost-pill">$0.0696</span>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
