@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Digest — 2026-11-16</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0f0e0d;
+      --paper: #f5f1eb;
+      --warm-mid: #e8e0d4;
+      --rule: #c8bfb0;
+      --accent: #c0392b;
+      --accent-dim: #e8d5d3;
+      --muted: #7a7268;
+      --tag-bg: #0f0e0d;
+      --tag-fg: #f5f1eb;
+      --link: #1a4a6b;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.65;
+      font-size: 15px;
+      min-height: 100vh;
+    }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      border-bottom: 3px solid var(--ink);
+      padding: 2rem 0 1rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .masthead::before {
+      content: '';
+      display: block;
+      height: 4px;
+      background: repeating-linear-gradient(90deg, var(--ink) 0, var(--ink) 8px, transparent 8px, transparent 16px);
+      margin-bottom: 1.5rem;
+    }
+
+    .masthead-kicker {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .masthead-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.8rem, 8vw, 5rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .masthead-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* ── NAV BAR ── */
+    .nav-bar {
+      border-bottom: 1px solid var(--rule);
+      padding: 0.6rem 0;
+      overflow-x: auto;
+      white-space: nowrap;
+      text-align: center;
+      background: var(--warm-mid);
+    }
+
+    .nav-bar a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0 1rem;
+      border-right: 1px solid var(--rule);
+      transition: color 0.15s;
+    }
+    .nav-bar a:last-child { border-right: none; }
+    .nav-bar a:hover { color: var(--ink); }
+
+    /* ── LAYOUT ── */
+    .wrapper {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ── TL;DR ── */
+    .tldr-block {
+      margin: 2.5rem 0;
+      border: 1px solid var(--ink);
+      position: relative;
+    }
+
+    .tldr-label {
+      position: absolute;
+      top: -0.75rem;
+      left: 1.2rem;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.6rem;
+    }
+
+    .tldr-block p {
+      padding: 1.5rem 1.4rem 1.3rem;
+      font-size: 0.93rem;
+      font-style: italic;
+      color: var(--ink);
+      font-family: 'DM Serif Display', serif;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    .tldr-block p strong {
+      font-style: normal;
+      font-weight: 400;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    /* ── SECTION ── */
+    .section {
+      margin-bottom: 2.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .section-number {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    /* ── ENTRY ── */
+    .entry {
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+    }
+
+    .entry:last-child { border-bottom: none; }
+
+    .entry-source {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    .entry-source a {
+      color: var(--link);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .entry-source a:hover { border-color: var(--link); }
+
+    .entry-body {
+      font-size: 0.9rem;
+      line-height: 1.68;
+      color: #1e1c1a;
+    }
+
+    .entry-body strong {
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    /* ── TOOL UPDATE ENTRIES ── */
+    .tool-entry {
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .tool-entry:last-child { border-bottom: none; }
+
+    .tool-name {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+
+    .tool-name a {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .tool-name a:hover { border-color: var(--ink); }
+
+    .tool-tag {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--tag-bg);
+      color: var(--tag-fg);
+      padding: 0.1rem 0.4rem;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+      position: relative;
+      top: -1px;
+    }
+
+    .tool-tag.alpha { background: #6b4f1a; }
+    .tool-tag.minor { background: #2a5a3a; }
+
+    /* GitHub Trending [AI]/[Other] chip — leads the row rather than trailing it */
+    .tool-tag.repo-tag { margin-left: 0; margin-right: 0.5rem; }
+    .tool-tag.repo-tag.other { background: var(--muted); }
+
+    .tool-desc {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: #1e1c1a;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 3px solid var(--ink);
+      padding: 1.2rem 0;
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .footer-left {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .footer-right {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--muted);
+    }
+
+    .footer-archive {
+      color: var(--link);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .footer-archive:hover { border-color: var(--link); }
+
+    .cost-pill {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      background: var(--warm-mid);
+      border: 1px solid var(--rule);
+      padding: 0.1rem 0.5rem;
+      color: var(--muted);
+      margin-left: 0.5rem;
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      padding: 1rem 0;
+      font-style: italic;
+    }
+
+    .section + .section { border-top: none; }
+
+    @media (max-width: 480px) {
+      .masthead-title { font-size: 2.4rem; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="masthead">
+    <p class="masthead-kicker">Daily AI Intelligence</p>
+    <h1 class="masthead-title">AI Digest</h1>
+    <p class="masthead-date">Monday, 16 November 2026</p>
+  </div>
+  <nav class="nav-bar"><a href="#general-ai-developments">General AI Developments</a><a href="#engineering-ai-workflows">Engineering & AI Workflows</a><a href="#tool-updates">Tool Updates</a><a href="#token-saving-techniques">Token Saving Techniques</a><a href="#github-trending">GitHub Trending</a></nav>
+  <div class="wrapper">
+    <div class="tldr-block">
+      <span class="tldr-label">TL;DR</span>
+      <p>Anthropic published a design guide for always-on agents, splitting them into inbox, timers, memory, permissions and outbox. A new spreadsheet benchmark shows even the best frontier model passes only 38% of professional tasks. Datasette&#39;s 1.0a43 shipped two security fixes, one of them a private-query exposure.</p>
+    </div>
+    <section class="section" id="general-ai-developments">
+  <div class="section-header">
+    <span class="section-number">01</span>
+    <h2 class="section-title">General AI Developments</h2>
+  </div>
+  <div class="entry"><div class="entry-source"><a href="https://arxiv.org/abs/2611.17766" target="_blank" rel="noopener">GDP.xlsx: Benchmarking Frontier Models on Professional Workbooks</a></div><div class="entry-body">70 expert-written spreadsheet tasks with rubrics; the top model (Gemini 4 Argon) passes only 38.3% of attempts and the median is 19.3%. Treat AI output on real workbooks as needing careful review.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://www.hntrends.com/2026/november.html" target="_blank" rel="noopener">&quot;Who is Hiring?&quot; postings stuck near 12-year lows as AI reaches half of all jobs</a></div><div class="entry-body">AI is now in 51.6% of postings, agents in 14.8% and MCP in 4.5% (from 0.3% a year ago), while front-end roles have fallen to 6.6%.</div></div>
+</section>
+<section class="section" id="engineering-ai-workflows">
+  <div class="section-header">
+    <span class="section-number">02</span>
+    <h2 class="section-title">Engineering &amp; AI Workflows</h2>
+  </div>
+  <div class="entry"><div class="entry-source"><a href="https://www.reddit.com/r/ClaudeAI/comments/1xxdzcf/anthropic_published_a_guide_on_building_alwayson/" target="_blank" rel="noopener">Anthropic published a guide on building always-on agents (Nov 13). It breaks them into 5 parts: inbox, timers, memory, permissions, outbox</a></div><div class="entry-body">A design guide, not a feature launch. Deferred tool calls let an agent wait for approval without holding a session open, which is useful for human-in-the-loop review.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://simonwillison.net/2026/Nov/15/datasette/" target="_blank" rel="noopener">datasette 1.0a43</a></div><div class="entry-body">Willison is using Claude Fable 5.2 to push through the 1.0 milestone (now 53% done). The release includes two security fixes, one of which, private stored queries being exposed, got a GitHub advisory; it is a reminder to audit access-control paths in AI-assisted code.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://simonwillison.net/2026/Nov/15/datasette-maplibre/" target="_blank" rel="noopener">datasette-maplibre 0.1a0</a></div><div class="entry-body">Built mostly from a single prompt that pointed Claude at existing plugins and a demo file as references, plus &quot;be creative&quot;. Grounding a prompt in concrete reference code is a pattern worth copying.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://www.reddit.com/r/ClaudeAI/comments/1xx70to/claude_refused_to_cancel_his_work_even_tho_he/" target="_blank" rel="noopener">Claude refused to cancel his work even tho he (probably) knew it was illegal</a></div><div class="entry-body">Fable 5.2 flagged an instruction in tool output that claimed to be an automatic reminder and ignored it. This is anecdotal, but it shows the model resisting injected instructions from tool results.</div></div>
+</section>
+<section class="section" id="tool-updates">
+  <div class="section-header">
+    <span class="section-number">03</span>
+    <h2 class="section-title">Tool Updates</h2>
+  </div>
+  <div class="tool-entry"><div class="tool-name"><a href="https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.7" target="_blank" rel="noopener">0.171.0-alpha.7</a></div><div class="tool-desc">Codex alpha release with no notes; 0.171.0-alpha.6 shipped alongside it.</div></div>
+</section>
+<section class="section" id="token-saving-techniques">
+  <div class="section-header">
+    <span class="section-number">04</span>
+    <h2 class="section-title">Token Saving Techniques</h2>
+  </div>
+  <div class="entry"><div class="entry-source"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1xxawbh/why_download_abliterated_flash_next_models_when/" target="_blank" rel="noopener">Why download abliterated Flash Next models when LoRA exists?</a></div><div class="entry-body">Rank-1 modifications can be shipped as a small LoRA and applied per request in llama.cpp, saving about 150GB of disk. The catch is that switching it on mid-session costs a full re-prefill.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1xxfv69/im_starting_to_think_a_specialized_4b_is_enough/" target="_blank" rel="noopener">I&#39;m starting to think a specialized 4B is enough for most of the tasks I&#39;d use an LLM for</a></div><div class="entry-body">A single user&#39;s experience: small fine-tuned models (4B, even 350M) handle narrow tasks well with enough epochs. It points to cheap models for subtasks, but the evidence is anecdotal.</div></div>
+</section>
+<section class="section" id="github-trending">
+  <div class="section-header">
+    <span class="section-number">05</span>
+    <h2 class="section-title">GitHub Trending</h2>
+  </div>
+  <div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/dream-num/univer" target="_blank" rel="noopener">dream-num/univer</a></strong> ★26,851 · +988/day · ▲4.9x · day 10 — Office SDK that gives products editing, calculation and file processing for both people and AI agents.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/ag-ui-protocol/ag-ui" target="_blank" rel="noopener">ag-ui-protocol/ag-ui</a></strong> ★18,296 · +355/day · day 2 — Agent-User Interaction Protocol for bringing agents into frontend applications.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/google-labs-code/stitch-skills" target="_blank" rel="noopener">google-labs-code/stitch-skills</a></strong> ★9,547 · +247/day — Agent Skills for the Stitch MCP server, compatible with Claude Code, Cursor and Gemini CLI.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/backnotprop/plannotator" target="_blank" rel="noopener">backnotprop/plannotator</a></strong> ★12,170 · +866/day · day 3 — Workspace for annotating plans and code review and sending feedback to agents in one click.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/ChromeDevTools/chrome-devtools-mcp" target="_blank" rel="noopener">ChromeDevTools/chrome-devtools-mcp</a></strong> ★57,364 · +717/day · ▲7.7x · day 5 — Chrome DevTools exposed to coding agents.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/alibaba/open-code-review" target="_blank" rel="noopener">alibaba/open-code-review</a></strong> ★52,580 · +691/day · ▲1.5x · day 11 — Code review tool combining deterministic pipelines with an LLM agent, with built-in rules for NPEs, XSS and SQL injection.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/Tencent/LoopForge" target="_blank" rel="noopener">Tencent/LoopForge</a></strong> ★2,103 · +423/day · day 2 — Self-hosted workflows that orchestrate Codex, Claude Code and CodeBuddy with human approval gates.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/ggml-org/ggml" target="_blank" rel="noopener">ggml-org/ggml</a></strong> ★16,052 · +43/day — Tensor library for machine learning that underpins llama.cpp.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/elementalsouls/Claude-BugHunter" target="_blank" rel="noopener">elementalsouls/Claude-BugHunter</a></strong> ★6,960 · +98/day — Claude Code skill bundle for bug hunting and red-team work, with 82 skills and 15 slash commands.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/GoogleChrome/modern-web-guidance-src" target="_blank" rel="noopener">GoogleChrome/modern-web-guidance-src</a></strong> ★7,664 · +1,219/day · day 5 — Keeps coding agents up to date with current web best practices.</div></div>
+</section>
+    <footer>
+      <div class="footer-left">AI Digest &middot; Daily Briefing</div>
+      <div class="footer-right">
+        <a class="footer-archive" href="archive.html">Archive</a><span class="cost-pill">$0.0715</span>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
