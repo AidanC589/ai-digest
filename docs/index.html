@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI Digest — 2026-11-21</title>
+  <title>AI Digest — 2026-11-22</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
@@ -327,59 +327,63 @@
   <div class="masthead">
     <p class="masthead-kicker">Daily AI Intelligence</p>
     <h1 class="masthead-title">AI Digest</h1>
-    <p class="masthead-date">Saturday, 21 November 2026</p>
+    <p class="masthead-date">Sunday, 22 November 2026</p>
   </div>
-  <nav class="nav-bar"><a href="#general-ai-developments">General AI Developments</a><a href="#engineering-ai-workflows">Engineering & AI Workflows</a><a href="#tool-updates">Tool Updates</a><a href="#github-trending">GitHub Trending</a></nav>
+  <nav class="nav-bar"><a href="#general-ai-developments">General AI Developments</a><a href="#engineering-ai-workflows">Engineering & AI Workflows</a><a href="#tool-updates">Tool Updates</a><a href="#token-saving-techniques">Token Saving Techniques</a><a href="#github-trending">GitHub Trending</a></nav>
   <div class="wrapper">
     <div class="tldr-block">
       <span class="tldr-label">TL;DR</span>
-      <p>Claude reportedly produced a Lean-verified proof of the Riemann Hypothesis, which has sharpened the debate over trusting code and proofs nobody can read in full. Formal verification is emerging as a serious answer to AI &quot;slop&quot; in code. Claude Code v2.1.330 ships a long list of stability fixes, and Anthropic&#39;s IPO is caught in a heavy tech sell-off.</p>
+      <p>Researchers planted two million canary secrets in AI prompts and found providers and resellers leaking or retaining customer data, with OpenRouter confirming some prompts may have been read. If you route prompts through AI gateways, treat every hop as able to see your full prompt and code. Gemini 4&#39;s top reasoning level costs about six times more output tokens than &quot;high&quot; for the same model.</p>
     </div>
     <section class="section" id="general-ai-developments">
   <div class="section-header">
     <span class="section-number">01</span>
     <h2 class="section-title">General AI Developments</h2>
   </div>
-  <div class="entry"><div class="entry-source"><a href="https://latent.space/p/ainews-riemann-hypothesis-proved-twice-independently/" target="_blank" rel="noopener">Riemann Hypothesis proved...twice independently</a></div><div class="entry-body">Anthropic&#39;s Levent Alpöge released a Claude-driven proof as 1.3GB of Lean code, and a separate human-written proof appeared hours later. The AI proof is probably correct but unreadable, and AI-claimed Millennium Prize results like OpenAI&#39;s Navier-Stokes one remain a caution because the Lean statement may not match the natural-language claim.</div></div>
-<div class="entry"><div class="entry-source"><a href="https://a90.com/experiments/same-advice/" target="_blank" rel="noopener">AI is giving everyone the same advice</a></div><div class="entry-body">Across 65 models asked ten times each with no system prompt, 69% of startup names began with &quot;Nex&quot; and answers converged on the same city, country and career picks. Extra reasoning didn&#39;t diversify the answers, and a one-line self-description only moved users into a different shared lane. Expect homogenised suggestions when you ask models for architecture or naming ideas.</div></div>
+  <div class="entry"><div class="entry-source"><a href="https://arstechnica.com/security/2026/11/a-leaky-ai-supply-chain-is-exposing-secret-user-data-at-an-alarming-rate/" target="_blank" rel="noopener">Leaky AI supply chain is exposing secret user data at an alarming rate</a></div><div class="entry-body">A canary-token study found prompts leaking through AI routers and resellers. OpenRouter has since told customers some prompts sent to MiniMax endpoints may have been read, and it removed the &quot;Zero Data Retention&quot; label from those endpoints. Relevant if your AI-assisted workflow sends source code or credentials through third-party gateways.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://www.dragos.com/blog/ai-supply-chain-security-canary-tokens" target="_blank" rel="noopener">AI Supply Chain Security: What Canary Tokens Found</a></div><div class="entry-body">Dragos&#39;s original write-up covers about two million seeded prompts over five months. It found evidence of compromise at three providers, marketplace resellers retaining prompts via standard logging, and providers ignoring stated privacy settings. Every router hop sees the full prompt and response, so keep secrets out of prompts and prefer direct provider access for sensitive code.</div></div>
 </section>
 <section class="section" id="engineering-ai-workflows">
   <div class="section-header">
     <span class="section-number">02</span>
     <h2 class="section-title">Engineering &amp; AI Workflows</h2>
   </div>
-  <div class="entry"><div class="entry-source"><a href="https://latent.space/p/formal-verification/" target="_blank" rel="noopener">The War Against Slop and an Emerging Weapon to Fight it: Formal Verification</a></div><div class="entry-body">Agent &quot;verification&quot; today usually means tests, self-critique or an AI judge, which can&#39;t tell you when you&#39;ve found every issue. &amp;Truth, Harmonic, Theorem and Axiom are building Lean-based systems to prove code meets precise specs, so humans can trust it without reading every line. That is directly relevant to reviewing AI-generated code.</div></div>
-<div class="entry"><div class="entry-source"><a href="https://spectrum.ieee.org/epic-games-unreal-engine-ai" target="_blank" rel="noopener">Epic Games Turns to AI Coding for the Unreal Engine</a></div><div class="entry-body">A developer pointed Claude Code at a defunct Unreal game and, in four mostly hands-off hours, got a build with peer-to-peer play and save states, removing the AWS dependency. Epic is dropping Blueprints in UE6 for text-based Verse because LLMs handle code far better than visual graphs, so tools are being redesigned around agent-friendliness.</div></div>
-<div class="entry"><div class="entry-source"><a href="http://ricapar.net/ClawDOS/" target="_blank" rel="noopener">ClawDOS – An AI coding agent for DOS</a></div><div class="entry-body">A 100% Claude-written agent harness runs on an 8088 PC and offloads only TLS to a bridge machine. It writes, compiles with Turbo C and runs programs. It&#39;s a stress test of agent design under extreme constraints: a 176 KB harness, a compiler guide the agent reads, and persistent notes between sessions.</div></div>
+  <div class="entry"><div class="entry-source"><a href="https://simonwillison.net/2026/Nov/21/muru/" target="_blank" rel="noopener">Muru</a></div><div class="entry-body">Graham Dumpleton is building an AI-assisted Rust Python server and publishing detailed daily write-ups as part of the process. His &quot;AI as a lifestyle choice&quot; post argues the AI does much of the work, but judging what isn&#39;t good enough yet remains the human&#39;s job. That is a useful model for review-and-steer workflows.</div></div>
 </section>
 <section class="section" id="tool-updates">
   <div class="section-header">
     <span class="section-number">03</span>
     <h2 class="section-title">Tool Updates</h2>
   </div>
-  <div class="tool-entry"><div class="tool-name"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.330" target="_blank" rel="noopener">v2.1.330</a><span class="tool-tag">v2.1.330</span></div><div class="tool-desc">Claude Code adds Enterprise Admin Console sign-in, a built-in <code>easel</code> chart mod and a self-hosted runner <code>--start-dir</code> option. Fixes include freezes after compacting long conversations, a worktree being deleted while another session was using it, lost user settings from concurrent saves, wrong <code>/rewind</code> file restores, and &quot;JSON schema is invalid&quot; failures with many MCP tools.</div></div>
-<div class="tool-entry"><div class="tool-name"><a href="https://github.com/openai/codex/releases/tag/rust-v0.173.0-alpha.4" target="_blank" rel="noopener">0.173.0-alpha.4</a></div><div class="tool-desc">Codex alpha builds 0.173.0-alpha.2 and alpha.3 also shipped with no release notes.</div></div>
+  <div class="tool-entry"><div class="tool-name"><a href="https://simonwillison.net/2026/Nov/20/llm-gemini/" target="_blank" rel="noopener">llm-gemini 0.38.1</a></div><div class="tool-desc">Fixes the reasoning-level options in the llm-gemini plugin: Gemini 4 Hydrogen and Neon support an extra <code>xhigh</code> level that Carbon lacks.</div></div>
+</section>
+<section class="section" id="token-saving-techniques">
+  <div class="section-header">
+    <span class="section-number">04</span>
+    <h2 class="section-title">Token Saving Techniques</h2>
+  </div>
+  <div class="entry"><div class="entry-source"><a href="https://simonwillison.net/2026/Nov/20/llm-gemini/" target="_blank" rel="noopener">llm-gemini 0.38.1</a></div><div class="entry-body">Reasoning level drives cost. Gemini 4 Hydrogen at <code>high</code> used 5,311 output tokens (3.99¢), while <code>xhigh</code> used 31,477 tokens (23.61¢). Reserve top reasoning levels for tasks that need them.</div></div>
 </section>
 <section class="section" id="github-trending">
   <div class="section-header">
-    <span class="section-number">04</span>
+    <span class="section-number">05</span>
     <h2 class="section-title">GitHub Trending</h2>
   </div>
-  <div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/elementalsouls/Claude-BugHunter" target="_blank" rel="noopener">elementalsouls/Claude-BugHunter</a></strong> ★15,013 · +1,622/day · day 5 — Claude Code skill bundle for bug hunting and red-team work, with 82 skills, 15 slash commands and disclosed-report vulnerability patterns.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/obra/superpowers" target="_blank" rel="noopener">obra/superpowers</a></strong> ★323,264 · +890/day · ▲1.7x · day 23 — Agentic skills framework and software development methodology.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/HKUDS/CLI-Anything" target="_blank" rel="noopener">HKUDS/CLI-Anything</a></strong> ★61,673 · +773/day · ▲3.9x · day 11 — Aims to make all software agent-native through CLI interfaces.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/jingyaogong/minimind" target="_blank" rel="noopener">jingyaogong/minimind</a></strong> ★67,899 · +847/day · ▲6.0x · day 5 — Train a 64M-parameter LLM from scratch in about two hours.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/cursor/plugins" target="_blank" rel="noopener">cursor/plugins</a></strong> ★17,951 · +299/day · ▲2.0x · day 12 — Cursor&#39;s plugin specification and official plugins.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/firecrawl/firecrawl" target="_blank" rel="noopener">firecrawl/firecrawl</a></strong> ★205,652 · +1,241/day · day 2 — Search, scrape and access 550+ data providers through one API for agents.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/nginx/nginx" target="_blank" rel="noopener">nginx/nginx</a></strong> ★32,643 · +246/day · day 2 — The official NGINX Open Source repository.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/openvinotoolkit/openvino" target="_blank" rel="noopener">openvinotoolkit/openvino</a></strong> ★11,853 · +217/day · day 4 — Toolkit for optimizing and deploying AI inference.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/cathrynlavery/diagram-design" target="_blank" rel="noopener">cathrynlavery/diagram-design</a></strong> ★69,509 · +636/day · day 15 — Diagram skill for Claude Code, Codex, Copilot, Cursor and others, with 45 diagram types as self-contained HTML and SVG.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/mvanhorn/last30days-skill" target="_blank" rel="noopener">mvanhorn/last30days-skill</a></strong> ★71,666 · +681/day · ▲5.1x · day 6 — Agent skill that researches a topic across Reddit, X, YouTube, HN and the web, then synthesises a grounded summary.</div></div>
+  <div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/elementalsouls/Claude-BugHunter" target="_blank" rel="noopener">elementalsouls/Claude-BugHunter</a></strong> ★16,717 · +1,803/day · day 6 — Claude Code skill bundle for bug hunting and red-team work, with 82 skills, 15 slash commands and curated vulnerability-report patterns.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/obra/superpowers" target="_blank" rel="noopener">obra/superpowers</a></strong> ★323,771 · +883/day · ▲1.6x · day 23 — Agentic skills framework and software development methodology.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/HKUDS/CLI-Anything" target="_blank" rel="noopener">HKUDS/CLI-Anything</a></strong> ★62,358 · +769/day · ▲3.7x · day 12 — Aims to make all software agent-native by exposing it through CLIs.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/jingyaogong/minimind" target="_blank" rel="noopener">jingyaogong/minimind</a></strong> ★68,356 · +488/day · ▲3.4x · day 6 — Train a 64M-parameter LLM from scratch in about two hours.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/cursor/plugins" target="_blank" rel="noopener">cursor/plugins</a></strong> ★18,235 · +260/day · ▲1.8x · day 12 — Cursor&#39;s plugin specification and official plugins.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/firecrawl/firecrawl" target="_blank" rel="noopener">firecrawl/firecrawl</a></strong> ★206,527 · +1,006/day · day 3 — Search, scrape and access 550+ data providers through one API for agents.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/nginx/nginx" target="_blank" rel="noopener">nginx/nginx</a></strong> ★32,797 · +189/day · day 3 — The official NGINX open source repository.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/openvinotoolkit/openvino" target="_blank" rel="noopener">openvinotoolkit/openvino</a></strong> ★12,002 · +200/day · day 5 — Toolkit for optimizing and deploying AI inference.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/cathrynlavery/diagram-design" target="_blank" rel="noopener">cathrynlavery/diagram-design</a></strong> ★70,016 · +583/day · day 16 — Editorial diagram design skill for Claude Code, Codex, Copilot, Cursor and others, with 45 diagram types in HTML and SVG.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/mvanhorn/last30days-skill" target="_blank" rel="noopener">mvanhorn/last30days-skill</a></strong> ★72,300 · +560/day · ▲4.0x · day 7 — Agent skill that researches a topic across Reddit, X, YouTube, HN and the web and synthesizes a grounded summary.</div></div>
 </section>
     <footer>
       <div class="footer-left">AI Digest &middot; Daily Briefing</div>
       <div class="footer-right">
-        <a class="footer-archive" href="archive.html">Archive</a><span class="cost-pill">$0.0553</span>
+        <a class="footer-archive" href="archive.html">Archive</a><span class="cost-pill">$0.0358</span>
       </div>
     </footer>
   </div>
