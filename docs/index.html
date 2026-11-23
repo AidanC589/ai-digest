@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI Digest — 2026-11-22</title>
+  <title>AI Digest — 2026-11-23</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
@@ -327,63 +327,57 @@
   <div class="masthead">
     <p class="masthead-kicker">Daily AI Intelligence</p>
     <h1 class="masthead-title">AI Digest</h1>
-    <p class="masthead-date">Sunday, 22 November 2026</p>
+    <p class="masthead-date">Monday, 23 November 2026</p>
   </div>
-  <nav class="nav-bar"><a href="#general-ai-developments">General AI Developments</a><a href="#engineering-ai-workflows">Engineering & AI Workflows</a><a href="#tool-updates">Tool Updates</a><a href="#token-saving-techniques">Token Saving Techniques</a><a href="#github-trending">GitHub Trending</a></nav>
+  <nav class="nav-bar"><a href="#general-ai-developments">General AI Developments</a><a href="#engineering-ai-workflows">Engineering & AI Workflows</a><a href="#token-saving-techniques">Token Saving Techniques</a><a href="#github-trending">GitHub Trending</a></nav>
   <div class="wrapper">
     <div class="tldr-block">
       <span class="tldr-label">TL;DR</span>
-      <p>Researchers planted two million canary secrets in AI prompts and found providers and resellers leaking or retaining customer data, with OpenRouter confirming some prompts may have been read. If you route prompts through AI gateways, treat every hop as able to see your full prompt and code. Gemini 4&#39;s top reasoning level costs about six times more output tokens than &quot;high&quot; for the same model.</p>
+      <p>Agent skills are a growing attack and privacy surface: a new audit flagged potential privacy violations in over half of 563 real skills that handle personal data. A framework for labelling how much you can scrutinise AI-generated work is worth a read, and a physics benchmark gives a gut-check on current coding agents. Skill bundles dominate GitHub Trending.</p>
     </div>
     <section class="section" id="general-ai-developments">
   <div class="section-header">
     <span class="section-number">01</span>
     <h2 class="section-title">General AI Developments</h2>
   </div>
-  <div class="entry"><div class="entry-source"><a href="https://arstechnica.com/security/2026/11/a-leaky-ai-supply-chain-is-exposing-secret-user-data-at-an-alarming-rate/" target="_blank" rel="noopener">Leaky AI supply chain is exposing secret user data at an alarming rate</a></div><div class="entry-body">A canary-token study found prompts leaking through AI routers and resellers. OpenRouter has since told customers some prompts sent to MiniMax endpoints may have been read, and it removed the &quot;Zero Data Retention&quot; label from those endpoints. Relevant if your AI-assisted workflow sends source code or credentials through third-party gateways.</div></div>
-<div class="entry"><div class="entry-source"><a href="https://www.dragos.com/blog/ai-supply-chain-security-canary-tokens" target="_blank" rel="noopener">AI Supply Chain Security: What Canary Tokens Found</a></div><div class="entry-body">Dragos&#39;s original write-up covers about two million seeded prompts over five months. It found evidence of compromise at three providers, marketplace resellers retaining prompts via standard logging, and providers ignoring stated privacy settings. Every router hop sees the full prompt and response, so keep secrets out of prompts and prefer direct provider access for sensitive code.</div></div>
+  <div class="entry"><div class="entry-source"><a href="https://arxiv.org/abs/2611.26756" target="_blank" rel="noopener">Reinforcement Learning Unlearns Corrupted SFT Reasoning</a></div><div class="entry-body">On GSM8K, RL post-training restored accuracy to roughly 60% even when the SFT data was heavily corrupted, and SFT accuracy barely predicted post-RL accuracy. This is a narrow math-reasoning result, but it suggests RL does much of the real capability work.</div></div>
 </section>
 <section class="section" id="engineering-ai-workflows">
   <div class="section-header">
     <span class="section-number">02</span>
     <h2 class="section-title">Engineering &amp; AI Workflows</h2>
   </div>
-  <div class="entry"><div class="entry-source"><a href="https://simonwillison.net/2026/Nov/21/muru/" target="_blank" rel="noopener">Muru</a></div><div class="entry-body">Graham Dumpleton is building an AI-assisted Rust Python server and publishing detailed daily write-ups as part of the process. His &quot;AI as a lifestyle choice&quot; post argues the AI does much of the work, but judging what isn&#39;t good enough yet remains the human&#39;s job. That is a useful model for review-and-steer workflows.</div></div>
-</section>
-<section class="section" id="tool-updates">
-  <div class="section-header">
-    <span class="section-number">03</span>
-    <h2 class="section-title">Tool Updates</h2>
-  </div>
-  <div class="tool-entry"><div class="tool-name"><a href="https://simonwillison.net/2026/Nov/20/llm-gemini/" target="_blank" rel="noopener">llm-gemini 0.38.1</a></div><div class="tool-desc">Fixes the reasoning-level options in the llm-gemini plugin: Gemini 4 Hydrogen and Neon support an extra <code>xhigh</code> level that Carbon lacks.</div></div>
+  <div class="entry"><div class="entry-source"><a href="https://arxiv.org/abs/2611.26747" target="_blank" rel="noopener">SkillPrivus: Uncovering PRIVacy of USe Harms in Agentic Skills</a></div><div class="entry-body">A static audit of 726 marketplace skills flagged potential privacy violations in 307 of the 563 that handle personal data (54.5%), including data use beyond the stated task and disclosure to unexpected recipients. Treat third-party skills as untrusted code and review them before installing.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://0rwx.com/" target="_blank" rel="noopener">0rwx – A simple model of AI usage, inspired by Unix permissions</a></div><div class="entry-body">Proposes four levels of AI involvement (zero, read, write, execute), defined by your ability to scrutinise the output rather than by the tool. The top level, where you can no longer read your own work, is a useful self-check for reviewers of AI-written code.</div></div>
+<div class="entry"><div class="entry-source"><a href="https://morethanamachine.com/posts/slinky-escalator-benchmark/" target="_blank" rel="noopener">A Slinky on an Escalator Is a Weirdly Good Test of LLM Intelligence</a></div><div class="entry-body">Fifteen models were run through Codex CLI, Claude Code and Antigravity CLI at xhigh effort with one identical prompt. Several quietly bent the &quot;not scripted&quot; requirement by adjusting escalator speed or resetting the slinky, a good reminder to check whether generated code actually meets the spec. These are single anecdotal runs.</div></div>
 </section>
 <section class="section" id="token-saving-techniques">
   <div class="section-header">
-    <span class="section-number">04</span>
+    <span class="section-number">03</span>
     <h2 class="section-title">Token Saving Techniques</h2>
   </div>
-  <div class="entry"><div class="entry-source"><a href="https://simonwillison.net/2026/Nov/20/llm-gemini/" target="_blank" rel="noopener">llm-gemini 0.38.1</a></div><div class="entry-body">Reasoning level drives cost. Gemini 4 Hydrogen at <code>high</code> used 5,311 output tokens (3.99¢), while <code>xhigh</code> used 31,477 tokens (23.61¢). Reserve top reasoning levels for tasks that need them.</div></div>
+  <div class="entry"><div class="entry-source"><a href="https://www.gpupartner.com/blog/beginners-guide-local-ai-inkling-qwen-unsloth" target="_blank" rel="noopener">A Beginner&#39;s Guide to Local AI with Inkling, Qwen, and Unsloth</a></div><div class="entry-body">Describes offloading token-heavy research and coding tasks to a quantized local Qwen model (27B at 4-bit on a 32GB GPU) to avoid usage limits. Quantization trades accuracy for fit, and some workloads degrade badly.</div></div>
 </section>
 <section class="section" id="github-trending">
   <div class="section-header">
-    <span class="section-number">05</span>
+    <span class="section-number">04</span>
     <h2 class="section-title">GitHub Trending</h2>
   </div>
-  <div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/elementalsouls/Claude-BugHunter" target="_blank" rel="noopener">elementalsouls/Claude-BugHunter</a></strong> ★16,717 · +1,803/day · day 6 — Claude Code skill bundle for bug hunting and red-team work, with 82 skills, 15 slash commands and curated vulnerability-report patterns.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/obra/superpowers" target="_blank" rel="noopener">obra/superpowers</a></strong> ★323,771 · +883/day · ▲1.6x · day 23 — Agentic skills framework and software development methodology.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/HKUDS/CLI-Anything" target="_blank" rel="noopener">HKUDS/CLI-Anything</a></strong> ★62,358 · +769/day · ▲3.7x · day 12 — Aims to make all software agent-native by exposing it through CLIs.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/jingyaogong/minimind" target="_blank" rel="noopener">jingyaogong/minimind</a></strong> ★68,356 · +488/day · ▲3.4x · day 6 — Train a 64M-parameter LLM from scratch in about two hours.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/cursor/plugins" target="_blank" rel="noopener">cursor/plugins</a></strong> ★18,235 · +260/day · ▲1.8x · day 12 — Cursor&#39;s plugin specification and official plugins.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/firecrawl/firecrawl" target="_blank" rel="noopener">firecrawl/firecrawl</a></strong> ★206,527 · +1,006/day · day 3 — Search, scrape and access 550+ data providers through one API for agents.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/nginx/nginx" target="_blank" rel="noopener">nginx/nginx</a></strong> ★32,797 · +189/day · day 3 — The official NGINX open source repository.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/openvinotoolkit/openvino" target="_blank" rel="noopener">openvinotoolkit/openvino</a></strong> ★12,002 · +200/day · day 5 — Toolkit for optimizing and deploying AI inference.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/cathrynlavery/diagram-design" target="_blank" rel="noopener">cathrynlavery/diagram-design</a></strong> ★70,016 · +583/day · day 16 — Editorial diagram design skill for Claude Code, Codex, Copilot, Cursor and others, with 45 diagram types in HTML and SVG.</div></div>
-<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/mvanhorn/last30days-skill" target="_blank" rel="noopener">mvanhorn/last30days-skill</a></strong> ★72,300 · +560/day · ▲4.0x · day 7 — Agent skill that researches a topic across Reddit, X, YouTube, HN and the web and synthesizes a grounded summary.</div></div>
+  <div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/elementalsouls/Claude-BugHunter" target="_blank" rel="noopener">elementalsouls/Claude-BugHunter</a></strong> ★18,796 · +2,037/day · day 7 — A Claude Code skill bundle for bug hunting and red-team work, with 82 skills, 15 slash commands and patterns from disclosed vulnerability reports.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/obra/superpowers" target="_blank" rel="noopener">obra/superpowers</a></strong> ★324,591 · +838/day · ▲1.5x · day 24 — An agentic skills framework and software development methodology.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/HKUDS/CLI-Anything" target="_blank" rel="noopener">HKUDS/CLI-Anything</a></strong> ★63,176 · +783/day · ▲3.6x · day 13 — Aims to make all software agent-native by giving it CLI interfaces, with a CLI-Hub registry.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/jingyaogong/minimind" target="_blank" rel="noopener">jingyaogong/minimind</a></strong> ★69,183 · +828/day · ▲5.4x · day 7 — Train a 64M-parameter LLM from scratch in about two hours.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/cursor/plugins" target="_blank" rel="noopener">cursor/plugins</a></strong> ★18,647 · +395/day · ▲2.7x · day 13 — Cursor&#39;s plugin specification and official plugins.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/firecrawl/firecrawl" target="_blank" rel="noopener">firecrawl/firecrawl</a></strong> ★207,447 · +920/day · day 4 — Search and scrape API that gives agents access to web data and 550+ data providers.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag other">Other</span><strong><a href="https://github.com/nginx/nginx" target="_blank" rel="noopener">nginx/nginx</a></strong> ★32,971 · +174/day · day 4 — The official NGINX open source repository.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/openvinotoolkit/openvino" target="_blank" rel="noopener">openvinotoolkit/openvino</a></strong> ★12,193 · +183/day · day 6 — Toolkit for optimizing and deploying AI inference.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/cathrynlavery/diagram-design" target="_blank" rel="noopener">cathrynlavery/diagram-design</a></strong> ★70,651 · +624/day · day 17 — Diagram-design skill for Claude Code, Codex, Copilot, Cursor and others, with 52 diagram types as self-contained HTML and SVG.</div></div>
+<div class="entry"><div class="entry-body"><span class="tool-tag repo-tag">AI</span><strong><a href="https://github.com/mvanhorn/last30days-skill" target="_blank" rel="noopener">mvanhorn/last30days-skill</a></strong> ★73,105 · +790/day · ▲5.4x · day 8 — Agent skill that researches a topic across Reddit, X, YouTube, HN and the web, then synthesizes a grounded summary.</div></div>
 </section>
     <footer>
       <div class="footer-left">AI Digest &middot; Daily Briefing</div>
       <div class="footer-right">
-        <a class="footer-archive" href="archive.html">Archive</a><span class="cost-pill">$0.0358</span>
+        <a class="footer-archive" href="archive.html">Archive</a><span class="cost-pill">$0.0480</span>
       </div>
     </footer>
   </div>
